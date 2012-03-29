@@ -36,6 +36,7 @@
 		E25678E115244A7D000E2D32 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678DD15244A7D000E2D32 /* facebook@2x.png */; };
 		E25678E215244A7D000E2D32 /* unknown-user.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678DE15244A7D000E2D32 /* unknown-user.png */; };
 		E25678E315244A7D000E2D32 /* unknown-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678DF15244A7D000E2D32 /* unknown-user@2x.png */; };
+		E25678E815244E0E000E2D32 /* classy_fabric.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678E715244E0E000E2D32 /* classy_fabric.png */; };
 		E28E900015239AF7008C936B /* AwesomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E28E8FFF15239AF7008C936B /* AwesomeViewController.m */; };
 		E2A899B81522A415004D5561 /* QuadCurveBlowupAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899B31522A415004D5561 /* QuadCurveBlowupAnimation.m */; };
 		E2A899B91522A415004D5561 /* QuadCurveItemCloseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899B51522A415004D5561 /* QuadCurveItemCloseAnimation.m */; };
@@ -83,6 +84,7 @@
 		E25678DD15244A7D000E2D32 /* facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook@2x.png"; sourceTree = "<group>"; };
 		E25678DE15244A7D000E2D32 /* unknown-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unknown-user.png"; sourceTree = "<group>"; };
 		E25678DF15244A7D000E2D32 /* unknown-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unknown-user@2x.png"; sourceTree = "<group>"; };
+		E25678E715244E0E000E2D32 /* classy_fabric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = classy_fabric.png; sourceTree = "<group>"; };
 		E28E8FFE15239AF7008C936B /* AwesomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeViewController.h; sourceTree = "<group>"; };
 		E28E8FFF15239AF7008C936B /* AwesomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwesomeViewController.m; sourceTree = "<group>"; };
 		E2A899B11522A415004D5561 /* QuadCurveAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveAnimation.h; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 		E25678DB15244A62000E2D32 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E25678E715244E0E000E2D32 /* classy_fabric.png */,
 				E25678DC15244A7D000E2D32 /* facebook.png */,
 				E25678DD15244A7D000E2D32 /* facebook@2x.png */,
 				E25678DE15244A7D000E2D32 /* unknown-user.png */,
@@ -315,6 +318,7 @@
 				E25678E115244A7D000E2D32 /* facebook@2x.png in Resources */,
 				E25678E215244A7D000E2D32 /* unknown-user.png in Resources */,
 				E25678E315244A7D000E2D32 /* unknown-user@2x.png in Resources */,
+				E25678E815244E0E000E2D32 /* classy_fabric.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"classy_fabric.png"]]];
     
     AwesomeDataSource *dataSource = [[AwesomeDataSource alloc] init];
     QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
@@ -30,17 +30,7 @@
     
     menu.delegate = self;
     
-	// customize menu
-	/*
-     menu.rotateAngle = M_PI/3;
-     menu.menuWholeAngle = M_PI;
-     menu.timeOffset = 0.2f;
-     menu.farRadius = 180.0f;
-     menu.endRadius = 100.0f;
-     menu.nearRadius = 50.0f;
-     */
-    
-    [self.view addSubview:menu];
+	[self.view addSubview:menu];
 	
 }
 
