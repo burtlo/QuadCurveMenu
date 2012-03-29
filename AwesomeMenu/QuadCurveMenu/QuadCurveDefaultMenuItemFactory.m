@@ -11,8 +11,6 @@
 @interface QuadCurveDefaultMenuItemFactory () {
     UIImage *image;
     UIImage *highlightImage;
-    UIImage *contentImage;
-    UIImage *highlightContentImage;
 }
 
 @end
@@ -21,15 +19,14 @@
 
 #pragma mark - Initialization
 
-- (id)initWithImage:(UIImage *)_image highlightImage:(UIImage *)_highlightImage 
-       contentImage:(UIImage *)_contentImage highlightedContentImage:(UIImage *)_highlightContentImage {
+- (id)initWithImage:(UIImage *)_image 
+     highlightImage:(UIImage *)_highlightImage {
+    
     self = [super init];
     if (self) {
         
         image = _image;
         highlightImage = _highlightImage;
-        contentImage = _contentImage;
-        highlightContentImage = _highlightContentImage;
         
     }
     return self;
@@ -37,18 +34,14 @@
 
 + (id)defaultMenuItemFactory {
     
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"bg-menuitem.png" ]
-                                           highlightImage:[UIImage imageNamed:@"bg-menuitem-highlighted.png"]
-                                             contentImage:[UIImage imageNamed:@"icon-star.png"]
-                                  highlightedContentImage:nil];
+    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.png" ]
+                                           highlightImage:nil];
 }
 
 + (id)defaultMainMenuItemFactory {
     
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"bg-addbutton.png" ]
-                        highlightImage:[UIImage imageNamed:@"bg-addbutton-highlighted.png"]
-                          contentImage:[UIImage imageNamed:@"icon-plus.png"]
-               highlightedContentImage:[UIImage imageNamed:@"icon-plus-highlighted.png"]];
+    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.png"]
+                        highlightImage:[UIImage imageNamed:@"icon-plus-highlighted.png"]];
 
 }
 
@@ -57,9 +50,7 @@
 - (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {
     
     QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithImage:image 
-                                                      highlightedImage:highlightImage
-                                                          contentImage:contentImage 
-                                               highlightedContentImage:highlightContentImage];
+                                                      highlightedImage:highlightImage];
     
     [item setDataObject:dataObject];
     

@@ -7,16 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AGMedallionView.h"
 
 @protocol QuadCurveMenuItemEventDelegate;
 @protocol QuadCurveMenuItemFactory;
 
 
-@interface QuadCurveMenuItem : UIImageView
+@interface QuadCurveMenuItem : UIControl
 
 @property (nonatomic, strong) id dataObject;
 
-@property (nonatomic, readonly) UIImageView *contentImageView;
+@property (nonatomic, readonly) AGMedallionView *contentImageView;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *highlightedImage;
 
@@ -28,9 +29,7 @@
 @property (nonatomic, strong) id<QuadCurveMenuItemEventDelegate> delegate;
 
 - (id)initWithImage:(UIImage *)image 
-   highlightedImage:(UIImage *)highlightedImage
-       contentImage:(UIImage *)contentImage
-    highlightedContentImage:(UIImage *)highlightContentImage;
+   highlightedImage:(UIImage *)highlightedImage;
 
 @end
 

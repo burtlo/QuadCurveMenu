@@ -11,9 +11,7 @@
 @interface QuadCurveDefaultMenuItemFactory : NSObject <QuadCurveMenuItemFactory>
 
 - (id)initWithImage:(UIImage *)image 
-     highlightImage:(UIImage *)highlightImage
-       contentImage:(UIImage *)contentImage
-    highlightedContentImage:(UIImage *)highlightContentImage;
+     highlightImage:(UIImage *)highlightImage;
 
 + (id)defaultMenuItemFactory;
 + (id)defaultMainMenuItemFactory;

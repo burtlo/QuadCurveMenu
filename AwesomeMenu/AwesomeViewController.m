@@ -8,6 +8,7 @@
 
 #import "AwesomeViewController.h"
 #import "AwesomeDataSource.h"
+#import "QuadCurveDefaultMenuItemFactory.h"
 
 @interface AwesomeViewController ()
 
@@ -20,11 +21,13 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-//    AwesomeDataSource *dataSource = [[AwesomeDataSource alloc] init];
-//    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
+    AwesomeDataSource *dataSource = [[AwesomeDataSource alloc] init];
+    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
     
-    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds 
-                                                     withArray:[NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",nil]];
+    [menu setMainMenuItemFactory:[[QuadCurveDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"facebook.png"] highlightImage:[UIImage imageNamed:nil]]];
+    
+    [menu setMenuItemFactory:[[QuadCurveDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"unknown-user.png"] highlightImage:[UIImage imageNamed:nil]]];
+    
     menu.delegate = self;
     
 	// customize menu
