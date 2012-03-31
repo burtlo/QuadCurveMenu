@@ -55,14 +55,23 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 
 #pragma mark - QuadCurveMotionDirector Adherence
 
-- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count {
+- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem {
     
     item.startPoint = startPoint;
-    CGPoint endPoint = CGPointMake(startPoint.x + endRadius * sinf(index * menuWholeAngle / count), startPoint.y - endRadius * cosf(index * menuWholeAngle / count));
+    
+    float itemAngle = index * menuWholeAngle / count;
+    float xCoefficient = sinf(itemAngle);
+    float yCoefficient = cosf(itemAngle);
+    
+    CGPoint endPoint = CGPointMake(startPoint.x + endRadius * xCoefficient, startPoint.y - endRadius * yCoefficient);
+    
     item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, rotateAngle);
-    CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * sinf(index * menuWholeAngle / count), startPoint.y - nearRadius * cosf(index * menuWholeAngle / count));
+    
+    CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * xCoefficient, startPoint.y - nearRadius * yCoefficient);
+    
     item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, rotateAngle);
-    CGPoint farPoint = CGPointMake(startPoint.x + farRadius * sinf(index * menuWholeAngle / count), startPoint.y - farRadius * cosf(index * menuWholeAngle / count));
+    
+    CGPoint farPoint = CGPointMake(startPoint.x + farRadius * xCoefficient, startPoint.y - farRadius * yCoefficient);
     
     item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, rotateAngle);
 

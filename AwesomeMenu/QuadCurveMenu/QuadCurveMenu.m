@@ -21,7 +21,6 @@
 static int const kQuadCurveMenuItemStartingTag = 1000;
 
 @interface QuadCurveMenu () {
-    QuadCurveMenuItem *mainMenuButton;
     
     BOOL delegateHasDidTapMainMenu;
     BOOL delegateHasDidLongPressMainMenu;
@@ -35,6 +34,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     BOOL delegateHasDidLongPressMenuItem;
 
 }
+
+@property (nonatomic,strong) QuadCurveMenuItem *mainMenuButton;
 
 - (QuadCurveMenuItem *)menuItemAtIndex:(int)index;
 
@@ -59,6 +60,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark - Implementation
 
 @implementation QuadCurveMenu
+
+@synthesize mainMenuButton;
 
 @synthesize mainMenuItemFactory = mainMenuItemFactory_;
 @synthesize menuItemFactory = menuItemFactory_;
@@ -132,10 +135,10 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     mainMenuItemFactory_ = mainMenuItemFactory;
     
-    mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
-    mainMenuButton.delegate = self;
+    self.mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
+    self.mainMenuButton.delegate = self;
     
-    mainMenuButton.center = self.menuDirector.startPoint;
+    self.mainMenuButton.center = self.menuDirector.startPoint;
     
     [self addSubview:mainMenuButton];
     [self setNeedsDisplay];
@@ -351,7 +354,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     item.tag = kQuadCurveMenuItemStartingTag + index;
     item.delegate = self;
     
-    [[self menuDirector] positionMenuItem:item atIndex:index ofCount:count];
+    [[self menuDirector] positionMenuItem:item atIndex:index ofCount:count fromMenu:mainMenuButton];
     
     [self insertSubview:item belowSubview:mainMenuButton];
 }

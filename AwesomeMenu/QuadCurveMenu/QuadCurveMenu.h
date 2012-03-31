@@ -16,15 +16,10 @@
 
 @protocol QuadCurveMotionDirector <NSObject>
 
-@property (nonatomic, assign) CGFloat nearRadius;
-@property (nonatomic, assign) CGFloat endRadius;
-@property (nonatomic, assign) CGFloat farRadius;
 @property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat timeOffset;
-@property (nonatomic, assign) CGFloat rotateAngle;
-@property (nonatomic, assign) CGFloat menuWholeAngle;
 
-- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count;
+- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem;
 
 @end
 
