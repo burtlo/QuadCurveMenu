@@ -25,25 +25,38 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 
 @implementation QuadCurveRadialDirector
 
-@synthesize nearRadius; 
-@synthesize endRadius;
-@synthesize farRadius;
-@synthesize rotateAngle;
-@synthesize menuWholeAngle;
+@synthesize nearRadius = nearRadius_; 
+@synthesize endRadius = endRadius_;
+@synthesize farRadius = farRadius_;
+@synthesize rotateAngle = rotateAngle_;
+@synthesize menuWholeAngle = menuWholeAngle_;
 
-- (id)init {
-    self = [super init];
+#pragma mark - Initialization
+
+- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle 
+          andInitialRotation:(CGFloat)rotateAngle {
     
+    self = [super init];
     if (self) {
-        
         self.nearRadius = kQuadCurveMenuDefaultNearRadius;
         self.endRadius = kQuadCurveMenuDefaultEndRadius;
         self.farRadius = kQuadCurveMenuDefaultFarRadius;
-        self.rotateAngle = kQuadCurveMenuDefaultRotateAngle;
-		self.menuWholeAngle = kQuadCurveMenuDefaultMenuWholeAngle;
+        
+        self.rotateAngle = rotateAngle;
+        self.menuWholeAngle = menuWholeAngle;
 
     }
     return self;
+}
+
+- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle {
+    return [self initWithMenuWholeAngle:menuWholeAngle 
+                     andInitialRotation:kQuadCurveMenuDefaultRotateAngle];
+}
+
+- (id)init {
+    return [self initWithMenuWholeAngle:kQuadCurveMenuDefaultMenuWholeAngle 
+                     andInitialRotation:kQuadCurveMenuDefaultRotateAngle];
 }
 
 #pragma mark - QuadCurveMotionDirector Adherence
@@ -53,21 +66,21 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     CGPoint startPoint = mainMenuItem.center;
     item.startPoint = startPoint;
     
-    float itemAngle = index * menuWholeAngle / count;
+    float itemAngle = index * self.menuWholeAngle / count;
     float xCoefficient = sinf(itemAngle);
     float yCoefficient = cosf(itemAngle);
     
-    CGPoint endPoint = CGPointMake(startPoint.x + endRadius * xCoefficient, startPoint.y - endRadius * yCoefficient);
+    CGPoint endPoint = CGPointMake(startPoint.x + self.endRadius * xCoefficient, startPoint.y - self.endRadius * yCoefficient);
     
-    item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, rotateAngle);
+    item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, self.rotateAngle);
     
-    CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * xCoefficient, startPoint.y - nearRadius * yCoefficient);
+    CGPoint nearPoint = CGPointMake(startPoint.x + self.nearRadius * xCoefficient, startPoint.y - self.nearRadius * yCoefficient);
     
-    item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, rotateAngle);
+    item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, self.rotateAngle);
     
-    CGPoint farPoint = CGPointMake(startPoint.x + farRadius * xCoefficient, startPoint.y - farRadius * yCoefficient);
+    CGPoint farPoint = CGPointMake(startPoint.x + self.farRadius * xCoefficient, startPoint.y - self.farRadius * yCoefficient);
     
-    item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, rotateAngle);
+    item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, self.rotateAngle);
 
 }
 

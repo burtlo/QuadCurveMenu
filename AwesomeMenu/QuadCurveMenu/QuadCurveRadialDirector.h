@@ -17,4 +17,7 @@
 @property (nonatomic, assign) CGFloat rotateAngle;
 @property (nonatomic, assign) CGFloat menuWholeAngle;
 
+- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle;
+- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
+
 @end
