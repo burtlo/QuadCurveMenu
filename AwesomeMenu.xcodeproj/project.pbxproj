@@ -150,6 +150,7 @@
 			children = (
 				5C0364891488A5D4000CE00F /* Images */,
 				E2A899AF1522A3FE004D5561 /* Animations */,
+				E2373EA91526CB2F00EE06ED /* Directors */,
 				5C0364991488A5D4000CE00F /* QuadCurveMenu.h */,
 				5C03649A1488A5D4000CE00F /* QuadCurveMenu.m */,
 				5C03649B1488A5D4000CE00F /* QuadCurveMenuItem.h */,
@@ -158,10 +159,6 @@
 				E21A256B152412870055DDD7 /* QuadCurveDefaultDataSource.m */,
 				E2A899BB1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.h */,
 				E2A899BC1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m */,
-				E2373E9915269D5A00EE06ED /* QuadCurveRadialDirector.h */,
-				E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */,
-				E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */,
-				E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */,
 			);
 			path = QuadCurveMenu;
 			sourceTree = "<group>";
@@ -220,6 +217,17 @@
 				5C3FF3711486564E0098EE93 /* AwesomeMenu-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2373EA91526CB2F00EE06ED /* Directors */ = {
+			isa = PBXGroup;
+			children = (
+				E2373E9915269D5A00EE06ED /* QuadCurveRadialDirector.h */,
+				E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */,
+				E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */,
+				E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */,
+			);
+			name = Directors;
 			sourceTree = "<group>";
 		};
 		E25678D6152446B6000E2D32 /* AGMedallionView */ = {

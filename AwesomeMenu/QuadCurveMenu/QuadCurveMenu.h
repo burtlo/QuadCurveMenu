@@ -16,9 +16,10 @@
 
 @protocol QuadCurveMotionDirector <NSObject>
 
-@property (nonatomic, assign) CGFloat timeOffset;
-
-- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem;
+- (void)positionMenuItem:(QuadCurveMenuItem *)item 
+                 atIndex:(int)index 
+                 ofCount:(int)count 
+                fromMenu:(QuadCurveMenuItem *)mainMenuItem;
 
 @end
 

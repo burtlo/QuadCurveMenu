@@ -10,10 +10,6 @@
 
 static CGFloat const kQuadCurveDefaultPadding = 10.0f;
 
-static CGFloat const kQuadCurveMenuDefaultTimeOffset = 0.036f;
-static CGFloat const kQuadCurveMenuDefaultStartPointX = 20.0;
-static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
-
 @interface QuadCurveLinearDirector ()
 
 @property (nonatomic,assign) CGFloat angle;
@@ -24,16 +20,12 @@ static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
 
 @synthesize angle;
 
-@synthesize timeOffset;
-
 #pragma mark - Initialization
 
 - (id)initWithAngle:(CGFloat)_angle {
     
     self = [super init];
     if (self) {
-        
-        self.timeOffset = kQuadCurveMenuDefaultTimeOffset;
 
         self.angle = _angle;
     }

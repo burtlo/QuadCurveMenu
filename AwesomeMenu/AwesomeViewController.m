@@ -26,7 +26,7 @@
     
     QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
     
-    [menu setMenuDirector:[[QuadCurveLinearDirector alloc] initWithAngle:M_PI/2]];
+//    [menu setMenuDirector:[[QuadCurveLinearDirector alloc] initWithAngle:M_PI/2]];
     
     [menu setMainMenuItemFactory:[[QuadCurveDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"facebook.png"] highlightImage:[UIImage imageNamed:nil]]];
     

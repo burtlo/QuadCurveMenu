@@ -28,7 +28,6 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 @synthesize nearRadius; 
 @synthesize endRadius;
 @synthesize farRadius;
-@synthesize timeOffset;
 @synthesize rotateAngle;
 @synthesize menuWholeAngle;
 
@@ -40,7 +39,6 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
         self.nearRadius = kQuadCurveMenuDefaultNearRadius;
         self.endRadius = kQuadCurveMenuDefaultEndRadius;
         self.farRadius = kQuadCurveMenuDefaultFarRadius;
-        self.timeOffset = kQuadCurveMenuDefaultTimeOffset;
         self.rotateAngle = kQuadCurveMenuDefaultRotateAngle;
 		self.menuWholeAngle = kQuadCurveMenuDefaultMenuWholeAngle;
 
