@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuadCurveMenu.h"
+#import "QuadCurveMotionDirector.h"
 
 @interface QuadCurveRadialDirector : NSObject <QuadCurveMotionDirector>
 

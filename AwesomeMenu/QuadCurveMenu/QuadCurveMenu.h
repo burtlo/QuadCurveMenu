@@ -9,19 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "QuadCurveMenuItem.h"
 #import "QuadCurveAnimation.h"
+#import "QuadCurveMotionDirector.h"
 
 @protocol QuadCurveMenuDelegate;
 @protocol QuadCurveDataSourceDelegate;
 @protocol QuadCurveMenuItemFactory;
-
-@protocol QuadCurveMotionDirector <NSObject>
-
-- (void)positionMenuItem:(QuadCurveMenuItem *)item 
-                 atIndex:(int)index 
-                 ofCount:(int)count 
-                fromMenu:(QuadCurveMenuItem *)mainMenuItem;
-
-@end
 
 
 @interface QuadCurveMenu : UIView <QuadCurveMenuItemEventDelegate>

@@ -84,6 +84,7 @@
 		E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveRadialDirector.m; sourceTree = "<group>"; };
 		E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveLinearDirector.h; sourceTree = "<group>"; };
 		E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveLinearDirector.m; sourceTree = "<group>"; };
+		E2373EBA1526DC5900EE06ED /* QuadCurveMotionDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMotionDirector.h; sourceTree = "<group>"; };
 		E25678D8152446FB000E2D32 /* AGMedallionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGMedallionView.h; sourceTree = "<group>"; };
 		E25678D9152446FB000E2D32 /* AGMedallionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMedallionView.m; sourceTree = "<group>"; };
 		E25678DC15244A7D000E2D32 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 		E2373EA91526CB2F00EE06ED /* Directors */ = {
 			isa = PBXGroup;
 			children = (
+				E2373EBA1526DC5900EE06ED /* QuadCurveMotionDirector.h */,
 				E2373E9915269D5A00EE06ED /* QuadCurveRadialDirector.h */,
 				E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */,
 				E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */,
