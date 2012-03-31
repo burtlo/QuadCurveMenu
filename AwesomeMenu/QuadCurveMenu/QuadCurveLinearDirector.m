@@ -10,31 +10,29 @@
 
 static CGFloat const kQuadCurveDefaultPadding = 10.0f;
 
-@interface QuadCurveLinearDirector ()
-
-@property (nonatomic,assign) CGFloat angle;
-
-@end
-
 @implementation QuadCurveLinearDirector
 
-@synthesize angle;
+@synthesize angle = angle_;
+@synthesize padding = padding_;
 
 #pragma mark - Initialization
 
-- (id)initWithAngle:(CGFloat)_angle {
+- (id)initWithAngle:(CGFloat)angle 
+         andPadding:(CGFloat)padding {
     
     self = [super init];
     if (self) {
 
-        self.angle = _angle;
+        self.angle = angle;
+        self.padding = padding;
+        
     }
     return self;
 }
 
 
 - (id)init {
-    return [self initWithAngle:0];
+    return [self initWithAngle:0 andPadding:kQuadCurveDefaultPadding];
 }
 
 
@@ -55,8 +53,8 @@ static CGFloat const kQuadCurveDefaultPadding = 10.0f;
     float xCoefficient = cosf(self.angle);
     float yCoefficient = sinf(self.angle);
     
-    float endRadiusX = (itemSize.width + kQuadCurveDefaultPadding) * (index + 1);
-    float endRadiusY = (itemSize.width + kQuadCurveDefaultPadding) * (index + 1);
+    float endRadiusX = (itemSize.width + self.padding) * (index + 1);
+    float endRadiusY = (itemSize.width + self.padding) * (index + 1);
     
     CGPoint endPoint = CGPointMake(startPoint.x + endRadiusX * xCoefficient, startPoint.y - endRadiusY * yCoefficient);
     

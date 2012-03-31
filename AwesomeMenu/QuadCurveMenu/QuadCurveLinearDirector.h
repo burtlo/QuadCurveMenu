@@ -11,6 +11,9 @@
 
 @interface QuadCurveLinearDirector : NSObject <QuadCurveMotionDirector>
 
-- (id)initWithAngle:(CGFloat)angle;
+- (id)initWithAngle:(CGFloat)angle andPadding:(CGFloat)padding;
+
+@property (nonatomic,assign) CGFloat angle;
+@property (nonatomic,assign) CGFloat padding;
 
 @end
