@@ -24,7 +24,6 @@ static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
 
 @synthesize angle;
 
-@synthesize startPoint;
 @synthesize timeOffset;
 
 #pragma mark - Initialization
@@ -35,7 +34,6 @@ static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
     if (self) {
         
         self.timeOffset = kQuadCurveMenuDefaultTimeOffset;
-        self.startPoint = CGPointMake(kQuadCurveMenuDefaultStartPointX, kQuadCurveMenuDefaultStartPointY);
 
         self.angle = _angle;
     }
@@ -56,12 +54,12 @@ static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
                  ofCount:(int)count 
                 fromMenu:(QuadCurveMenuItem *)mainMenuItem {
     
-    item.startPoint = self.startPoint;
-    
-    CGSize itemSize = item.frame.size;
+    CGPoint startPoint = mainMenuItem.center;
     
     item.startPoint = startPoint;
     
+    CGSize itemSize = item.frame.size;
+        
     float xCoefficient = cosf(self.angle);
     float yCoefficient = sinf(self.angle);
     

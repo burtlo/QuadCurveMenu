@@ -11,8 +11,6 @@
 static CGFloat const kQuadCurveMenuDefaultNearRadius = 110.0f;
 static CGFloat const kQuadCurveMenuDefaultEndRadius = 120.0f;
 static CGFloat const kQuadCurveMenuDefaultFarRadius = 140.0f;
-static CGFloat const kQuadCurveMenuDefaultStartPointX = 160.0;
-static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
 static CGFloat const kQuadCurveMenuDefaultTimeOffset = 0.036f;
 static CGFloat const kQuadCurveMenuDefaultRotateAngle = 0.0;
 static CGFloat const kQuadCurveMenuDefaultMenuWholeAngle = M_PI * 2;
@@ -33,7 +31,6 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 @synthesize timeOffset;
 @synthesize rotateAngle;
 @synthesize menuWholeAngle;
-@synthesize startPoint;
 
 - (id)init {
     self = [super init];
@@ -46,8 +43,6 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
         self.timeOffset = kQuadCurveMenuDefaultTimeOffset;
         self.rotateAngle = kQuadCurveMenuDefaultRotateAngle;
 		self.menuWholeAngle = kQuadCurveMenuDefaultMenuWholeAngle;
-        self.startPoint = CGPointMake(kQuadCurveMenuDefaultStartPointX, kQuadCurveMenuDefaultStartPointY);
-        
 
     }
     return self;
@@ -57,6 +52,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 
 - (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem {
     
+    CGPoint startPoint = mainMenuItem.center;
     item.startPoint = startPoint;
     
     float itemAngle = index * menuWholeAngle / count;

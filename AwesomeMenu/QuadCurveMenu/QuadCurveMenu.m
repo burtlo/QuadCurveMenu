@@ -36,6 +36,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 @property (nonatomic,strong) QuadCurveMenuItem *mainMenuButton;
+@property (nonatomic,assign) CGPoint centerPoint;
 
 - (QuadCurveMenuItem *)menuItemAtIndex:(int)index;
 
@@ -67,6 +68,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 @synthesize menuItemFactory = menuItemFactory_;
 @synthesize menuDirector = menuDirector_;
 
+@synthesize centerPoint = centerPoint_;
+
 @synthesize selectedAnimation;
 @synthesize unselectedanimation;
 @synthesize expandItemAnimation;
@@ -80,6 +83,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark - Initialization & Deallocation
 
 - (id)initWithFrame:(CGRect)frame 
+        centerPoint:(CGPoint)centerPoint
          dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
     mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
     menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory {
@@ -88,6 +92,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        
+        self.centerPoint = centerPoint;
         
         self.mainMenuItemFactory = mainFactory;
         self.menuItemFactory = menuItemFactory;
@@ -113,6 +119,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QuadCurveDataSourceDelegate>)dataSource {
     
     return [self initWithFrame:frame 
+                    centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2) 
                     dataSource:dataSource 
                mainMenuFactory:[QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]
                menuItemFactory:[QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]];    
@@ -121,6 +128,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (id)initWithFrame:(CGRect)frame withArray:(NSArray *)array {
     
     return [self initWithFrame:frame
+                    centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2) 
                     dataSource:[[QuadCurveDefaultDataSource alloc] initWithArray:array]
                mainMenuFactory:[QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]
                menuItemFactory:[QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]];
@@ -138,7 +146,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     self.mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
     self.mainMenuButton.delegate = self;
     
-    self.mainMenuButton.center = self.menuDirector.startPoint;
+    self.mainMenuButton.center = self.centerPoint;
     
     [self addSubview:mainMenuButton];
     [self setNeedsDisplay];

@@ -16,7 +16,6 @@
 
 @protocol QuadCurveMotionDirector <NSObject>
 
-@property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat timeOffset;
 
 - (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem;
@@ -45,7 +44,8 @@
 
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QuadCurveDataSourceDelegate>)dataSource;
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
+        centerPoint:(CGPoint)centerPoint
          dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
     mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
     menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory;
