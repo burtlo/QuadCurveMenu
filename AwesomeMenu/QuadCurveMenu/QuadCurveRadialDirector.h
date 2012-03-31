@@ -1,0 +1,14 @@
+//
+//  QuadCurveRadialDirector.h
+//  AwesomeMenu
+//
+//  Created by Franklin Webber on 3/30/12.
+//  Copyright (c) 2012 University of Washington. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "QuadCurveMenu.h"
+
+@interface QuadCurveRadialDirector : NSObject <QuadCurveMotionDirector>
+
+@end

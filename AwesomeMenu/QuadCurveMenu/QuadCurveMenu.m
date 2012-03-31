@@ -11,31 +11,14 @@
 
 #import "QuadCurveDefaultDataSource.h"
 #import "QuadCurveDefaultMenuItemFactory.h"
+#import "QuadCurveRadialDirector.h"
 
 #import "QuadCurveBlowupAnimation.h"
 #import "QuadCurveShrinkAnimation.h"
 #import "QuadCurveItemExpandAnimation.h"
 #import "QuadCurveItemCloseAnimation.h"
 
-
-static CGFloat const kQuadCurveMenuDefaultNearRadius = 110.0f;
-static CGFloat const kQuadCurveMenuDefaultEndRadius = 120.0f;
-static CGFloat const kQuadCurveMenuDefaultFarRadius = 140.0f;
-static CGFloat const kQuadCurveMenuDefaultStartPointX = 160.0;
-static CGFloat const kQuadCurveMenuDefaultStartPointY = 240.0;
-static CGFloat const kQuadCurveMenuDefaultTimeOffset = 0.036f;
-static CGFloat const kQuadCurveMenuDefaultRotateAngle = 0.0;
-static CGFloat const kQuadCurveMenuDefaultMenuWholeAngle = M_PI * 2;
-
 static int const kQuadCurveMenuItemStartingTag = 1000;
-
-static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float angle)
-{
-    CGAffineTransform translation = CGAffineTransformMakeTranslation(center.x, center.y);
-    CGAffineTransform rotation = CGAffineTransformMakeRotation(angle);
-    CGAffineTransform transformGroup = CGAffineTransformConcat(CGAffineTransformConcat(CGAffineTransformInvert(translation), rotation), translation);
-    return CGPointApplyAffineTransform(point, transformGroup);    
-}
 
 @interface QuadCurveMenu () {
     QuadCurveMenuItem *mainMenuButton;
@@ -77,10 +60,9 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 
 @implementation QuadCurveMenu
 
-@synthesize nearRadius, endRadius, farRadius, timeOffset, rotateAngle, menuWholeAngle, startPoint;
-
 @synthesize mainMenuItemFactory = mainMenuItemFactory_;
 @synthesize menuItemFactory = menuItemFactory_;
+@synthesize menuDirector = menuDirector_;
 
 @synthesize selectedAnimation;
 @synthesize unselectedanimation;
@@ -103,17 +85,11 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-		
-        self.nearRadius = kQuadCurveMenuDefaultNearRadius;
-        self.endRadius = kQuadCurveMenuDefaultEndRadius;
-        self.farRadius = kQuadCurveMenuDefaultFarRadius;
-        self.timeOffset = kQuadCurveMenuDefaultTimeOffset;
-        self.rotateAngle = kQuadCurveMenuDefaultRotateAngle;
-		self.menuWholeAngle = kQuadCurveMenuDefaultMenuWholeAngle;
-        self.startPoint = CGPointMake(kQuadCurveMenuDefaultStartPointX, kQuadCurveMenuDefaultStartPointY);
         
         self.mainMenuItemFactory = mainFactory;
         self.menuItemFactory = menuItemFactory;
+        
+        self.menuDirector = [[QuadCurveRadialDirector alloc] init];
         
         self.selectedAnimation = [[QuadCurveBlowupAnimation alloc] init];
         self.unselectedanimation = [[QuadCurveShrinkAnimation alloc] init];
@@ -159,7 +135,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
     mainMenuButton.delegate = self;
     
-    mainMenuButton.center = CGPointMake(kQuadCurveMenuDefaultStartPointX, kQuadCurveMenuDefaultStartPointY);
+    mainMenuButton.center = self.menuDirector.startPoint;
     
     [self addSubview:mainMenuButton];
     [self setNeedsDisplay];
@@ -375,13 +351,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     item.tag = kQuadCurveMenuItemStartingTag + index;
     item.delegate = self;
     
-    item.startPoint = startPoint;
-    CGPoint endPoint = CGPointMake(startPoint.x + endRadius * sinf(index * menuWholeAngle / count), startPoint.y - endRadius * cosf(index * menuWholeAngle / count));
-    item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, rotateAngle);
-    CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * sinf(index * menuWholeAngle / count), startPoint.y - nearRadius * cosf(index * menuWholeAngle / count));
-    item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, rotateAngle);
-    CGPoint farPoint = CGPointMake(startPoint.x + farRadius * sinf(index * menuWholeAngle / count), startPoint.y - farRadius * cosf(index * menuWholeAngle / count));
-    item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, rotateAngle);  
+    [[self menuDirector] positionMenuItem:item atIndex:index ofCount:count];
     
     [self insertSubview:item belowSubview:mainMenuButton];
 }
@@ -417,7 +387,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     
     for (int x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
-        [self performSelector:@selector(animateMenuItemToEndPoint:) withObject:item afterDelay:timeOffset * x];
+        [self performSelector:@selector(animateMenuItemToEndPoint:) withObject:item afterDelay:self.menuDirector.timeOffset * x];
     }
     
     if (delegateHasDidExpand) {
@@ -444,7 +414,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     
     for (int x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
-        [self performSelector:@selector(animateItemToStartPoint:) withObject:item afterDelay:timeOffset * x];
+        [self performSelector:@selector(animateItemToStartPoint:) withObject:item afterDelay:self.menuDirector.timeOffset * x];
     }
     
     if (delegateHasDidClose) {
