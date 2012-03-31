@@ -31,6 +31,8 @@
 		5C3FF3741486564E0098EE93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3FF3731486564E0098EE93 /* AppDelegate.m */; };
 		5C93DC61148673F2003029CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C93DC60148673F2003029CA /* QuartzCore.framework */; };
 		E21A256C152412870055DDD7 /* QuadCurveDefaultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E21A256B152412870055DDD7 /* QuadCurveDefaultDataSource.m */; };
+		E2373E9B15269D5A00EE06ED /* QuadCurveRadialDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */; };
+		E2373EA81526B3FD00EE06ED /* QuadCurveLinearDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */; };
 		E25678DA152448F1000E2D32 /* AGMedallionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E25678D9152446FB000E2D32 /* AGMedallionView.m */; };
 		E25678E015244A7D000E2D32 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678DC15244A7D000E2D32 /* facebook.png */; };
 		E25678E115244A7D000E2D32 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E25678DD15244A7D000E2D32 /* facebook@2x.png */; };
@@ -78,6 +80,10 @@
 		5C93DC60148673F2003029CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E21A256A152412870055DDD7 /* QuadCurveDefaultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveDefaultDataSource.h; sourceTree = "<group>"; };
 		E21A256B152412870055DDD7 /* QuadCurveDefaultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveDefaultDataSource.m; sourceTree = "<group>"; };
+		E2373E9915269D5A00EE06ED /* QuadCurveRadialDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveRadialDirector.h; sourceTree = "<group>"; };
+		E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveRadialDirector.m; sourceTree = "<group>"; };
+		E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveLinearDirector.h; sourceTree = "<group>"; };
+		E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveLinearDirector.m; sourceTree = "<group>"; };
 		E25678D8152446FB000E2D32 /* AGMedallionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGMedallionView.h; sourceTree = "<group>"; };
 		E25678D9152446FB000E2D32 /* AGMedallionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMedallionView.m; sourceTree = "<group>"; };
 		E25678DC15244A7D000E2D32 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 			children = (
 				5C0364891488A5D4000CE00F /* Images */,
 				E2A899AF1522A3FE004D5561 /* Animations */,
+				E2373EA91526CB2F00EE06ED /* Directors */,
 				5C0364991488A5D4000CE00F /* QuadCurveMenu.h */,
 				5C03649A1488A5D4000CE00F /* QuadCurveMenu.m */,
 				5C03649B1488A5D4000CE00F /* QuadCurveMenuItem.h */,
@@ -210,6 +217,17 @@
 				5C3FF3711486564E0098EE93 /* AwesomeMenu-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E2373EA91526CB2F00EE06ED /* Directors */ = {
+			isa = PBXGroup;
+			children = (
+				E2373E9915269D5A00EE06ED /* QuadCurveRadialDirector.h */,
+				E2373E9A15269D5A00EE06ED /* QuadCurveRadialDirector.m */,
+				E2373EA61526B3FD00EE06ED /* QuadCurveLinearDirector.h */,
+				E2373EA71526B3FD00EE06ED /* QuadCurveLinearDirector.m */,
+			);
+			name = Directors;
 			sourceTree = "<group>";
 		};
 		E25678D6152446B6000E2D32 /* AGMedallionView */ = {
@@ -342,6 +360,8 @@
 				E28E900015239AF7008C936B /* AwesomeViewController.m in Sources */,
 				E21A256C152412870055DDD7 /* QuadCurveDefaultDataSource.m in Sources */,
 				E25678DA152448F1000E2D32 /* AGMedallionView.m in Sources */,
+				E2373E9B15269D5A00EE06ED /* QuadCurveRadialDirector.m in Sources */,
+				E2373EA81526B3FD00EE06ED /* QuadCurveLinearDirector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

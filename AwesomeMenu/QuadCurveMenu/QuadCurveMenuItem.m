@@ -51,6 +51,7 @@ static inline CGRect ScaleRect(CGRect rect, float n) {return CGRectMake((rect.si
         [contentImageView_ setHighlightedImage:_highlightedImage];
         
         [self addSubview:contentImageView_];
+        self.frame = CGRectMake(self.center.x - self.image.size.width/2,self.center.y - self.image.size.height/2,self.image.size.width, self.image.size.height);
         
         
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnMenuItem:)];

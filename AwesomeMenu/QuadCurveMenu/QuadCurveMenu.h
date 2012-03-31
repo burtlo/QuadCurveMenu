@@ -14,18 +14,21 @@
 @protocol QuadCurveDataSourceDelegate;
 @protocol QuadCurveMenuItemFactory;
 
+@protocol QuadCurveMotionDirector <NSObject>
+
+- (void)positionMenuItem:(QuadCurveMenuItem *)item 
+                 atIndex:(int)index 
+                 ofCount:(int)count 
+                fromMenu:(QuadCurveMenuItem *)mainMenuItem;
+
+@end
+
 
 @interface QuadCurveMenu : UIView <QuadCurveMenuItemEventDelegate>
 
 @property (nonatomic, getter = isExpanding) BOOL expanding;
 
-@property (nonatomic, assign) CGFloat nearRadius;
-@property (nonatomic, assign) CGFloat endRadius;
-@property (nonatomic, assign) CGFloat farRadius;
-@property (nonatomic, assign) CGPoint startPoint;
-@property (nonatomic, assign) CGFloat timeOffset;
-@property (nonatomic, assign) CGFloat rotateAngle;
-@property (nonatomic, assign) CGFloat menuWholeAngle;
+@property (nonatomic, strong) id<QuadCurveMotionDirector> menuDirector;
 
 @property (nonatomic, strong) id<QuadCurveMenuItemFactory> mainMenuItemFactory;
 @property (nonatomic, strong) id<QuadCurveMenuItemFactory> menuItemFactory;
@@ -42,7 +45,8 @@
 
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QuadCurveDataSourceDelegate>)dataSource;
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
+        centerPoint:(CGPoint)centerPoint
          dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
     mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
     menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory;

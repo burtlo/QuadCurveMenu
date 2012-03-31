@@ -9,6 +9,7 @@
 #import "AwesomeViewController.h"
 #import "AwesomeDataSource.h"
 #import "QuadCurveDefaultMenuItemFactory.h"
+#import "QuadCurveLinearDirector.h"
 
 @interface AwesomeViewController ()
 
@@ -22,7 +23,10 @@
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"classy_fabric.png"]]];
     
     AwesomeDataSource *dataSource = [[AwesomeDataSource alloc] init];
+    
     QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
+    
+//    [menu setMenuDirector:[[QuadCurveLinearDirector alloc] initWithAngle:M_PI/2]];
     
     [menu setMainMenuItemFactory:[[QuadCurveDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"facebook.png"] highlightImage:[UIImage imageNamed:nil]]];
     
