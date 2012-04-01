@@ -17,6 +17,11 @@ static inline CGRect ScaleRect(CGRect rect, float n) {return CGRectMake((rect.si
     
 }
 
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImage *highlightedImage;
+
+@property (nonatomic, readonly) AGMedallionView *contentImageView;
+
 - (void)longPressOnMenuItem:(UIGestureRecognizer *)sender;
 - (void)singleTapOnMenuItem:(UIGestureRecognizer *)sender;
 

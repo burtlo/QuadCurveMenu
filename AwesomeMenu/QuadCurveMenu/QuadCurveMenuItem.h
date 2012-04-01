@@ -17,10 +17,6 @@
 
 @property (nonatomic, strong) id dataObject;
 
-@property (nonatomic, readonly) AGMedallionView *contentImageView;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) UIImage *highlightedImage;
-
 @property (nonatomic) CGPoint startPoint;
 @property (nonatomic) CGPoint endPoint;
 @property (nonatomic) CGPoint nearPoint;
