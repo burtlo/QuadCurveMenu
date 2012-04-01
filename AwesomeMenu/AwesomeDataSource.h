@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QuadCurveMenu.h"
+#import <QuadCurve/QuadCurveMenu.h>
 
 @interface AwesomeDataSource : NSObject <QuadCurveDataSourceDelegate>
 

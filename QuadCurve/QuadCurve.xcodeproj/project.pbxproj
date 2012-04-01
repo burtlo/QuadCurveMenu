@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		6D16249BEAAF1D8C08FBF3CD /* Universal QuadCurve */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 627985C04E6130DF3CB62238 /* Build configuration list for PBXAggregateTarget "Universal QuadCurve" */;
+			buildPhases = (
+				55F88B2061FE66EB50B0B63E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Universal QuadCurve";
+			productName = "Universal QuadCurve";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0562B8517FAAA599F8E397F2 /* QuadCurveDefaultMenuItemFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093A15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0F9913CD8D587E18D95CF4C0 /* QuadCurveShrinkAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094915281AC90092DADA /* QuadCurveShrinkAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A9B89388A08D63D553FD18E /* QuadCurveMenuItemFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C095A15281D9E0092DADA /* QuadCurveMenuItemFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E41BFDC4543D7EA1471ACEE /* QuadCurveItemExpandAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C093F15281AC90092DADA /* QuadCurveItemExpandAnimation.m */; };
+		2C2C3E6404F4EEAEA6CD8652 /* QuadCurveMotionDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094615281AC90092DADA /* QuadCurveMotionDirector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3601AB4D117761F1CBDA0FE2 /* QuadCurveItemExpandAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093E15281AC90092DADA /* QuadCurveItemExpandAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36E8E24ACE96744960DB3155 /* QuadCurveDefaultDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093815281AC90092DADA /* QuadCurveDefaultDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37F2B11A1CDE76217F0ED6AB /* QuadCurveRadialDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094715281AC90092DADA /* QuadCurveRadialDirector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D8ADA50DD1AA471E4F9EB44 /* QuadCurveMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C094315281AC90092DADA /* QuadCurveMenu.m */; };
+		4E56E810A516AAE90668C7C8 /* QuadCurveDefaultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C093915281AC90092DADA /* QuadCurveDefaultDataSource.m */; };
+		666EFDF22F2E371BF611A407 /* QuadCurveLinearDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094015281AC90092DADA /* QuadCurveLinearDirector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		73C696088D193CD924C72EB2 /* QuadCurveAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093515281AC90092DADA /* QuadCurveAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		796CB7CD2220FF40970A374B /* QuadCurveBlowupAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C093715281AC90092DADA /* QuadCurveBlowupAnimation.m */; };
+		7E6838AA38A748A03FE6F6E7 /* QuadCurveDataSourceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C095915281D740092DADA /* QuadCurveDataSourceDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8CB7472DCD3F47FA95353A4F /* QuadCurveItemCloseAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093C15281AC90092DADA /* QuadCurveItemCloseAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D7F6DE5A44FD87533BD1C69 /* QuadCurveMenuItem.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094415281AC90092DADA /* QuadCurveMenuItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9BCE1F4E4875B799CA38B200 /* QuadCurveBlowupAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C093615281AC90092DADA /* QuadCurveBlowupAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9C91DAEB5ED34DE947096F5C /* QuadCurveMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C094215281AC90092DADA /* QuadCurveMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A11DF336B9F4958BB96B6186 /* QuadCurveDefaultMenuItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C093B15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.m */; };
+		A4CCA8F51CF3185AB757E4D6 /* QuadCurveMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C094515281AC90092DADA /* QuadCurveMenuItem.m */; };
+		A859CF0FB46A48DAB329C4D6 /* QuadCurveRadialDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C094815281AC90092DADA /* QuadCurveRadialDirector.m */; };
+		AE8FC896BB9A78C7911DFD70 /* QuadCurveItemCloseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C093D15281AC90092DADA /* QuadCurveItemCloseAnimation.m */; };
+		C677EA7685CCB38F1EDB219A /* QuadCurveLinearDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C094115281AC90092DADA /* QuadCurveLinearDirector.m */; };
+		CB895F3A9EF0027C5B02392D /* QuadCurveShrinkAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C094A15281AC90092DADA /* QuadCurveShrinkAnimation.m */; };
+		CDA06B20673F1733FA39E82F /* AGMedallionView.h in Headers */ = {isa = PBXBuildFile; fileRef = E29C095B15281E5A0092DADA /* AGMedallionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D37D7B885FFEC2EFE0BBCBCF /* QuadCurve-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = E29C09261528173A0092DADA /* QuadCurve-Prefix.pch */; };
+		F5220D69919356E4C1F83C47 /* AGMedallionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29C095C15281E5A0092DADA /* AGMedallionView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E29C091E1528173A0092DADA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E29C09221528173A0092DADA /* QuadCurve-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuadCurve-Info.plist"; sourceTree = "<group>"; };
+		E29C09241528173A0092DADA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E29C09261528173A0092DADA /* QuadCurve-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuadCurve-Prefix.pch"; sourceTree = "<group>"; };
+		E29C093515281AC90092DADA /* QuadCurveAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveAnimation.h; sourceTree = "<group>"; };
+		E29C093615281AC90092DADA /* QuadCurveBlowupAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveBlowupAnimation.h; sourceTree = "<group>"; };
+		E29C093715281AC90092DADA /* QuadCurveBlowupAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveBlowupAnimation.m; sourceTree = "<group>"; };
+		E29C093815281AC90092DADA /* QuadCurveDefaultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveDefaultDataSource.h; sourceTree = "<group>"; };
+		E29C093915281AC90092DADA /* QuadCurveDefaultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveDefaultDataSource.m; sourceTree = "<group>"; };
+		E29C093A15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveDefaultMenuItemFactory.h; sourceTree = "<group>"; };
+		E29C093B15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveDefaultMenuItemFactory.m; sourceTree = "<group>"; };
+		E29C093C15281AC90092DADA /* QuadCurveItemCloseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveItemCloseAnimation.h; sourceTree = "<group>"; };
+		E29C093D15281AC90092DADA /* QuadCurveItemCloseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveItemCloseAnimation.m; sourceTree = "<group>"; };
+		E29C093E15281AC90092DADA /* QuadCurveItemExpandAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveItemExpandAnimation.h; sourceTree = "<group>"; };
+		E29C093F15281AC90092DADA /* QuadCurveItemExpandAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveItemExpandAnimation.m; sourceTree = "<group>"; };
+		E29C094015281AC90092DADA /* QuadCurveLinearDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveLinearDirector.h; sourceTree = "<group>"; };
+		E29C094115281AC90092DADA /* QuadCurveLinearDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveLinearDirector.m; sourceTree = "<group>"; };
+		E29C094215281AC90092DADA /* QuadCurveMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenu.h; sourceTree = "<group>"; };
+		E29C094315281AC90092DADA /* QuadCurveMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveMenu.m; sourceTree = "<group>"; };
+		E29C094415281AC90092DADA /* QuadCurveMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItem.h; sourceTree = "<group>"; };
+		E29C094515281AC90092DADA /* QuadCurveMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveMenuItem.m; sourceTree = "<group>"; };
+		E29C094615281AC90092DADA /* QuadCurveMotionDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMotionDirector.h; sourceTree = "<group>"; };
+		E29C094715281AC90092DADA /* QuadCurveRadialDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveRadialDirector.h; sourceTree = "<group>"; };
+		E29C094815281AC90092DADA /* QuadCurveRadialDirector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveRadialDirector.m; sourceTree = "<group>"; };
+		E29C094915281AC90092DADA /* QuadCurveShrinkAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveShrinkAnimation.h; sourceTree = "<group>"; };
+		E29C094A15281AC90092DADA /* QuadCurveShrinkAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveShrinkAnimation.m; sourceTree = "<group>"; };
+		E29C095915281D740092DADA /* QuadCurveDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveDataSourceDelegate.h; sourceTree = "<group>"; };
+		E29C095A15281D9E0092DADA /* QuadCurveMenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItemFactory.h; sourceTree = "<group>"; };
+		E29C095B15281E5A0092DADA /* AGMedallionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGMedallionView.h; sourceTree = "<group>"; };
+		E29C095C15281E5A0092DADA /* AGMedallionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGMedallionView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		E29C09101528173A0092DADA = {
+			isa = PBXGroup;
+			children = (
+				E29C09201528173A0092DADA /* QuadCurve */,
+				E29C091D1528173A0092DADA /* Frameworks */,
+				E29C091C1528173A0092DADA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E29C091C1528173A0092DADA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E29C091D1528173A0092DADA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E29C091E1528173A0092DADA /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E29C09201528173A0092DADA /* QuadCurve */ = {
+			isa = PBXGroup;
+			children = (
+				E29C093415281AC90092DADA /* Classes */,
+				E29C09211528173A0092DADA /* Supporting Files */,
+			);
+			path = QuadCurve;
+			sourceTree = "<group>";
+		};
+		E29C09211528173A0092DADA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E29C09221528173A0092DADA /* QuadCurve-Info.plist */,
+				E29C09231528173A0092DADA /* InfoPlist.strings */,
+				E29C09261528173A0092DADA /* QuadCurve-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E29C093415281AC90092DADA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E29C094215281AC90092DADA /* QuadCurveMenu.h */,
+				E29C094315281AC90092DADA /* QuadCurveMenu.m */,
+				E29C094415281AC90092DADA /* QuadCurveMenuItem.h */,
+				E29C094515281AC90092DADA /* QuadCurveMenuItem.m */,
+				E29C095815281CBD0092DADA /* Data Sources */,
+				E29C095715281CAA0092DADA /* MenuItem Factories */,
+				E29C095515281BE70092DADA /* Animations */,
+				E29C095615281BF10092DADA /* Directors */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E29C095515281BE70092DADA /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				E29C093515281AC90092DADA /* QuadCurveAnimation.h */,
+				E29C093615281AC90092DADA /* QuadCurveBlowupAnimation.h */,
+				E29C093715281AC90092DADA /* QuadCurveBlowupAnimation.m */,
+				E29C093C15281AC90092DADA /* QuadCurveItemCloseAnimation.h */,
+				E29C093D15281AC90092DADA /* QuadCurveItemCloseAnimation.m */,
+				E29C093E15281AC90092DADA /* QuadCurveItemExpandAnimation.h */,
+				E29C093F15281AC90092DADA /* QuadCurveItemExpandAnimation.m */,
+				E29C094915281AC90092DADA /* QuadCurveShrinkAnimation.h */,
+				E29C094A15281AC90092DADA /* QuadCurveShrinkAnimation.m */,
+			);
+			name = Animations;
+			sourceTree = "<group>";
+		};
+		E29C095615281BF10092DADA /* Directors */ = {
+			isa = PBXGroup;
+			children = (
+				E29C094615281AC90092DADA /* QuadCurveMotionDirector.h */,
+				E29C094015281AC90092DADA /* QuadCurveLinearDirector.h */,
+				E29C094115281AC90092DADA /* QuadCurveLinearDirector.m */,
+				E29C094715281AC90092DADA /* QuadCurveRadialDirector.h */,
+				E29C094815281AC90092DADA /* QuadCurveRadialDirector.m */,
+			);
+			name = Directors;
+			sourceTree = "<group>";
+		};
+		E29C095715281CAA0092DADA /* MenuItem Factories */ = {
+			isa = PBXGroup;
+			children = (
+				E29C095A15281D9E0092DADA /* QuadCurveMenuItemFactory.h */,
+				E29C093A15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.h */,
+				E29C093B15281AC90092DADA /* QuadCurveDefaultMenuItemFactory.m */,
+				E29C095B15281E5A0092DADA /* AGMedallionView.h */,
+				E29C095C15281E5A0092DADA /* AGMedallionView.m */,
+			);
+			name = "MenuItem Factories";
+			sourceTree = "<group>";
+		};
+		E29C095815281CBD0092DADA /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E29C095915281D740092DADA /* QuadCurveDataSourceDelegate.h */,
+				E29C093815281AC90092DADA /* QuadCurveDefaultDataSource.h */,
+				E29C093915281AC90092DADA /* QuadCurveDefaultDataSource.m */,
+			);
+			name = "Data Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3AE9B71B1AD6CE005C0E3253 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C91DAEB5ED34DE947096F5C /* QuadCurveMenu.h in Headers */,
+				8D7F6DE5A44FD87533BD1C69 /* QuadCurveMenuItem.h in Headers */,
+				7E6838AA38A748A03FE6F6E7 /* QuadCurveDataSourceDelegate.h in Headers */,
+				36E8E24ACE96744960DB3155 /* QuadCurveDefaultDataSource.h in Headers */,
+				1A9B89388A08D63D553FD18E /* QuadCurveMenuItemFactory.h in Headers */,
+				0562B8517FAAA599F8E397F2 /* QuadCurveDefaultMenuItemFactory.h in Headers */,
+				CDA06B20673F1733FA39E82F /* AGMedallionView.h in Headers */,
+				73C696088D193CD924C72EB2 /* QuadCurveAnimation.h in Headers */,
+				0F9913CD8D587E18D95CF4C0 /* QuadCurveShrinkAnimation.h in Headers */,
+				9BCE1F4E4875B799CA38B200 /* QuadCurveBlowupAnimation.h in Headers */,
+				8CB7472DCD3F47FA95353A4F /* QuadCurveItemCloseAnimation.h in Headers */,
+				3601AB4D117761F1CBDA0FE2 /* QuadCurveItemExpandAnimation.h in Headers */,
+				2C2C3E6404F4EEAEA6CD8652 /* QuadCurveMotionDirector.h in Headers */,
+				666EFDF22F2E371BF611A407 /* QuadCurveLinearDirector.h in Headers */,
+				37F2B11A1CDE76217F0ED6AB /* QuadCurveRadialDirector.h in Headers */,
+				D37D7B885FFEC2EFE0BBCBCF /* QuadCurve-Prefix.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		BF99A4A770DA7B9D113B9D18 /* QuadCurve */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBE67BE35F106DC5595E66F1 /* Build configuration list for PBXNativeTarget "QuadCurve" */;
+			buildPhases = (
+				2B624178A78C8A2CF89AEF3F /* Sources */,
+				3AE9B71B1AD6CE005C0E3253 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuadCurve;
+			productName = "";
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E29C09121528173A0092DADA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Franklin Webber";
+			};
+			buildConfigurationList = E29C09151528173A0092DADA /* Build configuration list for PBXProject "QuadCurve" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E29C09101528173A0092DADA;
+			productRefGroup = E29C091C1528173A0092DADA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF99A4A770DA7B9D113B9D18 /* QuadCurve */,
+				6D16249BEAAF1D8C08FBF3CD /* Universal QuadCurve */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		55F88B2061FE66EB50B0B63E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=QuadCurve\nFMK_VERSION=A\n\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n\n# Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/Versions/${FMK_VERSION}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B624178A78C8A2CF89AEF3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D8ADA50DD1AA471E4F9EB44 /* QuadCurveMenu.m in Sources */,
+				A4CCA8F51CF3185AB757E4D6 /* QuadCurveMenuItem.m in Sources */,
+				4E56E810A516AAE90668C7C8 /* QuadCurveDefaultDataSource.m in Sources */,
+				A11DF336B9F4958BB96B6186 /* QuadCurveDefaultMenuItemFactory.m in Sources */,
+				F5220D69919356E4C1F83C47 /* AGMedallionView.m in Sources */,
+				CB895F3A9EF0027C5B02392D /* QuadCurveShrinkAnimation.m in Sources */,
+				796CB7CD2220FF40970A374B /* QuadCurveBlowupAnimation.m in Sources */,
+				AE8FC896BB9A78C7911DFD70 /* QuadCurveItemCloseAnimation.m in Sources */,
+				1E41BFDC4543D7EA1471ACEE /* QuadCurveItemExpandAnimation.m in Sources */,
+				C677EA7685CCB38F1EDB219A /* QuadCurveLinearDirector.m in Sources */,
+				A859CF0FB46A48DAB329C4D6 /* QuadCurveRadialDirector.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E29C09231528173A0092DADA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E29C09241528173A0092DADA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		576F093BDE31D8DC63237E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				"CODE_SIGN_IDENTITY[sdk=>iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		7758DC0AEF04F1338BE2C194 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=>iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Release/Release-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				INFOPLIST_FILE = "Release/Release-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E29C09271528173A0092DADA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E29C09281528173A0092DADA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		627985C04E6130DF3CB62238 /* Build configuration list for PBXAggregateTarget "Universal QuadCurve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7758DC0AEF04F1338BE2C194 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "";
+		};
+		BBE67BE35F106DC5595E66F1 /* Build configuration list for PBXNativeTarget "QuadCurve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576F093BDE31D8DC63237E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "";
+		};
+		E29C09151528173A0092DADA /* Build configuration list for PBXProject "QuadCurve" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E29C09271528173A0092DADA /* Debug */,
+				E29C09281528173A0092DADA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E29C09121528173A0092DADA /* Project object */;
+}

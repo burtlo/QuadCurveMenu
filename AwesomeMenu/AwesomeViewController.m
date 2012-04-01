@@ -8,8 +8,6 @@
 
 #import "AwesomeViewController.h"
 #import "AwesomeDataSource.h"
-#import "QuadCurveDefaultMenuItemFactory.h"
-#import "QuadCurveLinearDirector.h"
 
 @interface AwesomeViewController ()
 
