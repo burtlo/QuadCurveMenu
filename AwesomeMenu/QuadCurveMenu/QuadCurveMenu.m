@@ -86,7 +86,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         centerPoint:(CGPoint)centerPoint
          dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
     mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
-    menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory {
+    menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory
+       menuDirector:(id<QuadCurveMotionDirector>)motionDirector {
     
     self = [super initWithFrame:frame];
     
@@ -98,7 +99,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         self.mainMenuItemFactory = mainFactory;
         self.menuItemFactory = menuItemFactory;
         
-        self.menuDirector = [[QuadCurveRadialDirector alloc] init];
+        self.menuDirector = motionDirector;
         
         self.selectedAnimation = [[QuadCurveBlowupAnimation alloc] init];
         self.unselectedanimation = [[QuadCurveShrinkAnimation alloc] init];
@@ -107,13 +108,29 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         self.closeItemAnimation = [[QuadCurveItemCloseAnimation alloc] init];
         
         self.dataSource = dataSource;
-
+        
         
         UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapInMenuView:)];
         [self addGestureRecognizer:singleTapGesture];
         
     }
     return self;
+}
+
+- (id)initWithFrame:(CGRect)frame 
+        centerPoint:(CGPoint)centerPoint
+         dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
+    mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
+    menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory {
+    
+    
+    return [self initWithFrame:frame 
+                   centerPoint:centerPoint 
+                    dataSource:dataSource 
+               mainMenuFactory:mainFactory 
+               menuItemFactory:menuItemFactory 
+                  menuDirector:[[QuadCurveRadialDirector alloc] init]];
+    
 }
 
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QuadCurveDataSourceDelegate>)dataSource {

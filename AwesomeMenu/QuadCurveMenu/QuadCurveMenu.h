@@ -43,6 +43,14 @@
     mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
     menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory;
 
+- (id)initWithFrame:(CGRect)frame
+        centerPoint:(CGPoint)centerPoint
+         dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 
+    mainMenuFactory:(id<QuadCurveMenuItemFactory>)mainFactory 
+    menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory
+       menuDirector:(id<QuadCurveMotionDirector>)motionDirector;
+
+
 - (void)expandMenu;
 - (void)closeMenu;
 
