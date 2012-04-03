@@ -17,6 +17,7 @@
 #import "QuadCurveShrinkAnimation.h"
 #import "QuadCurveItemExpandAnimation.h"
 #import "QuadCurveItemCloseAnimation.h"
+#import "QuadCurveTiltAnimation.h"
 
 static int const kQuadCurveMenuItemStartingTag = 1000;
 
@@ -74,6 +75,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 @synthesize unselectedanimation;
 @synthesize expandItemAnimation;
 @synthesize closeItemAnimation;
+@synthesize mainMenuExpandAnimation;
+@synthesize mainMenuCloseAnimation;
 
 @synthesize expanding = _expanding;
 
@@ -106,6 +109,10 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         
         self.expandItemAnimation = [[QuadCurveItemExpandAnimation alloc] init];
         self.closeItemAnimation = [[QuadCurveItemCloseAnimation alloc] init];
+        
+        self.mainMenuExpandAnimation = [[QuadCurveTiltAnimation alloc] initWithCounterClockwiseTilt];
+        
+        self.mainMenuCloseAnimation = [[QuadCurveTiltAnimation alloc] initWithTilt:0];
         
         self.dataSource = dataSource;
         
@@ -290,7 +297,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     _expanding = NO;
     
-    [self rotateMainMenuItemClockwise:[self isExpanding]];
+    [self animteExpandMainMenu:[self isExpanding]];
     
 }
 
@@ -332,12 +339,18 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }
 }
 
-- (void)rotateMainMenuItemClockwise:(BOOL)animateClockwise {
+- (void)animteExpandMainMenu:(BOOL)expandAnimation {
     
-    float angle = animateClockwise ? -M_PI_4 : 0.0f;
-    [UIView animateWithDuration:0.2f animations:^{
-        mainMenuButton.transform = CGAffineTransformMakeRotation(angle);
-    }];
+    id<QuadCurveAnimation> animation;
+    
+    if (expandAnimation) {
+        animation = self.mainMenuExpandAnimation;
+    } else {
+        animation = self.mainMenuCloseAnimation;
+    }
+    
+    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton] 
+                                forKey:animation.animationName];
     
 }
 
@@ -359,7 +372,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (void)setExpanding:(BOOL)expanding {
     _expanding = expanding;
     
-    [self rotateMainMenuItemClockwise:[self isExpanding]];
+    [self animteExpandMainMenu:[self isExpanding]];
     
 	if ([self isExpanding]) {
         [self performExpandMenu];
