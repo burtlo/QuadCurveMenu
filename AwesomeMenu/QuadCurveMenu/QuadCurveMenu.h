@@ -10,15 +10,15 @@
 #import "QuadCurveMenuItem.h"
 #import "QuadCurveAnimation.h"
 #import "QuadCurveMotionDirector.h"
+#import "QuadCurveDataSourceDelegate.h"
+#import "QuadCurveMenuItemFactory.h"
+#import "QuadCurveMenuDelegate.h"
 
 @protocol QuadCurveMenuDelegate;
 @protocol QuadCurveDataSourceDelegate;
 @protocol QuadCurveMenuItemFactory;
 
-
 @interface QuadCurveMenu : UIView <QuadCurveMenuItemEventDelegate>
-
-@property (nonatomic, getter = isExpanding) BOOL expanding;
 
 @property (nonatomic, strong) id<QuadCurveMotionDirector> menuDirector;
 
@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong) id<QuadCurveMenuDelegate> delegate;
 @property (nonatomic, strong) id<QuadCurveDataSourceDelegate> dataSource;
+
+#pragma mark - Initialization
 
 - (id)initWithFrame:(CGRect)frame withArray:(NSArray *)array;
 
@@ -50,44 +52,10 @@
     menuItemFactory:(id<QuadCurveMenuItemFactory>)menuItemFactory
        menuDirector:(id<QuadCurveMotionDirector>)motionDirector;
 
+#pragma mark - Expansion / Closing
 
+@property (nonatomic, getter = isExpanding) BOOL expanding;
 - (void)expandMenu;
 - (void)closeMenu;
-
-
-@end
-
-@protocol QuadCurveMenuDelegate <NSObject>
-
-@optional
-
-
-- (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenu:(QuadCurveMenuItem *)mainMenuItem;
-- (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenu:(QuadCurveMenuItem *)mainMenuItem;
-
-- (BOOL)quadCurveMenuShouldExpand:(QuadCurveMenu *)menu;
-- (BOOL)quadCurveMenuShouldClose:(QuadCurveMenu *)menu;
-
-- (void)quadCurveMenuWillExpand:(QuadCurveMenu *)menu;
-- (void)quadCurveMenuDidExpand:(QuadCurveMenu *)menu;
-
-- (void)quadCurveMenuWillClose:(QuadCurveMenu *)menu;
-- (void)quadCurveMenuDidClose:(QuadCurveMenu *)menu;
-
-- (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenuItem:(QuadCurveMenuItem *)menuItem;
-- (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenuItem:(QuadCurveMenuItem *)menuItem;
-
-@end
-
-@protocol QuadCurveDataSourceDelegate <NSObject>
-
-- (int)numberOfMenuItems;
-- (id)dataObjectAtIndex:(NSInteger)itemIndex;
-
-@end
-
-@protocol QuadCurveMenuItemFactory <NSObject>
-
-- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject;
 
 @end

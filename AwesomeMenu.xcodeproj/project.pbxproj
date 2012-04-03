@@ -107,6 +107,10 @@
 		E2A899BF1522EAD7004D5561 /* QuadCurveShrinkAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveShrinkAnimation.m; sourceTree = "<group>"; };
 		E2A899C11523840B004D5561 /* AwesomeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AwesomeDataSource.h; path = AwesomeMenu/AwesomeDataSource.h; sourceTree = SOURCE_ROOT; };
 		E2A899C21523840B004D5561 /* AwesomeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AwesomeDataSource.m; path = AwesomeMenu/AwesomeDataSource.m; sourceTree = SOURCE_ROOT; };
+		E2B23F9B152A819300379248 /* QuadCurveDataSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveDataSourceDelegate.h; sourceTree = "<group>"; };
+		E2B23F9C152A81D600379248 /* QuadCurveMenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItemFactory.h; sourceTree = "<group>"; };
+		E2B23FA2152A842600379248 /* QuadCurveMenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuDelegate.h; sourceTree = "<group>"; };
+		E2B23FA3152A854A00379248 /* QuadCurveMenuItemEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItemEventDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,17 +153,17 @@
 		5C0364981488A5D4000CE00F /* QuadCurveMenu */ = {
 			isa = PBXGroup;
 			children = (
-				5C0364891488A5D4000CE00F /* Images */,
-				E2A899AF1522A3FE004D5561 /* Animations */,
-				E2373EA91526CB2F00EE06ED /* Directors */,
 				5C0364991488A5D4000CE00F /* QuadCurveMenu.h */,
 				5C03649A1488A5D4000CE00F /* QuadCurveMenu.m */,
 				5C03649B1488A5D4000CE00F /* QuadCurveMenuItem.h */,
 				5C03649C1488A5D4000CE00F /* QuadCurveMenuItem.m */,
-				E21A256A152412870055DDD7 /* QuadCurveDefaultDataSource.h */,
-				E21A256B152412870055DDD7 /* QuadCurveDefaultDataSource.m */,
-				E2A899BB1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.h */,
-				E2A899BC1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m */,
+				E2B23FA3152A854A00379248 /* QuadCurveMenuItemEventDelegate.h */,
+				E2B23FA2152A842600379248 /* QuadCurveMenuDelegate.h */,
+				5C0364891488A5D4000CE00F /* Images */,
+				E2A899AF1522A3FE004D5561 /* Animations */,
+				E2373EA91526CB2F00EE06ED /* Directors */,
+				E2B23F9A152A817000379248 /* MenuItem Factories */,
+				E2B23F98152A815800379248 /* Data Sources */,
 			);
 			path = QuadCurveMenu;
 			sourceTree = "<group>";
@@ -267,6 +271,26 @@
 				E2A899B71522A415004D5561 /* QuadCurveItemExpandAnimation.m */,
 			);
 			name = Animations;
+			sourceTree = "<group>";
+		};
+		E2B23F98152A815800379248 /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E2B23F9B152A819300379248 /* QuadCurveDataSourceDelegate.h */,
+				E21A256A152412870055DDD7 /* QuadCurveDefaultDataSource.h */,
+				E21A256B152412870055DDD7 /* QuadCurveDefaultDataSource.m */,
+			);
+			name = "Data Sources";
+			sourceTree = "<group>";
+		};
+		E2B23F9A152A817000379248 /* MenuItem Factories */ = {
+			isa = PBXGroup;
+			children = (
+				E2B23F9C152A81D600379248 /* QuadCurveMenuItemFactory.h */,
+				E2A899BB1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.h */,
+				E2A899BC1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m */,
+			);
+			name = "MenuItem Factories";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

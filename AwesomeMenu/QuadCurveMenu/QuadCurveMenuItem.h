@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AGMedallionView.h"
+#import "QuadCurveMenuItemEventDelegate.h"
 
 @protocol QuadCurveMenuItemEventDelegate;
 @protocol QuadCurveMenuItemFactory;
@@ -26,14 +27,5 @@
 
 - (id)initWithImage:(UIImage *)image 
    highlightedImage:(UIImage *)highlightedImage;
-
-@end
-
-@protocol QuadCurveMenuItemEventDelegate <NSObject>
-
-@optional
-
-- (void)quadCurveMenuItemLongPressed:(QuadCurveMenuItem *)item;
-- (void)quadCurveMenuItemTapped:(QuadCurveMenuItem *)item;
 
 @end
