@@ -1,11 +1,39 @@
 QuadCurveMenu is a menu with the same look as [the Path app's menu](https://path.com/)'s story menu.
 
-Here is a [**declaration in my blog**](http://www.lunaapp.com/blog/?p=66) :)
+This is a fork of [levey's AwesomeMenu](https://github.com/levey/AwesomeMenu). I proposed a pull request and this was not what the original author had intended to create. This fork has some notable differences that I outline in the [pull request](https://github.com/levey/AwesomeMenu/pull/15):
 
----
+> I really love the menu and wanted to use any data source (not just an array), more touch events, and the ability to manipulate the images and animations. I also wanted the menu items to be able to hold some data object that I could store and retrieve on selection instead of relying on an index.
+
+Ultimately this is a much more modular library that allows you to define new functionality for the menu without having to rip the guts out of the existing one.
+
+* Converted project to ARC
+
+* AppDelegate in the example is no longer responsible for the menu and an example view controller was created.
+
+* Menu will generate delegate events for will expand, did expand,
+will close, and did close.
+
+* Menu will ask a delegate should expand and should close
+
+* Menu will generate events for tap and long press
+
+* Menu is populated from a Data Source Delegate
+
+* Menu is designed by a MenuItemFactory
+
+* Menu is composed with animations for expand, close, selected, unselected
+
+* Menu animations are now in their own separate classes
+
+* Menu items will generate events for tap and long press
+
+* Menu items are designed by a MenuItemFactory
+
+* Menu items contain a dataObject
+
+* Radial / Linear menu styles that is easily re-definable.
 
 ## Getting Started
-
 
 ### Data Source
 
@@ -211,17 +239,5 @@ An animation is an object that adheres to the protocol `QuadCurveAnimation`.
 The name is used as the name for the animation within the layer. The animation 
 itself is called with the `QuadCurveMenuItem` and should return the animation
 group that will be performed.
-
-
-## Contact and Thanks
-
-Twitter: [@LeveyZhu](https://twitter.com/#!/LeveyZhu) 
-
-Sina Weibo: [@SORA-Levey](http://weibo.com/leveyzhu) 
-
-Thanks for [pashields](https://github.com/pashields) providing the [youtube demo](http://www.youtube.com/watch?v=vddaYMtETjo) :)
-
-Thanks for [acoomans](https://github.com/acoomans/QuadCurveMenu) for the options.
-
 
 ![screenshots](http://k.minus.com/ib1kHc4lnLB8bd.gif) ![screenshots](http://k.minus.com/iovTFVTQQ192K.gif) ![screenshots](http://k.minus.com/i4BrO2tfCJxzk.gif)
