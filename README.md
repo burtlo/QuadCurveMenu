@@ -40,83 +40,87 @@ will close, and did close.
 First you define a data source, or have an existing data source,
 that adheres to the `QuadCurveDataSourceDelegate` protocol.
 
-    @interface AwesomeDataSource : NSObject <QuadCurveDataSourceDelegate> {
-        NSMutableArray *dataItems;
+```objc
+@interface AwesomeDataSource : NSObject <QuadCurveDataSourceDelegate> {
+    NSMutableArray *dataItems;
+}
+@end
+
+@implementation AwesomeDataSource
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        dataItems = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6", nil];
     }
-    @end
+    return self;
+}
 
-    @implementation AwesomeDataSource
+#pragma mark - QuadCurveDataSourceDelegate Adherence
 
-    - (id)init {
-        self = [super init];
-        if (self) {
-            dataItems = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6", nil];
-        }
-        return self;
-    }
+- (int)numberOfMenuItems {
+    return [dataItems count];
+}
 
-    #pragma mark - QuadCurveDataSourceDelegate Adherence
+- (id)dataObjectAtIndex:(NSInteger)itemIndex {
+    return [dataItems objectAtIndex:itemIndex];
+}
+```
 
-    - (int)numberOfMenuItems {
-        return [dataItems count];
-    }
-
-    - (id)dataObjectAtIndex:(NSInteger)itemIndex {
-        return [dataItems objectAtIndex:itemIndex];
-    }
-    
 ### Event Delegate
 
 Setup a delegate object, this will usually be the view controller showing the
 QuadCurveMenu, that adheres to the `QuadCurveMenuDelegate` protocol.
 
-    @interface AwesomeViewController : UIViewController <QuadCurveMenuDelegate>
+```objc
+@interface AwesomeViewController : UIViewController <QuadCurveMenuDelegate>
 
-    @end
+@end
 
-    - (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenu:(QuadCurveMenuItem *)mainMenuItem {
-        NSLog(@"Menu - Tapped");
-    }
+- (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenu:(QuadCurveMenuItem *)mainMenuItem {
+    NSLog(@"Menu - Tapped");
+}
 
-    - (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenu:(QuadCurveMenuItem *)mainMenuItem {
-        NSLog(@"Menu - Long Pressed");
-    }
+- (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenu:(QuadCurveMenuItem *)mainMenuItem {
+    NSLog(@"Menu - Long Pressed");
+}
 
-    - (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenuItem:(QuadCurveMenuItem *)menuItem {
-        NSLog(@"Menu Item (%@) - Tapped",menuItem.dataObject);
-    }
+- (void)quadCurveMenu:(QuadCurveMenu *)menu didTapMenuItem:(QuadCurveMenuItem *)menuItem {
+    NSLog(@"Menu Item (%@) - Tapped",menuItem.dataObject);
+}
 
-    - (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenuItem:(QuadCurveMenuItem *)menuItem {
-        NSLog(@"Menu Item (%@) - Long Pressed",menuItem.dataObject);
-    }
+- (void)quadCurveMenu:(QuadCurveMenu *)menu didLongPressMenuItem:(QuadCurveMenuItem *)menuItem {
+    NSLog(@"Menu Item (%@) - Long Pressed",menuItem.dataObject);
+}
 
-    - (void)quadCurveMenuWillExpand:(QuadCurveMenu *)menu {
-        NSLog(@"Menu - Will Expand");
-    }
+- (void)quadCurveMenuWillExpand:(QuadCurveMenu *)menu {
+    NSLog(@"Menu - Will Expand");
+}
 
-    - (void)quadCurveMenuDidExpand:(QuadCurveMenu *)menu {
-        NSLog(@"Menu - Did Expand");
-    }
+- (void)quadCurveMenuDidExpand:(QuadCurveMenu *)menu {
+    NSLog(@"Menu - Did Expand");
+}
 
-    - (void)quadCurveMenuWillClose:(QuadCurveMenu *)menu {
-        NSLog(@"Menu - Will Close");
-    }
+- (void)quadCurveMenuWillClose:(QuadCurveMenu *)menu {
+    NSLog(@"Menu - Will Close");
+}
 
-    - (void)quadCurveMenuDidClose:(QuadCurveMenu *)menu {
-        NSLog(@"Menu - Did Close");
-    }
+- (void)quadCurveMenuDidClose:(QuadCurveMenu *)menu {
+    NSLog(@"Menu - Did Close");
+}
 
-    - (BOOL)quadCurveMenuShouldClose:(QuadCurveMenu *)menu {
-        return YES;
-    }
+- (BOOL)quadCurveMenuShouldClose:(QuadCurveMenu *)menu {
+    return YES;
+}
 
-    - (BOOL)quadCurveMenuShouldExpand:(QuadCurveMenu *)menu {
-        return YES;
-    }    
+- (BOOL)quadCurveMenuShouldExpand:(QuadCurveMenu *)menu {
+    return YES;
+}
+```
 
 ### Creating the Menu
 
-Then within your view controller define the `QuadCurveMenu` with some bounds, 
+Then within your view controller define the `QuadCurveMenu` with some bounds,
 your data source, and your event delegate.
 
 
@@ -133,110 +137,131 @@ You can also use menu options:
 
 to locate the center of "Add" button:
 
-	menu.startPoint = CGPointMake(160.0, 240.0);
+```objc
+menu.startPoint = CGPointMake(160.0, 240.0);
+```
 
 to set the rotate angle:
 
-	menu.rotateAngle = 0.0;
+```objc
+menu.rotateAngle = 0.0;
+```
 
 to set the whole menu angle:
 
-	menu.menuWholeAngle = M_PI * 2;
+```objc
+menu.menuWholeAngle = M_PI * 2;
+```
 
 to set the delay of every menu flying out animation:
 
-	menu.timeOffset = 0.036f;
+```objc
+menu.timeOffset = 0.036f;
+```
 
 to adjust the bounce animation:
 
-	menu.farRadius = 140.0f;
-	menu.nearRadius = 110.0f;
+```objc
+menu.farRadius = 140.0f;
+menu.nearRadius = 110.0f;
+```
 
 to set the distance between the "Add" button and Menu Items:
 
-	menu.endRadius = 120.0f;
-
+```objc
+menu.endRadius = 120.0f;
+```
 
 #### Changing the Images
 
-You can configure the look of the center, main menu item, and the menu items 
-that appear from the main menu. To do that you define an object that adheres 
+You can configure the look of the center, main menu item, and the menu items
+that appear from the main menu. To do that you define an object that adheres
 to the protocol `QuadCurveMenuItemFactory`.
 
+```objc
+#pragma mark - QuadCurveMenuItemFactory Adherence
 
-    #pragma mark - QuadCurveMenuItemFactory Adherence
+- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {
 
-    - (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {
+    QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithImage:image
+                                                      highlightedImage:highlightImage
+                                                          contentImage:contentImage
+                                               highlightedContentImage:highlightContentImage];
 
-        QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithImage:image 
-                                                          highlightedImage:highlightImage
-                                                              contentImage:contentImage 
-                                                   highlightedContentImage:highlightContentImage];
+    [item setDataObject:dataObject];
 
-        [item setDataObject:dataObject];
+    return item;
+}
+```
 
-        return item;
-    }
-    
 Create an instance of that object and assign it to the QuadCurveMenu property `mainMenuItemFactory` or `menuItemFactory`.
 
-    id<QuadCurveMenuItemFactory> customMenuItemFactory = [[MyCustomMenuItemFactory alloc] init];
+```objc
+id<QuadCurveMenuItemFactory> customMenuItemFactory = [[MyCustomMenuItemFactory alloc] init];
 
-    menu.mainMenuItemFactory = customMenuItemFactory;
-    menu.menuItemFactory = customMenuItemFactory;
-    
-By default the QuadCurveMenu uses `QuadCurveDefaultMenuItemFactory`. The main 
+menu.mainMenuItemFactory = customMenuItemFactory;
+menu.menuItemFactory = customMenuItemFactory;
+```
+
+By default the QuadCurveMenu uses `QuadCurveDefaultMenuItemFactory`. The main
 menu item is set by:
 
-    [QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]
+```objc
+[QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]
+```
 
 Each sub menu item are created by:
 
-    [QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]
-    
+```objc
+[QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]
+```
 
 #### Changing Animations
 
 Several of the animations are customizable through properties. Viewing the
-example project you should see an __Animations__ group which contains the 
+example project you should see an __Animations__ group which contains the
 default animations used in the application. You can customize them there or
 define your own and set them through properties on the `QuadCurveMenu`.
 
-Here is an example of swapping the default _selected_ and _unselected_ 
+Here is an example of swapping the default _selected_ and _unselected_
 animations:
 
-    menu.selectedAnimation = [[QuadCurveShrinkAnimation alloc] init]
-    menu.unselectedanimation = [[QuadCurveBlowupAnimation alloc] init]
+```objc
+menu.selectedAnimation = [[QuadCurveShrinkAnimation alloc] init]
+menu.unselectedanimation = [[QuadCurveBlowupAnimation alloc] init]
+```
 
-An animation is an object that adheres to the protocol `QuadCurveAnimation`. 
+An animation is an object that adheres to the protocol `QuadCurveAnimation`.
 
-    - (NSString *)animationName {
-        return @"blowup";
-    }
+```objc
+- (NSString *)animationName {
+    return @"blowup";
+}
 
-    - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
-    
-        CGPoint point = item.center;
-    
-        CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-        positionAnimation.values = [NSArray arrayWithObjects:[NSValue valueWithCGPoint:point], nil];
-        positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil]; 
-    
-        CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-        scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
-    
-        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
-    
-        CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-        animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
-        animationgroup.duration = 0.3f;
-    
-        return animationgroup;
+- (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
 
-    }
+    CGPoint point = item.center;
 
-The name is used as the name for the animation within the layer. The animation 
+    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    positionAnimation.values = [NSArray arrayWithObjects:[NSValue valueWithCGPoint:point], nil];
+    positionAnimation.keyTimes = [NSArray arrayWithObjects: [NSNumber numberWithFloat:.3], nil];
+
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(3, 3, 1)];
+
+    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+
+    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
+    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.duration = 0.3f;
+
+    return animationgroup;
+
+}
+```
+
+The name is used as the name for the animation within the layer. The animation
 itself is called with the `QuadCurveMenuItem` and should return the animation
 group that will be performed.
 
