@@ -37,6 +37,9 @@ Ultimately this is a much more modular library that allows you to define new fun
 
 * Menu items will generate events for tap (`didTapMenuItem`) and long press (`didLongPressMenuItem`)
 
+* Menu items are automatically medallionized (AGMedallionView) so custom *medallionized* images 
+  do not have to be created.
+
 * Menu items are designed by a MenuItemFactory
 
 * Menu items contain a dataObject
