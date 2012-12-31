@@ -41,7 +41,7 @@
 + (id)defaultMainMenuItemFactory {
     
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.png"]
-                        highlightImage:[UIImage imageNamed:@"icon-plus-highlighted.png"]];
+                            highlightImage:nil];
 
 }
 

@@ -7,16 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C03649D1488A5D4000CE00F /* bg-addbutton-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648A1488A5D4000CE00F /* bg-addbutton-highlighted.png */; };
-		5C03649E1488A5D4000CE00F /* bg-addbutton-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648B1488A5D4000CE00F /* bg-addbutton-highlighted@2x.png */; };
-		5C03649F1488A5D4000CE00F /* bg-addbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648C1488A5D4000CE00F /* bg-addbutton.png */; };
-		5C0364A01488A5D4000CE00F /* bg-addbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648D1488A5D4000CE00F /* bg-addbutton@2x.png */; };
-		5C0364A11488A5D4000CE00F /* bg-menuitem-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648E1488A5D4000CE00F /* bg-menuitem-highlighted.png */; };
-		5C0364A21488A5D4000CE00F /* bg-menuitem-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C03648F1488A5D4000CE00F /* bg-menuitem-highlighted@2x.png */; };
-		5C0364A31488A5D4000CE00F /* bg-menuitem.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364901488A5D4000CE00F /* bg-menuitem.png */; };
-		5C0364A41488A5D4000CE00F /* bg-menuitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364911488A5D4000CE00F /* bg-menuitem@2x.png */; };
-		5C0364A51488A5D4000CE00F /* icon-plus-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364921488A5D4000CE00F /* icon-plus-highlighted.png */; };
-		5C0364A61488A5D4000CE00F /* icon-plus-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364931488A5D4000CE00F /* icon-plus-highlighted@2x.png */; };
 		5C0364A71488A5D4000CE00F /* icon-plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364941488A5D4000CE00F /* icon-plus.png */; };
 		5C0364A81488A5D4000CE00F /* icon-plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364951488A5D4000CE00F /* icon-plus@2x.png */; };
 		5C0364A91488A5D4000CE00F /* icon-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0364961488A5D4000CE00F /* icon-star.png */; };
@@ -51,16 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C03648A1488A5D4000CE00F /* bg-addbutton-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-addbutton-highlighted.png"; sourceTree = "<group>"; };
-		5C03648B1488A5D4000CE00F /* bg-addbutton-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-addbutton-highlighted@2x.png"; sourceTree = "<group>"; };
-		5C03648C1488A5D4000CE00F /* bg-addbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-addbutton.png"; sourceTree = "<group>"; };
-		5C03648D1488A5D4000CE00F /* bg-addbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-addbutton@2x.png"; sourceTree = "<group>"; };
-		5C03648E1488A5D4000CE00F /* bg-menuitem-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-menuitem-highlighted.png"; sourceTree = "<group>"; };
-		5C03648F1488A5D4000CE00F /* bg-menuitem-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-menuitem-highlighted@2x.png"; sourceTree = "<group>"; };
-		5C0364901488A5D4000CE00F /* bg-menuitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-menuitem.png"; sourceTree = "<group>"; };
-		5C0364911488A5D4000CE00F /* bg-menuitem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-menuitem@2x.png"; sourceTree = "<group>"; };
-		5C0364921488A5D4000CE00F /* icon-plus-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-plus-highlighted.png"; sourceTree = "<group>"; };
-		5C0364931488A5D4000CE00F /* icon-plus-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-plus-highlighted@2x.png"; sourceTree = "<group>"; };
 		5C0364941488A5D4000CE00F /* icon-plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-plus.png"; sourceTree = "<group>"; };
 		5C0364951488A5D4000CE00F /* icon-plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-plus@2x.png"; sourceTree = "<group>"; };
 		5C0364961488A5D4000CE00F /* icon-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star.png"; sourceTree = "<group>"; };
@@ -136,16 +116,6 @@
 		5C0364891488A5D4000CE00F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5C03648A1488A5D4000CE00F /* bg-addbutton-highlighted.png */,
-				5C03648B1488A5D4000CE00F /* bg-addbutton-highlighted@2x.png */,
-				5C03648C1488A5D4000CE00F /* bg-addbutton.png */,
-				5C03648D1488A5D4000CE00F /* bg-addbutton@2x.png */,
-				5C03648E1488A5D4000CE00F /* bg-menuitem-highlighted.png */,
-				5C03648F1488A5D4000CE00F /* bg-menuitem-highlighted@2x.png */,
-				5C0364901488A5D4000CE00F /* bg-menuitem.png */,
-				5C0364911488A5D4000CE00F /* bg-menuitem@2x.png */,
-				5C0364921488A5D4000CE00F /* icon-plus-highlighted.png */,
-				5C0364931488A5D4000CE00F /* icon-plus-highlighted@2x.png */,
 				5C0364941488A5D4000CE00F /* icon-plus.png */,
 				5C0364951488A5D4000CE00F /* icon-plus@2x.png */,
 				5C0364961488A5D4000CE00F /* icon-star.png */,
@@ -352,16 +322,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C3FF36E1486564E0098EE93 /* InfoPlist.strings in Resources */,
-				5C03649D1488A5D4000CE00F /* bg-addbutton-highlighted.png in Resources */,
-				5C03649E1488A5D4000CE00F /* bg-addbutton-highlighted@2x.png in Resources */,
-				5C03649F1488A5D4000CE00F /* bg-addbutton.png in Resources */,
-				5C0364A01488A5D4000CE00F /* bg-addbutton@2x.png in Resources */,
-				5C0364A11488A5D4000CE00F /* bg-menuitem-highlighted.png in Resources */,
-				5C0364A21488A5D4000CE00F /* bg-menuitem-highlighted@2x.png in Resources */,
-				5C0364A31488A5D4000CE00F /* bg-menuitem.png in Resources */,
-				5C0364A41488A5D4000CE00F /* bg-menuitem@2x.png in Resources */,
-				5C0364A51488A5D4000CE00F /* icon-plus-highlighted.png in Resources */,
-				5C0364A61488A5D4000CE00F /* icon-plus-highlighted@2x.png in Resources */,
 				5C0364A71488A5D4000CE00F /* icon-plus.png in Resources */,
 				5C0364A81488A5D4000CE00F /* icon-plus@2x.png in Resources */,
 				5C0364A91488A5D4000CE00F /* icon-star.png in Resources */,
