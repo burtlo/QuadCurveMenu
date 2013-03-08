@@ -1,8 +1,9 @@
 QuadCurveMenu is a menu with the same look as [the Path app's menu](https://path.com/)'s story menu.
 
-![screenshots](http://k.minus.com/ib1kHc4lnLB8bd.gif)
-![screenshots](http://k.minus.com/iovTFVTQQ192K.gif)
-![screenshots](http://k.minus.com/i4BrO2tfCJxzk.gif)
+![expand](https://dl.dropbox.com/u/1235674/quadcurve-expand.gif)
+![custom-expand](https://dl.dropbox.com/u/1235674/quadcurve-custom-expand.gif)
+![custom-selection](https://dl.dropbox.com/u/1235674/quadcurve-custom-selection.gif)
+![expand-linear](https://dl.dropbox.com/u/1235674/quadcurve-linear.gif)
 
 This is a fork of [levey's AwesomeMenu](https://github.com/levey/AwesomeMenu). I proposed a pull request and this was not what the original author had intended to create. This fork has some notable differences that I outline in the [pull request](https://github.com/levey/AwesomeMenu/pull/15):
 
@@ -37,7 +38,7 @@ Ultimately this is a much more modular library that allows you to define new fun
 
 * Menu items will generate events for tap (`didTapMenuItem`) and long press (`didLongPressMenuItem`)
 
-* Menu items are automatically medallionized (AGMedallionView) so custom *medallionized* images 
+* Menu items are automatically medallionized (AGMedallionView) so custom *medallionized* images
   do not have to be created.
 
 * Menu items are designed by a MenuItemFactory
