@@ -1,0 +1,388 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Quad Curve Menu</title>
+  <meta name="description" content="Path 2.0 menu (configurable, extendable, and composable)">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Quad Curve Menu</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Path 2.0 menu (configurable, extendable, and composable)</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/burtlo/QuadCurveMenu/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/burtlo/QuadCurveMenu/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/burtlo/QuadCurveMenu" class="code">View Quad Curve Menu on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <p>QuadCurveMenu is a menu with the same look as <a href="https://path.com/">the Path app's menu</a>'s story menu.</p>
+
+<p><img src="https://dl.dropbox.com/u/1235674/quadcurve-expand.gif" alt="expand"><img src="https://dl.dropbox.com/u/1235674/quadcurve-custom-expand.gif" alt="custom-expand"><img src="https://dl.dropbox.com/u/1235674/quadcurve-custom-selection.gif" alt="custom-selection"><img src="https://dl.dropbox.com/u/1235674/quadcurve-linear.gif" alt="expand-linear"></p>
+
+<p>This is a fork of <a href="https://github.com/levey/AwesomeMenu">levey's AwesomeMenu</a>. I proposed a pull request and this was not what the original author had intended to create. This fork has some notable differences that I outline in the <a href="https://github.com/levey/AwesomeMenu/pull/15">pull request</a>:</p>
+
+<blockquote>
+<p>I really love the menu and wanted to use any data source (not just an array), more touch events, and the ability to manipulate the images and animations. I also wanted the menu items to be able to hold some data object that I could store and retrieve on selection instead of relying on an index.</p>
+</blockquote>
+
+<p>Ultimately this is a much more modular library that allows you to define new functionality for the menu without having to rip the guts out of the existing one.</p>
+
+<ul>
+<li>Componentized into multiple files</li>
+</ul><blockquote>
+<p>QuadCurveMenu is defined in multiple files to separate concerns and make it easier to maintain and the code clearer. This does increase the burden when the code is included in a project.</p>
+</blockquote>
+
+<ul>
+<li><p>Converted project to ARC</p></li>
+<li><p>AppDelegate in the example is no longer responsible for the menu and an example view controller was created.</p></li>
+<li><p>Menu will generate delegate events for <code>willExpand</code>, <code>didExpand</code>,
+<code>willClose</code>, and <code>didClose</code>.</p></li>
+<li><p>Menu will ask a delegate <code>shouldExpand</code> before expanding and <code>shouldClose</code> before closing</p></li>
+<li><p>Menu will generate events for tap (<code>didTapMenu</code>) and long press (<code>didLongPressMenu</code>)</p></li>
+<li><p>Menu is populated from a Data Source Delegate</p></li>
+<li><p>Menu is designed by a MenuItemFactory</p></li>
+<li><p>Menu is composed with individual, definable animations for expand, close, selected, unselected</p></li>
+<li><p>Menu animations are now in their own separate classes</p></li>
+<li><p>Menu can display menu items with a Radial, Linear or custom style</p></li>
+<li><p>Menu items will generate events for tap (<code>didTapMenuItem</code>) and long press (<code>didLongPressMenuItem</code>)</p></li>
+<li><p>Menu items are automatically medallionized (AGMedallionView) so custom <em>medallionized</em> images
+do not have to be created.</p></li>
+<li><p>Menu items are designed by a MenuItemFactory</p></li>
+<li><p>Menu items contain a dataObject</p></li>
+</ul><h2>Getting Started</h2>
+
+<h3>Default Usage</h3>
+
+<p>QuadCurveMenu defines a simple initializer that generates
+a radial menu, 360 degrees, centered within the given frame
+showing menu items for each element in the provided array.</p>
+
+<div class="highlight"><pre><span class="k">@implementation</span> <span class="nc">AwesomeViewController</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">]</span>
+
+  <span class="n">NSArray</span> <span class="o">*</span><span class="n">menuItemArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="n">arrayWithObjects</span><span class="o">:</span><span class="s">@"1"</span><span class="p">,</span><span class="s">@"2"</span><span class="p">,</span><span class="nb">nil</span><span class="p">];</span>
+
+  <span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span> <span class="n">withArray</span><span class="o">:</span><span class="n">menuItemArray</span><span class="p">];</span>
+
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">menu</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</pre></div>
+
+<h3>Custom Data Source</h3>
+
+<p>You may find an NSArray limiting so the menu can be defined with
+a custom data source.</p>
+
+<p>First you define a data source, or have an existing data source,
+that adheres to the <code>QuadCurveDataSourceDelegate</code> protocol.</p>
+
+<blockquote>
+<p>By default when you use the array implementation it uses a <code>QuadCurveDefaultDataSource</code>
+which simply wraps an NSArray.</p>
+</blockquote>
+
+<div class="highlight"><pre><span class="k">@interface</span> <span class="nc">AwesomeDataSource</span> : <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">QuadCurveDataSourceDelegate</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">dataItems</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">AwesomeDataSource</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span> <span class="p">{</span>
+    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dataItems</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">arrayWithObjects</span><span class="o">:</span><span class="s">@"1"</span><span class="p">,</span><span class="s">@"2"</span><span class="p">,</span><span class="s">@"3"</span><span class="p">,</span><span class="s">@"4"</span><span class="p">,</span><span class="s">@"5"</span><span class="p">,</span><span class="s">@"6"</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cp">#pragma mark - QuadCurveDataSourceDelegate Adherence</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nf">numberOfMenuItems</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">dataItems</span> <span class="n">count</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">dataObjectAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">itemIndex</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">dataItems</span> <span class="n">objectAtIndex</span><span class="o">:</span><span class="n">itemIndex</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Creating a QuadCurveMenu with a custom data source:</p>
+
+<div class="highlight"><pre><span class="k">@implementation</span> <span class="nc">AwesomeViewController</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">]</span>
+
+  <span class="n">AwesomeDataSource</span> <span class="o">*</span><span class="n">dataSource</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AwesomeDataSource</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+  <span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span> <span class="n">dataSource</span><span class="o">:</span><span class="n">dataSource</span><span class="p">];</span>
+
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">menu</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</pre></div>
+
+<h3>Event Delegate</h3>
+
+<p>Setup a delegate object, this will usually be the view controller showing the
+QuadCurveMenu, that adheres to the <code>QuadCurveMenuDelegate</code> protocol.</p>
+
+<div class="highlight"><pre><span class="k">@interface</span> <span class="nc">AwesomeViewController</span> : <span class="nc">UIViewController</span> <span class="o">&lt;</span><span class="n">QuadCurveMenuDelegate</span><span class="o">&gt;</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span> <span class="nc">AwesomeViewController</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">]</span>
+
+  <span class="n">AwesomeDataSource</span> <span class="o">*</span><span class="n">dataSource</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AwesomeDataSource</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+  <span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span> <span class="n">dataSource</span><span class="o">:</span><span class="n">dataSource</span><span class="p">];</span>
+
+  <span class="n">menu</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">menu</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenu:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="nf">didTapMenu:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">mainMenuItem</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Tapped"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenu:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="nf">didLongPressMenu:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">mainMenuItem</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Long Pressed"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenu:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="nf">didTapMenuItem:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">menuItem</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu Item (%@) - Tapped"</span><span class="p">,</span><span class="n">menuItem</span><span class="p">.</span><span class="n">dataObject</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenu:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="nf">didLongPressMenuItem:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">menuItem</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu Item (%@) - Long Pressed"</span><span class="p">,</span><span class="n">menuItem</span><span class="p">.</span><span class="n">dataObject</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenuWillExpand:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Will Expand"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenuDidExpand:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Did Expand"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenuWillClose:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Will Close"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">quadCurveMenuDidClose:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@"Menu - Did Close"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">quadCurveMenuShouldClose:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="c1">// Returning YES will allow the menu to close; NO to prevent it from closing.</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">quadCurveMenuShouldExpand:</span><span class="p">(</span><span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="p">)</span><span class="nv">menu</span> <span class="p">{</span>
+    <span class="c1">// Returning YES will allow the menu to expand; NO to prevent it from expanding.</span>
+    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@end</span>
+</pre></div>
+
+<h3>Custom Menu Images and Menu Item Images</h3>
+
+<p>You can configure the look of the center, main menu item, and the menu items
+that appear from the main menu.</p>
+
+<blockquote>
+<p>By default the QuadCurveMenu uses <code>[QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]</code>
+for the main menu and <code>[QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]</code> for each menu item.
+These are defined to look like the path application.</p>
+</blockquote>
+
+<p>You can define customized instances of <code>QuadCurveDefaultMenuItemFactory</code>:</p>
+
+<div class="highlight"><pre><span class="k">@implementation</span> <span class="nc">AwesomeViewController</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+  <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">]</span>
+
+  <span class="n">AwesomeDataSource</span> <span class="o">*</span><span class="n">dataSource</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AwesomeDataSource</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+
+  <span class="n">QuadCurveMenu</span> <span class="o">*</span><span class="n">menu</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveMenu</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span> <span class="n">dataSource</span><span class="o">:</span><span class="n">dataSource</span><span class="p">];</span>
+
+  <span class="n">menu</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+
+  <span class="c1">// Use a facebook center button for the menu</span>
+
+  <span class="p">[</span><span class="n">menu</span> <span class="n">setMainMenuItemFactory</span><span class="o">:</span><span class="p">[[</span><span class="n">QuadCurveDefaultMenuItemFactory</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithImage</span><span class="o">:</span><span class="p">[</span><span class="n">UIImage</span> <span class="n">imageNamed</span><span class="o">:</span><span class="s">@"facebook.png"</span><span class="p">]</span> <span class="n">highlightImage</span><span class="o">:</span><span class="p">[</span><span class="n">UIImage</span> <span class="n">imageNamed</span><span class="o">:</span><span class="nb">nil</span><span class="p">]]];</span>
+
+  <span class="c1">// Use an unknown user button for the menu items</span>
+
+  <span class="p">[</span><span class="n">menu</span> <span class="n">setMenuItemFactory</span><span class="o">:</span><span class="p">[[</span><span class="n">QuadCurveDefaultMenuItemFactory</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithImage</span><span class="o">:</span><span class="p">[</span><span class="n">UIImage</span> <span class="n">imageNamed</span><span class="o">:</span><span class="s">@"unknown-user.png"</span><span class="p">]</span> <span class="n">highlightImage</span><span class="o">:</span><span class="p">[</span><span class="n">UIImage</span> <span class="n">imageNamed</span><span class="o">:</span><span class="nb">nil</span><span class="p">]]];</span>
+
+  <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="n">addSubview</span><span class="o">:</span><span class="n">menu</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>You can also define your own object that adheres to the protocol <code>QuadCurveMenuItemFactory</code>.</p>
+
+<div class="highlight"><pre><span class="cp">#pragma mark - QuadCurveMenuItemFactory Adherence</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nf">createMenuItemWithDataObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">dataObject</span> <span class="p">{</span>
+
+    <span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveMenuItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithImage</span><span class="o">:</span><span class="n">image</span>
+                                                      <span class="nl">highlightedImage:</span><span class="n">highlightImage</span>
+                                                          <span class="nl">contentImage:</span><span class="n">contentImage</span>
+                                               <span class="nl">highlightedContentImage:</span><span class="n">highlightContentImage</span><span class="p">];</span>
+
+    <span class="p">[</span><span class="n">item</span> <span class="n">setDataObject</span><span class="o">:</span><span class="n">dataObject</span><span class="p">];</span>
+
+    <span class="k">return</span> <span class="n">item</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>Custom Menu Directions</h3>
+
+<p>By default QuadCurveMenu displays in a 360 degree radial menu.
+This can be customized by confuring an existing menu directory
+or defining a custom <code>QuadCurveMotionDirector</code></p>
+
+<blockquote>
+<p>This is a departure from the original source which defined a number of attributes on the
+menu which controlled the layout.</p>
+</blockquote>
+
+<h4>QuadCurveRadialDirector</h4>
+
+<p>You can define a a custom radial director with the options:</p>
+
+<ul>
+<li>
+<code>rotateAngle</code> - initial starting angle of the menu (default: 0 degrees)</li>
+<li><p><code>menuWholeAngle</code> - the total available angle that the menu items will be displayed (default: 360 degrees)</p></li>
+<li><p><code>endRadius</code> - the final distance from the main menu center (where the menu items will sit)</p></li>
+<li><p><code>nearRadius</code> - the closest distance from the main menu center that the menu items will travel</p></li>
+<li><p><code>farRadius</code> - the furthest distance from the main menu center that the menu items will travel</p></li>
+</ul><h4>QuadCurveLinearDirector</h4>
+
+<p>You can define a custom linear director with the options:</p>
+
+<ul>
+<li>
+<code>angle</code> - the angle at which to display the menu items</li>
+<li>
+<code>padding</code> - the space between each menu item</li>
+</ul><h4>Custom QuadCurveMotionDirector</h4>
+
+<p>If a radial or linear layout is not powerful enough, you can define
+a custom director that adheres to the <code>QuadCurveMotionDirector</code> interface:</p>
+
+<div class="highlight"><pre><span class="k">@protocol</span> <span class="nc">QuadCurveMotionDirector</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">positionMenuItem</span><span class="o">:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="n">item</span>
+                 <span class="nl">atIndex:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">index</span>
+                 <span class="nl">ofCount:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">count</span>
+                <span class="nl">fromMenu:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="n">mainMenuItem</span><span class="p">;</span>
+
+<span class="k">@end</span>
+</pre></div>
+
+<h3>Custom Animations</h3>
+
+<p>Several of the animations are customizable through properties. Viewing the
+example project you should see an <strong>Animations</strong> group which contains the
+default animations used in the application. You can customize them there or
+define your own and set them through properties on the <code>QuadCurveMenu</code>.</p>
+
+<p>Here is an example of swapping the default <em>selected</em> and <em>unselected</em>
+animations:</p>
+
+<div class="highlight"><pre><span class="n">menu</span><span class="p">.</span><span class="n">selectedAnimation</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveShrinkAnimation</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span>
+<span class="n">menu</span><span class="p">.</span><span class="n">unselectedanimation</span> <span class="o">=</span> <span class="p">[[</span><span class="n">QuadCurveBlowupAnimation</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span>
+</pre></div>
+
+<p>An animation is an object that adheres to the protocol <code>QuadCurveAnimation</code>.</p>
+
+<div class="highlight"><pre><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">animationName</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">@"blowup"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">CAAnimationGroup</span> <span class="o">*</span><span class="p">)</span><span class="nf">animationForItem:</span><span class="p">(</span><span class="n">QuadCurveMenuItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">item</span> <span class="p">{</span>
+
+    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="n">item</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+
+    <span class="n">CAKeyframeAnimation</span> <span class="o">*</span><span class="n">positionAnimation</span> <span class="o">=</span> <span class="p">[</span><span class="n">CAKeyframeAnimation</span> <span class="n">animationWithKeyPath</span><span class="o">:</span><span class="s">@"position"</span><span class="p">];</span>
+    <span class="n">positionAnimation</span><span class="p">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="n">arrayWithObjects</span><span class="o">:</span><span class="p">[</span><span class="n">NSValue</span> <span class="n">valueWithCGPoint</span><span class="o">:</span><span class="n">point</span><span class="p">],</span> <span class="nb">nil</span><span class="p">];</span>
+    <span class="n">positionAnimation</span><span class="p">.</span><span class="n">keyTimes</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="n">arrayWithObjects</span><span class="o">:</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="n">numberWithFloat</span><span class="o">:</span><span class="mf">.3</span><span class="p">],</span> <span class="nb">nil</span><span class="p">];</span>
+
+    <span class="n">CABasicAnimation</span> <span class="o">*</span><span class="n">scaleAnimation</span> <span class="o">=</span> <span class="p">[</span><span class="n">CABasicAnimation</span> <span class="n">animationWithKeyPath</span><span class="o">:</span><span class="s">@"transform"</span><span class="p">];</span>
+    <span class="n">scaleAnimation</span><span class="p">.</span><span class="n">toValue</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSValue</span> <span class="n">valueWithCATransform3D</span><span class="o">:</span><span class="n">CATransform3DMakeScale</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)];</span>
+
+    <span class="n">CABasicAnimation</span> <span class="o">*</span><span class="n">opacityAnimation</span> <span class="o">=</span> <span class="p">[</span><span class="n">CABasicAnimation</span> <span class="n">animationWithKeyPath</span><span class="o">:</span><span class="s">@"opacity"</span><span class="p">];</span>
+    <span class="n">opacityAnimation</span><span class="p">.</span><span class="n">toValue</span>  <span class="o">=</span> <span class="p">[</span><span class="n">NSNumber</span> <span class="n">numberWithFloat</span><span class="o">:</span><span class="mf">0.0f</span><span class="p">];</span>
+
+    <span class="n">CAAnimationGroup</span> <span class="o">*</span><span class="n">animationgroup</span> <span class="o">=</span> <span class="p">[</span><span class="n">CAAnimationGroup</span> <span class="n">animation</span><span class="p">];</span>
+    <span class="n">animationgroup</span><span class="p">.</span><span class="n">animations</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="n">arrayWithObjects</span><span class="o">:</span><span class="n">positionAnimation</span><span class="p">,</span> <span class="n">scaleAnimation</span><span class="p">,</span> <span class="n">opacityAnimation</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+    <span class="n">animationgroup</span><span class="p">.</span><span class="n">duration</span> <span class="o">=</span> <span class="mf">0.3f</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="n">animationgroup</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<p>The name is used as the name for the animation within the layer. The animation
+itself is called with the <code>QuadCurveMenuItem</code> and should return the animation
+group that will be performed.</p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/burtlo" class="avatar"><img src="https://secure.gravatar.com/avatar/b15a85b154553eac6dcdbcd9c522f44b?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/burtlo">burtlo</a> maintains <a href="https://github.com/burtlo/QuadCurveMenu">Quad Curve Menu</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/burtlo/QuadCurveMenu/tarball/master" class="tar">tar</a><a href="https://github.com/burtlo/QuadCurveMenu/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
