@@ -240,6 +240,13 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 #pragma mark - UIView Gestures
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    if ([self isExpanding] || CGRectContainsPoint(self.mainMenuButton.frame, point)) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)singleTapInMenuView:(UITapGestureRecognizer *)tapGesture {
     [self closeMenu];
 }
