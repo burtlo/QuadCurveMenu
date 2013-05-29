@@ -304,7 +304,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     _expanding = NO;
     
-    [self animteExpandMainMenu:[self isExpanding]];
+    [self animateExpandMainMenu:[self isExpanding]];
     
 }
 
@@ -346,7 +346,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }
 }
 
-- (void)animteExpandMainMenu:(BOOL)expandAnimation {
+- (void)animateExpandMainMenu:(BOOL)expandAnimation {
     
     id<QuadCurveAnimation> animation;
     
@@ -379,7 +379,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (void)setExpanding:(BOOL)expanding {
     _expanding = expanding;
     
-    [self animteExpandMainMenu:[self isExpanding]];
+    [self animateExpandMainMenu:[self isExpanding]];
     
 	if ([self isExpanding]) {
         [self performExpandMenu];
