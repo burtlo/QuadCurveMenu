@@ -32,6 +32,7 @@
 		E256A451152AB8C4002A98C0 /* QuadCurveTiltAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E256A450152AB8C4002A98C0 /* QuadCurveTiltAnimation.m */; };
 		E26CB6BB1691472A0004A5DE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E26CB6BA1691472A0004A5DE /* Default-568h@2x.png */; };
 		E28E900015239AF7008C936B /* AwesomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E28E8FFF15239AF7008C936B /* AwesomeViewController.m */; };
+		E297391517559AE600CD4C18 /* QuadCurveNoAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E297391417559AE500CD4C18 /* QuadCurveNoAnimation.m */; };
 		E2A899B81522A415004D5561 /* QuadCurveBlowupAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899B31522A415004D5561 /* QuadCurveBlowupAnimation.m */; };
 		E2A899B91522A415004D5561 /* QuadCurveItemCloseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899B51522A415004D5561 /* QuadCurveItemCloseAnimation.m */; };
 		E2A899BA1522A415004D5561 /* QuadCurveItemExpandAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899B71522A415004D5561 /* QuadCurveItemExpandAnimation.m */; };
@@ -79,6 +80,8 @@
 		E26CB6BA1691472A0004A5DE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		E28E8FFE15239AF7008C936B /* AwesomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeViewController.h; sourceTree = "<group>"; };
 		E28E8FFF15239AF7008C936B /* AwesomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwesomeViewController.m; sourceTree = "<group>"; };
+		E297391317559AE500CD4C18 /* QuadCurveNoAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveNoAnimation.h; sourceTree = "<group>"; };
+		E297391417559AE500CD4C18 /* QuadCurveNoAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveNoAnimation.m; sourceTree = "<group>"; };
 		E2A899B11522A415004D5561 /* QuadCurveAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveAnimation.h; sourceTree = "<group>"; };
 		E2A899B21522A415004D5561 /* QuadCurveBlowupAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveBlowupAnimation.h; sourceTree = "<group>"; };
 		E2A899B31522A415004D5561 /* QuadCurveBlowupAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveBlowupAnimation.m; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 				E2A899B71522A415004D5561 /* QuadCurveItemExpandAnimation.m */,
 				E256A44F152AB8C4002A98C0 /* QuadCurveTiltAnimation.h */,
 				E256A450152AB8C4002A98C0 /* QuadCurveTiltAnimation.m */,
+				E297391317559AE500CD4C18 /* QuadCurveNoAnimation.h */,
+				E297391417559AE500CD4C18 /* QuadCurveNoAnimation.m */,
 			);
 			name = Animations;
 			sourceTree = "<group>";
@@ -297,7 +302,7 @@
 		5C3FF3561486564E0098EE93 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 5C3FF3591486564E0098EE93 /* Build configuration list for PBXProject "AwesomeMenu" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -358,6 +363,7 @@
 				E2373E9B15269D5A00EE06ED /* QuadCurveRadialDirector.m in Sources */,
 				E2373EA81526B3FD00EE06ED /* QuadCurveLinearDirector.m in Sources */,
 				E256A451152AB8C4002A98C0 /* QuadCurveTiltAnimation.m in Sources */,
+				E297391517559AE600CD4C18 /* QuadCurveNoAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +386,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -393,6 +403,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -404,12 +415,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";

@@ -57,7 +57,11 @@
 #pragma mark - Expansion / Closing
 
 @property (nonatomic, getter = isExpanding) BOOL expanding;
+
 - (void)expandMenu;
+- (void)expandMenuAnimated:(BOOL)animated;
+
 - (void)closeMenu;
+- (void)closeMenuAnimated:(BOOL)animated;
 
 @end
