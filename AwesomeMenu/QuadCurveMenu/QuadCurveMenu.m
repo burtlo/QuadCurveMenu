@@ -46,10 +46,16 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (void)addMenuItem:(QuadCurveMenuItem *)item toViewAtPosition:(NSRange)position;
 - (void)addMenuItemsToViewAndPerform:(void (^)(QuadCurveMenuItem *item))block;
 
+- (void)performExpandMainMenuAnimated:(BOOL)animated;
+- (void)performCloseMainMenuAnimated:(BOOL)animated;
+
+- (void)performExpandMenuAnimated:(BOOL)animated;
 - (void)animateMenuItemToEndPoint:(QuadCurveMenuItem *)item;
+- (void)notifyDelegateMenuDidExpand:(QuadCurveMenu *)menu;
+
+- (void)performCloseMenuAnimated:(BOOL)animated;
 - (void)animateItemToStartPoint:(QuadCurveMenuItem *)item;
-- (void)performExpandMenuWithAnimation:(id<QuadCurveAnimation>)animation;
-- (void)performCloseMenuWithAnimation:(id<QuadCurveAnimation>)animation;
+- (void)notifyDelegateMenuDidClose:(QuadCurveMenu *)menu;
 
 - (void)menuItemTapped:(QuadCurveMenuItem *)item;
 - (void)mainMenuItemTapped;
@@ -118,7 +124,6 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         self.noAnimation = [[QuadCurveNoAnimation alloc] init];
         
         self.dataSource = dataSource;
-        
         
         UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapInMenuView:)];
         [self addGestureRecognizer:singleTapGesture];
@@ -313,7 +318,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     _expanding = NO;
     
-    [self animateExpandMainMenuWithAnimation:self.mainMenuCloseAnimation];
+    [self performCloseMainMenuAnimated:YES];
 }
 
 #pragma mark Long Press Event
@@ -354,10 +359,28 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }
 }
 
-- (void)animateExpandMainMenuWithAnimation:(id<QuadCurveAnimation>)animation {
+
+- (void)performCloseMainMenuAnimated:(BOOL)animated {
+
+    id<QuadCurveAnimation> animation = self.noAnimation;
+    if (animated) { animation = self.mainMenuCloseAnimation; }
     
-    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton] 
+    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton]
                                 forKey:animation.animationName];
+
+}
+
+- (void)performExpandMainMenuAnimated:(BOOL)animated {
+
+    id<QuadCurveAnimation> animation = self.noAnimation;
+    if (animated) { animation = self.mainMenuExpandAnimation; }
+
+    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton]
+                                forKey:animation.animationName];
+    
+}
+
+- (void)animateExpandMainMenuAnimated:(BOOL)animated {
     
 }
 
@@ -379,36 +402,13 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 - (void)setExpanding:(BOOL)expanding animated:(BOOL)animated {
     _expanding = expanding;
 
+    if ([self isExpanding]) {
+        [self performExpandMainMenuAnimated:animated];
+        [self performExpandMenuAnimated:animated];
     
-    id<QuadCurveAnimation> mainMenuAnimation = self.noAnimation;
-    
-    if (animated) {
-        if ([self isExpanding]) {
-            mainMenuAnimation = self.mainMenuExpandAnimation;
-        } else {
-            mainMenuAnimation = self.mainMenuCloseAnimation;
-        }
-    }
-    
-    [self animateExpandMainMenuWithAnimation:mainMenuAnimation];
-    
-    id<QuadCurveAnimation> animation = self.noAnimation;
-    
-	if ([self isExpanding]) {
-        
-        if (animated) {
-            animation = self.expandItemAnimation;
-        }
-
-        [self performExpandMenuWithAnimation:animation];
-        
-	} else {
-        
-        if (animated) {
-            animation = self.closeItemAnimation;
-        }
-
-        [self performCloseMenuWithAnimation:animation];
+    } else {
+        [self performCloseMainMenuAnimated:animated];
+        [self performCloseMenuAnimated:animated];
     }
 }
 
@@ -448,7 +448,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }
 }
 
-- (void)performExpandMenuWithAnimation:(id<QuadCurveAnimation>)animation {
+- (void)performExpandMenuAnimated:(BOOL)animated {
     
     if (delegateHasWillExpand) {
         [[self delegate] quadCurveMenuWillExpand:self];
@@ -459,6 +459,9 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }];
     
     NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
+
+    id<QuadCurveAnimation> animation = self.noAnimation;
+    if (animated) { animation = self.expandItemAnimation; }
     
     for (int x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
@@ -488,13 +491,16 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     }
 }
 
-- (void)performCloseMenuWithAnimation:(id<QuadCurveAnimation>)animation {
+- (void)performCloseMenuAnimated:(BOOL)animated {
     
     if (delegateHasWillClose) {
         [[self delegate] quadCurveMenuWillClose:self];
     }
     
     NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
+    
+    id<QuadCurveAnimation> animation = self.noAnimation;
+    if (animated) { animation = self.closeItemAnimation; }
     
     for (int x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
