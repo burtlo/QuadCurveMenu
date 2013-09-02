@@ -39,6 +39,9 @@
 		E2A899BD1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899BC1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m */; };
 		E2A899C01522EAD7004D5561 /* QuadCurveShrinkAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899BF1522EAD7004D5561 /* QuadCurveShrinkAnimation.m */; };
 		E2A899C31523840B004D5561 /* AwesomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A899C21523840B004D5561 /* AwesomeDataSource.m */; };
+		E2B6044C17D5090400E5DFD9 /* edmundo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044917D5090400E5DFD9 /* edmundo.jpeg */; };
+		E2B6044D17D5090400E5DFD9 /* hector.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044A17D5090400E5DFD9 /* hector.jpeg */; };
+		E2B6044E17D5090400E5DFD9 /* paul.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044B17D5090400E5DFD9 /* paul.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +102,9 @@
 		E2B23F9C152A81D600379248 /* QuadCurveMenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItemFactory.h; sourceTree = "<group>"; };
 		E2B23FA2152A842600379248 /* QuadCurveMenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuDelegate.h; sourceTree = "<group>"; };
 		E2B23FA3152A854A00379248 /* QuadCurveMenuItemEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveMenuItemEventDelegate.h; sourceTree = "<group>"; };
+		E2B6044917D5090400E5DFD9 /* edmundo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = edmundo.jpeg; path = Images/edmundo.jpeg; sourceTree = "<group>"; };
+		E2B6044A17D5090400E5DFD9 /* hector.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hector.jpeg; path = Images/hector.jpeg; sourceTree = "<group>"; };
+		E2B6044B17D5090400E5DFD9 /* paul.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = paul.jpeg; path = Images/paul.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +238,9 @@
 				E25678DD15244A7D000E2D32 /* facebook@2x.png */,
 				E25678DE15244A7D000E2D32 /* unknown-user.png */,
 				E25678DF15244A7D000E2D32 /* unknown-user@2x.png */,
+				E2B6044917D5090400E5DFD9 /* edmundo.jpeg */,
+				E2B6044A17D5090400E5DFD9 /* hector.jpeg */,
+				E2B6044B17D5090400E5DFD9 /* paul.jpeg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -337,6 +346,9 @@
 				E25678E315244A7D000E2D32 /* unknown-user@2x.png in Resources */,
 				E25678E815244E0E000E2D32 /* classy_fabric.png in Resources */,
 				E26CB6BB1691472A0004A5DE /* Default-568h@2x.png in Resources */,
+				E2B6044C17D5090400E5DFD9 /* edmundo.jpeg in Resources */,
+				E2B6044D17D5090400E5DFD9 /* hector.jpeg in Resources */,
+				E2B6044E17D5090400E5DFD9 /* paul.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
