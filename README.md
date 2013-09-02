@@ -1,9 +1,11 @@
 QuadCurveMenu is a menu with the same look as [the Path app's menu](https://path.com/)'s story menu.
 
 ![expand](https://dl.dropbox.com/u/1235674/quadcurve-expand.gif)
+![expand-linear](https://dl.dropbox.com/u/1235674/quadcurve-linear.gif)
+
 ![custom-expand](https://dl.dropbox.com/u/1235674/quadcurve-custom-expand.gif)
 ![custom-selection](https://dl.dropbox.com/u/1235674/quadcurve-custom-selection.gif)
-![expand-linear](https://dl.dropbox.com/u/1235674/quadcurve-linear.gif)
+![custom-images](https://dl.dropboxusercontent.com/u/1235674/quadcurve-custom-images.gif)
 
 This is a fork of [levey's AwesomeMenu](https://github.com/levey/AwesomeMenu). I proposed a pull request and this was not what the original author had intended to create. This fork has some notable differences that I outline in the [pull request](https://github.com/levey/AwesomeMenu/pull/15):
 
