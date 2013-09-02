@@ -11,6 +11,8 @@
 
 #import "QuadCurveDefaultDataSource.h"
 #import "QuadCurveDefaultMenuItemFactory.h"
+#import "QuadCurveCustomImageMenuItemFactory.h"
+
 #import "QuadCurveRadialDirector.h"
 
 #import "QuadCurveBlowupAnimation.h"
@@ -155,6 +157,15 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
                     dataSource:dataSource 
                mainMenuFactory:[QuadCurveDefaultMenuItemFactory defaultMainMenuItemFactory]
                menuItemFactory:[QuadCurveDefaultMenuItemFactory defaultMenuItemFactory]];    
+}
+
+- (id)initWithFrame:(CGRect)frame mainMenuImage:(NSString *)mainMenuItemImage menuItemImageArray:(NSArray *)array {
+    
+    return [self initWithFrame:frame
+                   centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2)
+                    dataSource:[[QuadCurveDefaultDataSource alloc] initWithArray:array]
+               mainMenuFactory:[[QuadCurveDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:mainMenuItemImage] highlightImage:nil]
+               menuItemFactory:[[QuadCurveCustomImageMenuItemFactory alloc] init]];
 }
 
 - (id)initWithFrame:(CGRect)frame withArray:(NSArray *)array {

@@ -41,6 +41,8 @@
 
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QuadCurveDataSourceDelegate>)dataSource;
 
+- (id)initWithFrame:(CGRect)frame mainMenuImage:(NSString *)mainMenuItemImage menuItemImageArray:(NSArray *)array;
+
 - (id)initWithFrame:(CGRect)frame
         centerPoint:(CGPoint)centerPoint
          dataSource:(id<QuadCurveDataSourceDelegate>)dataSource 

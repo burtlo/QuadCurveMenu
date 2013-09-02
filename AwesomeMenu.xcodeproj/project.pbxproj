@@ -42,6 +42,7 @@
 		E2B6044C17D5090400E5DFD9 /* edmundo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044917D5090400E5DFD9 /* edmundo.jpeg */; };
 		E2B6044D17D5090400E5DFD9 /* hector.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044A17D5090400E5DFD9 /* hector.jpeg */; };
 		E2B6044E17D5090400E5DFD9 /* paul.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E2B6044B17D5090400E5DFD9 /* paul.jpeg */; };
+		E2B6045117D50D7D00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B6045017D50D7D00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,8 @@
 		E2B6044917D5090400E5DFD9 /* edmundo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = edmundo.jpeg; path = Images/edmundo.jpeg; sourceTree = "<group>"; };
 		E2B6044A17D5090400E5DFD9 /* hector.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = hector.jpeg; path = Images/hector.jpeg; sourceTree = "<group>"; };
 		E2B6044B17D5090400E5DFD9 /* paul.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = paul.jpeg; path = Images/paul.jpeg; sourceTree = "<group>"; };
+		E2B6044F17D50D7C00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadCurveCustomImageMenuItemFactory.h; sourceTree = "<group>"; };
+		E2B6045017D50D7D00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadCurveCustomImageMenuItemFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +284,8 @@
 				E2B23F9C152A81D600379248 /* QuadCurveMenuItemFactory.h */,
 				E2A899BB1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.h */,
 				E2A899BC1522A62B004D5561 /* QuadCurveDefaultMenuItemFactory.m */,
+				E2B6044F17D50D7C00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.h */,
+				E2B6045017D50D7D00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.m */,
 			);
 			name = "MenuItem Factories";
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				E2373EA81526B3FD00EE06ED /* QuadCurveLinearDirector.m in Sources */,
 				E256A451152AB8C4002A98C0 /* QuadCurveTiltAnimation.m in Sources */,
 				E297391517559AE600CD4C18 /* QuadCurveNoAnimation.m in Sources */,
+				E2B6045117D50D7D00E5DFD9 /* QuadCurveCustomImageMenuItemFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

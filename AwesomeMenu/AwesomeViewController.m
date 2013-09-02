@@ -32,14 +32,35 @@
     QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds withArray:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]];
     
     //
+    // BUILDING A MENU WITH CUSTOM IMAGES
+    //
+    // Sometimes custom getting a menu up and running with different images is what you want. An initialization
+    // for that exist to allow you to quickly create a menu with custom images. This is really using
+    // just a shortcut way to compose a menu together so you don't have to understand or use the
+    // menu item factories which tend to be the most confusing part of the library.
+    //
+    // NOTE: Creation this way is not as flexible as the data source for the menu items becomes the list of images. So all those events
+    // when the menu item are pressed will report back to you the image. A more advanced way would be to define your own MenuItem Factory
+    // which inspects the data source item for a property or value which would contain the image information.
+    //
+    
+//    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds mainMenuImage:@"facebook.png" menuItemImageArray:[NSArray arrayWithObjects:@"edmundo.jpeg",@"hector.jpeg",@"paul.jpeg", nil]];
+    
+    
+    //
     // BUILDING A MENU WITH A DATA SOURCE
+    //
     // The data source is really overkill if you have a simple list of items. The ideal use for the data source is if
     // you want to load the data from some external resource like from a database or from an api.
+    //
+    // The example data source here is really just an array but in a real life situation you would pull the data from
+    // the source.
+    //
     
 //    AwesomeDataSource *dataSource = [[AwesomeDataSource alloc] init];
 //    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds dataSource:dataSource];
     
-    
+        
     //
     // LINEAR MENU
     //
