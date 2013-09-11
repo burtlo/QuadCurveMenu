@@ -11,6 +11,26 @@
 #import "QuadCurveDefaultMenuItemFactory.h"
 #import "QuadCurveLinearDirector.h"
 
+@interface AwesomeMenuFactory : NSObject <QuadCurveMenuItemFactory>
+@end
+
+@implementation AwesomeMenuFactory
+
+- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject
+{
+    NSString *imageName = (NSString *)dataObject;
+    UIImage *image = [UIImage imageNamed:imageName];
+    UIImageView *imageItem = [[UIImageView alloc] initWithImage:image];
+    imageItem.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithView:imageItem];
+    [item setDataObject:dataObject];
+    
+    return item;
+}
+
+@end
+
+
 @interface AwesomeViewController ()
 
 @end
@@ -45,6 +65,9 @@
     //
     
 //    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds mainMenuImage:@"facebook.png" menuItemImageArray:[NSArray arrayWithObjects:@"edmundo.jpeg",@"hector.jpeg",@"paul.jpeg", nil]];
+
+    // Remove medallion effect from subitems
+//    [menu setMenuItemFactory:[AwesomeMenuFactory new]];
     
     
     //
