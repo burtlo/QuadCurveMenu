@@ -49,8 +49,13 @@
 
 - (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {
     
-    QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithImage:image 
-                                                      highlightedImage:highlightImage];
+    AGMedallionView *medallionItem = [AGMedallionView new];
+    medallionItem = [[AGMedallionView alloc] init];
+    [medallionItem setImage:image];
+    [medallionItem setHighlightedImage:highlightImage];
+    medallionItem.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithView:medallionItem];
     
     [item setDataObject:dataObject];
     

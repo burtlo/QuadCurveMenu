@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) id<QuadCurveMenuItemEventDelegate> delegate;
 
-- (id)initWithImage:(UIImage *)image 
-   highlightedImage:(UIImage *)highlightedImage;
+- (id)initWithView:(UIView *)view;
 
 @end
