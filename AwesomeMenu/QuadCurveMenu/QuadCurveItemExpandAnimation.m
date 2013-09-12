@@ -37,6 +37,8 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
 
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
     
+    item.hidden = NO;
+    
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:M_PI],[NSNumber numberWithFloat:0.0f], nil];
     rotateAnimation.duration = self.duration;

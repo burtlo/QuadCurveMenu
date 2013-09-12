@@ -36,7 +36,6 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     BOOL delegateHasDidClose;
     BOOL delegateHasDidTapMenuItem;
     BOOL delegateHasDidLongPressMenuItem;
-
 }
 
 @property (nonatomic,strong) QuadCurveMenuItem *mainMenuButton;

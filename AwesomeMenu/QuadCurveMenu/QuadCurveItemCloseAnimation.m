@@ -58,6 +58,8 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
     animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
     animationgroup.duration = self.duration;
     animationgroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    
+    [item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
 
     return animationgroup;
 }

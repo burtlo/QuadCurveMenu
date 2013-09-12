@@ -52,8 +52,10 @@ static float const kQuadCurveDefaultBlowUpScale = 3.0f;
     animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
     animationgroup.duration = self.duration;
     animationgroup.fillMode = kCAFillModeForwards;
-    return animationgroup;
 
+    [item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
+
+    return animationgroup;
 }
 
 @end
