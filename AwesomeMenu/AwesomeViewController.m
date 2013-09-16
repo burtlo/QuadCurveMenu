@@ -49,7 +49,7 @@
     // this initialization. This is ideal if you have a simple set of data and no real need of using a DataSource.
     //
     
-//    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds withArray:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]];
+    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds withArray:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]];
     
     //
     // BUILDING A MENU WITH CUSTOM IMAGES
@@ -64,10 +64,10 @@
     // which inspects the data source item for a property or value which would contain the image information.
     //
     
-    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds mainMenuImage:@"facebook.png" menuItemImageArray:[NSArray arrayWithObjects:@"edmundo.jpeg",@"hector.jpeg",@"paul.jpeg", nil]];
+//    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds mainMenuImage:@"facebook.png" menuItemImageArray:[NSArray arrayWithObjects:@"edmundo.jpeg",@"hector.jpeg",@"paul.jpeg", nil]];
 
     // Remove medallion effect from subitems
-    [menu setMenuItemFactory:[AwesomeMenuFactory new]];
+//    [menu setMenuItemFactory:[AwesomeMenuFactory new]];
     
     
     //
