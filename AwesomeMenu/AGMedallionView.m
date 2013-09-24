@@ -3,20 +3,10 @@
 //  AGMedallionView
 //
 //  Created by Artur Grigor on 1/23/12.
-//  Copyright (c) 2012 Artur Grigor. All rights reserved.
-//  
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation, either version 3 of the License, or
-//  (at your option) any later version.
-//  
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-//  
-//  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//  Copyright (c) 2012 - 2013 Artur Grigor. All rights reserved.
+//
+//  For the full copyright and license information, please view the LICENSE
+//  file that was distributed with this source code.
 //
 
 #import "AGMedallionView.h"
@@ -35,60 +25,67 @@
 
 #pragma mark - Properties
 
-@synthesize image, highlightedImage;
-@synthesize highlighted;
-@synthesize borderColor, borderWidth, shadowColor, shadowOffset, shadowBlur;
+@synthesize
+    image = _image,
+    highlightedImage = _highlightedImage,
+    borderColor = _borderColor,
+    borderWidth = _borderWidth,
+    shadowColor = _shadowColor,
+    shadowOffset = _shadowOffset,
+    shadowBlur = _shadowBlur;
 
-@synthesize progressColor;
-@synthesize progress;
+@synthesize highlighted = _highlighted;
+
+@synthesize progressColor = _progressColor;
+@synthesize progress = _progress;
 
 #pragma mark - Property Setters
 
 - (void)setImage:(UIImage *)aImage {
     
-    if (image != aImage) {
-        image = aImage;
+    if (_image != aImage) {
+        _image = aImage;
         
         [self setNeedsDisplay];
     }
 }
 
 - (void)setBorderColor:(UIColor *)aBorderColor {
-    if (borderColor != aBorderColor) {
-        borderColor = aBorderColor;
+    if (_borderColor != aBorderColor) {
+        _borderColor = aBorderColor;
         
         [self setNeedsDisplay];
     }
 }
 
 - (void)setBorderWidth:(CGFloat)aBorderWidth {
-    if (borderWidth != aBorderWidth) {
-        borderWidth = aBorderWidth;
+    if (_borderWidth != aBorderWidth) {
+        _borderWidth = aBorderWidth;
         
         [self setNeedsDisplay];
     }
 }
 
 - (void)setShadowColor:(UIColor *)aShadowColor {
-    if (shadowColor != aShadowColor) {
-        shadowColor = aShadowColor;
+    if (_shadowColor != aShadowColor) {
+        _shadowColor = aShadowColor;
         
         [self setNeedsDisplay];
     }
 }
 
 - (void)setShadowOffset:(CGSize)aShadowOffset {
-    if (!CGSizeEqualToSize(shadowOffset, aShadowOffset)) {
-        shadowOffset.width = aShadowOffset.width;
-        shadowOffset.height = aShadowOffset.height;
+    if (!CGSizeEqualToSize(self.shadowOffset, aShadowOffset)) {
+        _shadowOffset.width = aShadowOffset.width;
+        _shadowOffset.height = aShadowOffset.height;
         
         [self setNeedsDisplay];
     }
 }
 
 - (void)setShadowBlur:(CGFloat)aShadowBlur {
-    if (shadowBlur != aShadowBlur) {
-        shadowBlur = aShadowBlur;
+    if (_shadowBlur != aShadowBlur) {
+        _shadowBlur = aShadowBlur;
         
         [self setNeedsDisplay];
     }
@@ -96,8 +93,8 @@
 
 - (void)setProgress:(CGFloat)aProgress {
     
-    if (progress != aProgress) {
-        progress = aProgress;
+    if (_progress != aProgress) {
+        _progress = aProgress;
         
         [self setNeedsDisplay];
     }
@@ -124,9 +121,7 @@
 }
 
 - (id)init {
-    self = [self initWithFrame:CGRectMake(0, 0, 128.f, 128.f)];
-    return self;
-    
+    return [self initWithFrame:CGRectMake(0, 0, 128.f, 128.f)];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
