@@ -34,13 +34,13 @@
 
 + (id)defaultMenuItemFactory {
     
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.png" ]
+    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
                                            highlightImage:nil];
 }
 
 + (id)defaultMainMenuItemFactory {
     
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.png"]
+    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.jpeg"]
                             highlightImage:nil];
 
 }
