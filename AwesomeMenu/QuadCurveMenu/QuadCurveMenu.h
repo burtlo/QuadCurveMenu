@@ -32,7 +32,7 @@
 @property (nonatomic, strong) id<QuadCurveAnimation> mainMenuExpandAnimation;
 @property (nonatomic, strong) id<QuadCurveAnimation> mainMenuCloseAnimation;
 
-@property (nonatomic, strong) id<QuadCurveMenuDelegate> delegate;
+@property (nonatomic, weak) id<QuadCurveMenuDelegate> delegate;
 @property (nonatomic, strong) id<QuadCurveDataSourceDelegate> dataSource;
 
 #pragma mark - Initialization
