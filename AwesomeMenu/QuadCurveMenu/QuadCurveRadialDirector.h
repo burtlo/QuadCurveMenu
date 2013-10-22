@@ -16,6 +16,7 @@
 @property (nonatomic, assign) CGFloat farRadius;
 @property (nonatomic, assign) CGFloat rotateAngle;
 @property (nonatomic, assign) CGFloat menuWholeAngle;
+@property (nonatomic, assign) BOOL spreadsToEntireWholeAngle;
 
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle;
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;

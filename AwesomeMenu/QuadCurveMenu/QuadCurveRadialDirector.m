@@ -30,6 +30,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 @synthesize farRadius = farRadius_;
 @synthesize rotateAngle = rotateAngle_;
 @synthesize menuWholeAngle = menuWholeAngle_;
+@synthesize spreadsToEntireWholeAngle = spreadsToEntireWholeAngle_;
 
 #pragma mark - Initialization
 
@@ -44,6 +45,8 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
         
         self.rotateAngle = rotateAngle;
         self.menuWholeAngle = menuWholeAngle;
+        
+        self.spreadsToEntireWholeAngle = NO;
 
     }
     return self;
@@ -66,7 +69,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     CGPoint startPoint = mainMenuItem.center;
     item.startPoint = startPoint;
     
-    float itemAngle = index * self.menuWholeAngle / count;
+    float itemAngle = index * self.menuWholeAngle / (self.spreadsToEntireWholeAngle ? count - 1 : count);
     float xCoefficient = sinf(itemAngle);
     float yCoefficient = cosf(itemAngle);
     
