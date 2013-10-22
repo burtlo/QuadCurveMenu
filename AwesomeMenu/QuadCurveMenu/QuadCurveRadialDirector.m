@@ -30,7 +30,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 @synthesize farRadius = farRadius_;
 @synthesize rotateAngle = rotateAngle_;
 @synthesize menuWholeAngle = menuWholeAngle_;
-@synthesize spreadsToEntireWholeAngle = spreadsToEntireWholeAngle_;
+@synthesize useWholeAngle = useWholeAngle_;
 
 #pragma mark - Initialization
 
@@ -46,7 +46,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
         self.rotateAngle = rotateAngle;
         self.menuWholeAngle = menuWholeAngle;
         
-        self.spreadsToEntireWholeAngle = NO;
+        self.useWholeAngle = [self determineIfItIsBestToUseWholeAngle];
 
     }
     return self;
@@ -62,6 +62,28 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
                      andInitialRotation:kQuadCurveMenuDefaultRotateAngle];
 }
 
+#pragma mark - Helper
+
+//
+// When the angle is 360 degrees, M_PI * 2, we do not want to use the entire 360 degrees
+// becaues the last element will overlap with the first element. However, when we are
+// less than 360 degrees we probably want to use the entire angle (e.g. 180) as there is
+// no overlap.
+//
+// This can be overriden by setting the propery useWholeAngle
+//
+- (BOOL)determineIfItIsBestToUseWholeAngle {
+    if (self.menuWholeAngle == [self threeHundredSixyDegrees]) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+- (float)threeHundredSixyDegrees {
+    return M_PI * 2;
+}
+
 #pragma mark - QuadCurveMotionDirector Adherence
 
 - (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem {
@@ -69,7 +91,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     CGPoint startPoint = mainMenuItem.center;
     item.startPoint = startPoint;
     
-    float itemAngle = index * self.menuWholeAngle / (self.spreadsToEntireWholeAngle ? count - 1 : count);
+    float itemAngle = index * self.menuWholeAngle / (self.useWholeAngle ? count - 1 : count);
     float xCoefficient = sinf(itemAngle);
     float yCoefficient = cosf(itemAngle);
     
