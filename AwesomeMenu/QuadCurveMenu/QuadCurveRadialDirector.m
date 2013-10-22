@@ -73,14 +73,14 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 // This can be overriden by setting the propery useWholeAngle
 //
 - (BOOL)determineIfItIsBestToUseWholeAngle {
-    if (self.menuWholeAngle == [self threeHundredSixyDegrees]) {
+    if (self.menuWholeAngle == [self threeHundredSixtyDegrees]) {
         return NO;
     } else {
         return YES;
     }
 }
 
-- (float)threeHundredSixyDegrees {
+- (float)threeHundredSixtyDegrees {
     return M_PI * 2;
 }
 
