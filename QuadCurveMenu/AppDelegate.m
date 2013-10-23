@@ -11,18 +11,15 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    MenuViewController *viewController = [[MenuViewController alloc] init];
-    
-    self.window.rootViewController = viewController;
+    self.window.rootViewController = [[MenuViewController alloc] init];
     [self.window makeKeyAndVisible];
+	
     return YES;
 }
-
 
 @end

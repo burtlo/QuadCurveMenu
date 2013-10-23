@@ -8,30 +8,9 @@
 
 #import "MenuViewController.h"
 #import "MenuDataSource.h"
+#import "MenuItemFactory.h"
 #import "QCMDefaultMenuItemFactory.h"
 #import "QCMLinearDirector.h"
-
-@interface QuadCurveMenuFactory : NSObject <QCMMenuItemFactory>
-@end
-
-@implementation QuadCurveMenuFactory
-
-- (QCMMenuItem *)createMenuItemWithDataObject:(id)dataObject {
-    NSString *imageName = (NSString *)dataObject;
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIImageView *imageItem = [[UIImageView alloc] initWithImage:image];
-    imageItem.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    QCMMenuItem *item = [[QCMMenuItem alloc] initWithView:imageItem];
-    item.dataObject = dataObject;
-    return item;
-}
-
-@end
-
-
-@interface MenuViewController ()
-
-@end
 
 @implementation MenuViewController
 
@@ -47,7 +26,7 @@
     // this initialization. This is ideal if you have a simple set of data and no real need of using a DataSource.
     //
     
-    QCMMenu *menu = [[QCMMenu alloc] initWithFrame:self.view.bounds withArray:@[@"1",@"2",@"3"]];
+    QCMMenu *menu = [[QCMMenu alloc] initWithFrame:self.view.bounds withArray:@[@"1", @"2", @"3"]];
     
     //
     // BUILDING A MENU WITH CUSTOM IMAGES
@@ -65,7 +44,7 @@
 //    QCMMenu *menu = [[QCMMenu alloc] initWithFrame:self.view.bounds mainMenuImage:@"facebook.png" menuItemImageArray:[NSArray arrayWithObjects:@"edmundo.jpeg",@"hector.jpeg",@"paul.jpeg", nil]];
 
     // Remove medallion effect from subitems
-//    menu.menuItemFactory = [[QuadCurveMenuFactory alloc] init];
+//    menu.menuItemFactory = [[MenuItemFactory alloc] init];
     
     
     //

@@ -8,19 +8,18 @@
 
 #import "MenuDataSource.h"
 
-@interface MenuDataSource () {
-    NSMutableArray *dataItems;
-}
+@interface MenuDataSource ()
+
+@property (readwrite, strong, nonatomic) NSArray *dataItems;
 
 @end
-
 
 @implementation MenuDataSource
 
 - (id)init {
     self = [super init];
     if (self) {
-        dataItems = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6", nil];
+        self.dataItems = @[@"1", @"2", @"3", @"4", @"5", @"6"];
     }
     return self;
 }
@@ -28,11 +27,11 @@
 #pragma mark - QCMDataSourceDelegate Adherence
 
 - (NSUInteger)numberOfMenuItems {
-    return [dataItems count];
+    return self.dataItems.count;
 }
 
 - (id)dataObjectAtIndex:(NSUInteger)itemIndex {
-    return dataItems[itemIndex];
+    return self.dataItems[itemIndex];
 }
 
 @end

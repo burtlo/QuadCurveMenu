@@ -1,5 +1,5 @@
 //
-//  MenuDataSource.h
+//  MenuItemFactory.h
 //  QuadCurveMenu
 //
 //  Created by Franklin Webber on 3/28/12.
@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QCMMenu.h"
+#import "QCMMenuItemFactory.h"
 
-@interface MenuDataSource : NSObject <QCMDataSourceDelegate>
+@interface MenuItemFactory : NSObject <QCMMenuItemFactory>
 
 @end

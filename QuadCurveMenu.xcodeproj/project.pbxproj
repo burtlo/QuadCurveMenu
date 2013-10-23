@@ -20,6 +20,7 @@
 		5C3FF3701486564E0098EE93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3FF36F1486564E0098EE93 /* main.m */; };
 		5C3FF3741486564E0098EE93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3FF3731486564E0098EE93 /* AppDelegate.m */; };
 		5C93DC61148673F2003029CA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C93DC60148673F2003029CA /* QuartzCore.framework */; };
+		C2B0E02B1817FCDF00DC34E8 /* MenuItemFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B0E02A1817FCDF00DC34E8 /* MenuItemFactory.m */; };
 		E21A256C152412870055DDD7 /* QCMDefaultDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E21A256B152412870055DDD7 /* QCMDefaultDataSource.m */; };
 		E2373E9B15269D5A00EE06ED /* QCMRadialDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2373E9A15269D5A00EE06ED /* QCMRadialDirector.m */; };
 		E2373EA81526B3FD00EE06ED /* QCMLinearDirector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2373EA71526B3FD00EE06ED /* QCMLinearDirector.m */; };
@@ -65,6 +66,8 @@
 		5C3FF3721486564E0098EE93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5C3FF3731486564E0098EE93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5C93DC60148673F2003029CA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C2B0E0291817FCDF00DC34E8 /* MenuItemFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemFactory.h; sourceTree = "<group>"; };
+		C2B0E02A1817FCDF00DC34E8 /* MenuItemFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItemFactory.m; sourceTree = "<group>"; };
 		E21A256A152412870055DDD7 /* QCMDefaultDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMDefaultDataSource.h; sourceTree = "<group>"; };
 		E21A256B152412870055DDD7 /* QCMDefaultDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCMDefaultDataSource.m; sourceTree = "<group>"; };
 		E2373E9915269D5A00EE06ED /* QCMRadialDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCMRadialDirector.h; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				5C3FF3731486564E0098EE93 /* AppDelegate.m */,
 				E2A899C11523840B004D5561 /* MenuDataSource.h */,
 				E2A899C21523840B004D5561 /* MenuDataSource.m */,
+				C2B0E0291817FCDF00DC34E8 /* MenuItemFactory.h */,
+				C2B0E02A1817FCDF00DC34E8 /* MenuItemFactory.m */,
 				E28E8FFE15239AF7008C936B /* MenuViewController.h */,
 				E28E8FFF15239AF7008C936B /* MenuViewController.m */,
 				5C3FF36A1486564E0098EE93 /* Supporting Files */,
@@ -373,6 +378,7 @@
 				E2A899BA1522A415004D5561 /* QCMItemExpandAnimation.m in Sources */,
 				E2A899BD1522A62B004D5561 /* QCMDefaultMenuItemFactory.m in Sources */,
 				E2A899C01522EAD7004D5561 /* QCMShrinkAnimation.m in Sources */,
+				C2B0E02B1817FCDF00DC34E8 /* MenuItemFactory.m in Sources */,
 				E2A899C31523840B004D5561 /* MenuDataSource.m in Sources */,
 				E28E900015239AF7008C936B /* MenuViewController.m in Sources */,
 				E21A256C152412870055DDD7 /* QCMDefaultDataSource.m in Sources */,
