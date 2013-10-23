@@ -13,7 +13,7 @@
 - (id)initWithImage:(UIImage *)image 
      highlightImage:(UIImage *)highlightImage;
 
-+ (id)defaultMenuItemFactory;
-+ (id)defaultMainMenuItemFactory;
++ (instancetype)defaultMenuItemFactory;
++ (instancetype)defaultMainMenuItemFactory;
 
 @end

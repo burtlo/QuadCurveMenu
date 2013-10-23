@@ -30,12 +30,12 @@
     return self;
 }
 
-+ (id)defaultMenuItemFactory {
++ (instancetype)defaultMenuItemFactory {
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
 						highlightImage:nil];
 }
 
-+ (id)defaultMainMenuItemFactory {
++ (instancetype)defaultMainMenuItemFactory {
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.jpeg"]
 						highlightImage:nil];
 }
