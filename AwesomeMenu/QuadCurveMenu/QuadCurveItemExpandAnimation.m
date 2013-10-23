@@ -8,7 +8,7 @@
 
 #import "QuadCurveItemExpandAnimation.h"
 
-static float const kQuadCurveDefaultRotation = M_PI * 2;
+static CGFloat const kQuadCurveDefaultRotation = M_PI * 2;
 
 @implementation QuadCurveItemExpandAnimation
 
@@ -38,11 +38,10 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
     item.hidden = NO;
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:M_PI],[NSNumber numberWithFloat:0.0f], nil];
+    rotateAnimation.values = @[[NSNumber numberWithFloat:M_PI],@0.0];
     rotateAnimation.duration = self.duration;
-    rotateAnimation.keyTimes = [NSArray arrayWithObjects:
-                                [NSNumber numberWithFloat:.3], 
-                                [NSNumber numberWithFloat:.4], nil]; 
+    rotateAnimation.keyTimes = @[@.3, 
+                                @.4]; 
     
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     positionAnimation.duration = self.duration;
@@ -55,7 +54,7 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
     CGPathRelease(path);
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
+    animationGroup.animations = @[positionAnimation, rotateAnimation];
     animationGroup.duration = self.duration;
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 

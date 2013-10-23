@@ -27,12 +27,12 @@
 
 #pragma mark - QuadCurveDataSourceDelegate Adherence
 
-- (int)numberOfMenuItems {
+- (NSUInteger)numberOfMenuItems {
     return [dataItems count];
 }
 
-- (id)dataObjectAtIndex:(NSInteger)itemIndex {
-    return [dataItems objectAtIndex:itemIndex];
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex {
+    return dataItems[itemIndex];
 }
 
 @end

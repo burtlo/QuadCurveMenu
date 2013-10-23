@@ -11,8 +11,8 @@
 @protocol QuadCurveMotionDirector <NSObject>
 
 - (void)positionMenuItem:(QuadCurveMenuItem *)item 
-                 atIndex:(int)index 
-                 ofCount:(int)count 
+                 atIndex:(NSUInteger)index
+                 ofCount:(NSUInteger)count 
                 fromMenu:(QuadCurveMenuItem *)mainMenuItem;
 
 @end

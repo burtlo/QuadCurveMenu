@@ -22,7 +22,7 @@
 #import "QuadCurveTiltAnimation.h"
 #import "QuadCurveNoAnimation.h"
 
-static int const kQuadCurveMenuItemStartingTag = 1000;
+static NSUInteger const kQuadCurveMenuItemStartingTag = 1000;
 
 @interface QuadCurveMenu ()
 
@@ -172,15 +172,15 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 #pragma mark - Data Source Delegate
 
-- (int)numberOfDisplayableItems {
+- (NSUInteger)numberOfDisplayableItems {
     return self.dataSource.numberOfMenuItems;
 }
 
-- (id)dataObjectAtIndex:(int)index {
+- (id)dataObjectAtIndex:(NSUInteger)index {
     return [self.dataSource dataObjectAtIndex:index];
 }
 
-- (QuadCurveMenuItem *)menuItemAtIndex:(int)index {
+- (QuadCurveMenuItem *)menuItemAtIndex:(NSUInteger)index {
     QuadCurveMenuItem *item = (QuadCurveMenuItem *)[self viewWithTag:kQuadCurveMenuItemStartingTag + index];
     if (!item) {
         item = [[self menuItemFactory] createMenuItemWithDataObject:[self dataObjectAtIndex:index]];
@@ -266,7 +266,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
         [self.delegate quadCurveMenu:self didTapMenuItem:item];
     }
     
-    [self animateMenuItems:[NSArray arrayWithObject:item] withAnimation:[self selectedAnimation]];
+    [self animateMenuItems:@[item] withAnimation:[self selectedAnimation]];
     
     NSPredicate *otherItems = [NSPredicate predicateWithFormat:@"tag != %d",[item tag]];
     
@@ -364,8 +364,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 - (void)addMenuItem:(QuadCurveMenuItem *)item toViewAtPosition:(NSRange)position {
     
-    int index = position.location;
-    int count = position.length;
+    NSUInteger index = position.location;
+    NSUInteger count = position.length;
     
     item.tag = kQuadCurveMenuItemStartingTag + index;
     item.delegate = self;
@@ -376,8 +376,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 - (void)addMenuItemsToViewAndPerform:(void (^)(QuadCurveMenuItem *item))block {
-    int total = [self numberOfDisplayableItems];
-    for (int index = 0; index < total; index ++) {
+    NSUInteger total = [self numberOfDisplayableItems];
+    for (NSUInteger index = 0; index < total; index ++) {
         QuadCurveMenuItem *item = [self menuItemAtIndex:index];
         [self addMenuItem:item toViewAtPosition:NSMakeRange(index,total)];
         block(item);
@@ -407,8 +407,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     if (animated) { animation = self.expandItemAnimation; }
     
     for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
-        QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:item,@"menuItem",animation,@"animation", nil];
+        QuadCurveMenuItem *item = itemToBeAnimated[x];
+        NSDictionary *dictionary = @{@"menuItem": item,@"animation": animation};
         [self performSelector:@selector(animateMenuItemToEndPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
     }
     
@@ -417,8 +417,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 - (void)animateMenuItemToEndPoint:(NSDictionary *)itemAndAnimation {
-    id<QuadCurveAnimation> animation = [itemAndAnimation objectForKey:@"animation"];
-    QuadCurveMenuItem *item = [itemAndAnimation objectForKey:@"menuItem"];
+    id<QuadCurveAnimation> animation = itemAndAnimation[@"animation"];
+    QuadCurveMenuItem *item = itemAndAnimation[@"menuItem"];
     
     CAAnimationGroup *expandAnimation = [animation animationForItem:item];
     [item.layer addAnimation:expandAnimation forKey:[animation animationName]];
@@ -447,9 +447,9 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 		animation = self.closeItemAnimation;
 	}
     
-    for (int x = 0; x < [itemToBeAnimated count]; x++) {
-        QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:item,@"menuItem",animation,@"animation", nil];
+    for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
+        QuadCurveMenuItem *item = itemToBeAnimated[x];
+        NSDictionary *dictionary = @{@"menuItem": item,@"animation": animation};
         [self performSelector:@selector(animateItemToStartPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
     }
     
@@ -458,8 +458,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 - (void)animateItemToStartPoint:(NSDictionary *)itemAndAnimation {
-    id<QuadCurveAnimation> animation = [itemAndAnimation objectForKey:@"animation"];
-    QuadCurveMenuItem *item = [itemAndAnimation objectForKey:@"menuItem"];
+    id<QuadCurveAnimation> animation = itemAndAnimation[@"animation"];
+    QuadCurveMenuItem *item = itemAndAnimation[@"menuItem"];
 
     CAAnimationGroup *closeAnimation = [animation animationForItem:item];
     [item.layer addAnimation:closeAnimation forKey:[animation animationName]];

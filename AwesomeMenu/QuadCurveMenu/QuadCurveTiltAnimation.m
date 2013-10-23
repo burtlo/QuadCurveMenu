@@ -15,7 +15,7 @@
 
 #pragma mark - Initialization
 
-- (id)initWithTilt:(float)tiltDirection {
+- (id)initWithTilt:(CGFloat)tiltDirection {
     self = [super init];
     if (self) {
         self.tiltDirection = tiltDirection;
@@ -40,12 +40,12 @@
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
     CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnimation.fromValue = [[item.layer presentationLayer] valueForKeyPath:@"transform.rotation.z"];
-    rotateAnimation.toValue = [NSNumber numberWithFloat:self.tiltDirection];
+    rotateAnimation.toValue = @(self.tiltDirection);
     rotateAnimation.duration = self.duration;
     rotateAnimation.fillMode = kCAFillModeForwards;
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:rotateAnimation,nil];
+    animationGroup.animations = @[rotateAnimation];
     animationGroup.duration = self.duration;
     animationGroup.fillMode = kCAFillModeForwards;
     

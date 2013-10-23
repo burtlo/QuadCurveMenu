@@ -47,7 +47,7 @@
     // this initialization. This is ideal if you have a simple set of data and no real need of using a DataSource.
     //
     
-    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds withArray:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]];
+    QuadCurveMenu *menu = [[QuadCurveMenu alloc] initWithFrame:self.view.bounds withArray:@[@"1",@"2",@"3"]];
     
     //
     // BUILDING A MENU WITH CUSTOM IMAGES

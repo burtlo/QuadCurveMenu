@@ -78,17 +78,17 @@
 
 - (void)setup {
     self.borderColor = [UIColor whiteColor];
-    self.borderWidth = 5.f;
-    self.shadowColor = [UIColor colorWithRed:0.25f green:0.25f blue:0.25f alpha:.75f];
+    self.borderWidth = 5.0;
+    self.shadowColor = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:.75];
     self.shadowOffset = CGSizeMake(0, 0);
-    self.shadowBlur = 2.f;
+    self.shadowBlur = 2.0;
     self.backgroundColor = [UIColor clearColor];
     self.progress = 0.0;
     self.progressColor = [UIColor grayColor];
 }
 
 - (id)init {
-    return [self initWithFrame:CGRectMake(0, 0, 128.f, 128.f)];
+    return [self initWithFrame:CGRectMake(0, 0, 128.0, 128.0)];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -113,8 +113,8 @@
 	static CGGradientRef alphaGradient;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		CGFloat colors[6] = {1.f, 0.75f, 1.f, 0.f, 0.f, 0.f};
-		CGFloat colorStops[3] = {1.f, 0.35f, 0.f};
+		CGFloat colors[6] = {1.0, 0.75, 1.0, 0.0, 0.0, 0.0};
+		CGFloat colorStops[3] = {1.0, 0.35, 0.0};
 		CGColorSpaceRef grayColorSpace = CGColorSpaceCreateDeviceGray();
 		alphaGradient = CGGradientCreateWithColorComponents(grayColorSpace, colors, colorStops, 3);
 		CGColorSpaceRelease(grayColorSpace);
@@ -159,7 +159,7 @@
     CGContextFillPath(mainMaskContextRef);
     // Create shine mask shape
     CGContextTranslateCTM(shineMaskContextRef, -(rect.size.width / 4), rect.size.height / 4 * 3);
-    CGContextRotateCTM(shineMaskContextRef, -45.f);
+    CGContextRotateCTM(shineMaskContextRef, -45.0);
     CGContextMoveToPoint(shineMaskContextRef, 0, 0);
     CGContextFillRect(shineMaskContextRef, CGRectMake(0, 
                                                       0, 
@@ -221,11 +221,11 @@
     
     CGPoint centerPoint = CGPointMake(imageRect.origin.x + imageRect.size.width / 2,imageRect.origin.y + imageRect.size.height / 2);
     
-    if (self.progress != 0.0f) {
+    if (self.progress != 0.0) {
         
-        float radius = (imageRect.size.height / 2);
-        float endAngle = DEGREES_2_RADIANS((self.progress*359.9)-90);
-        float startAngle = DEGREES_2_RADIANS(270);
+        CGFloat radius = (imageRect.size.height / 2);
+        CGFloat endAngle = DEGREES_2_RADIANS((self.progress*359.9)-90);
+        CGFloat startAngle = DEGREES_2_RADIANS(270);
         
         CGMutablePathRef progressPath = CGPathCreateMutable();
         CGPathAddArc(progressPath, NULL, centerPoint.x, centerPoint.y, radius, startAngle, endAngle, NO);

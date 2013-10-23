@@ -39,8 +39,8 @@ static CGFloat const kQuadCurveDefaultPadding = 10.0;
 #pragma mark - QuadCurveDirector Adherence
 
 - (void)positionMenuItem:(QuadCurveMenuItem *)item 
-                 atIndex:(int)index 
-                 ofCount:(int)count 
+                 atIndex:(NSUInteger)index
+                 ofCount:(NSUInteger)count
                 fromMenu:(QuadCurveMenuItem *)mainMenuItem {
     
     CGPoint startPoint = mainMenuItem.center;
@@ -48,11 +48,11 @@ static CGFloat const kQuadCurveDefaultPadding = 10.0;
     
     CGSize itemSize = item.frame.size;
         
-    float xCoefficient = cosf(self.angle);
-    float yCoefficient = sinf(self.angle);
+    CGFloat xCoefficient = cosf(self.angle);
+    CGFloat yCoefficient = sinf(self.angle);
     
-    float endRadiusX = (itemSize.width + self.padding) * (index + 1);
-    float endRadiusY = (itemSize.width + self.padding) * (index + 1);
+    CGFloat endRadiusX = (itemSize.width + self.padding) * (index + 1);
+    CGFloat endRadiusY = (itemSize.width + self.padding) * (index + 1);
     
     item.endPoint = CGPointMake(startPoint.x + endRadiusX * xCoefficient, startPoint.y - endRadiusY * yCoefficient);
     item.nearPoint = CGPointMake(startPoint.x + (endRadiusX - 10) * xCoefficient, startPoint.y - (endRadiusY - 10) * yCoefficient);

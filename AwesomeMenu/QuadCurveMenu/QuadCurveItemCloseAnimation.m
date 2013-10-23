@@ -8,7 +8,7 @@
 
 #import "QuadCurveItemCloseAnimation.h"
 
-static float const kQuadCurveDefaultRotation = M_PI * 2;
+static CGFloat const kQuadCurveDefaultRotation = M_PI * 2;
 
 @implementation QuadCurveItemCloseAnimation
 
@@ -37,12 +37,11 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
 
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],[NSNumber numberWithFloat:self.rotation],[NSNumber numberWithFloat:0.0f], nil];
-    rotateAnimation.duration = 0.5f;
-    rotateAnimation.keyTimes = [NSArray arrayWithObjects:
-                                [NSNumber numberWithFloat:.0], 
-                                [NSNumber numberWithFloat:.4],
-                                [NSNumber numberWithFloat:.5], nil]; 
+    rotateAnimation.values = @[@0.0,@(self.rotation),@0.0];
+    rotateAnimation.duration = 0.5;
+    rotateAnimation.keyTimes = @[@.0, 
+                                @.4,
+                                @.5]; 
     
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     positionAnimation.duration = self.duration;
@@ -54,7 +53,7 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
     CGPathRelease(path);
     
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
+    animationGroup.animations = @[positionAnimation, rotateAnimation];
     animationGroup.duration = self.duration;
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     

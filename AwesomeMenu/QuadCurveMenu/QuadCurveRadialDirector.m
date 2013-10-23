@@ -8,14 +8,14 @@
 
 #import "QuadCurveRadialDirector.h"
 
-static CGFloat const kQuadCurveMenuDefaultNearRadius = 110.0f;
-static CGFloat const kQuadCurveMenuDefaultEndRadius = 120.0f;
-static CGFloat const kQuadCurveMenuDefaultFarRadius = 140.0f;
-static CGFloat const kQuadCurveMenuDefaultTimeOffset = 0.036f;
+static CGFloat const kQuadCurveMenuDefaultNearRadius = 110.0;
+static CGFloat const kQuadCurveMenuDefaultEndRadius = 120.0;
+static CGFloat const kQuadCurveMenuDefaultFarRadius = 140.0;
+static CGFloat const kQuadCurveMenuDefaultTimeOffset = 0.036;
 static CGFloat const kQuadCurveMenuDefaultRotateAngle = 0.0;
 static CGFloat const kQuadCurveMenuDefaultMenuWholeAngle = M_PI * 2;
 
-static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float angle)
+static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, CGFloat angle)
 {
     CGAffineTransform translation = CGAffineTransformMakeTranslation(center.x, center.y);
     CGAffineTransform rotation = CGAffineTransformMakeRotation(angle);
@@ -62,8 +62,17 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
                      andInitialRotation:kQuadCurveMenuDefaultRotateAngle];
 }
 
-+ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle;
-+ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
++ (instancetype)director {
+	return [[self alloc] init];
+}
+
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle {
+	return [[self alloc] initWithMenuWholeAngle:menuWholeAngle];
+}
+
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle {
+	return [[self alloc] initWithMenuWholeAngle:menuWholeAngle andInitialRotation:rotateAngle];
+}
 
 #pragma mark - Helper
 
@@ -83,20 +92,20 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     }
 }
 
-- (float)threeHundredSixtyDegrees {
+- (CGFloat)threeHundredSixtyDegrees {
     return M_PI * 2;
 }
 
 #pragma mark - QuadCurveMotionDirector Adherence
 
-- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(int)index ofCount:(int)count fromMenu:(QuadCurveMenuItem *)mainMenuItem {
+- (void)positionMenuItem:(QuadCurveMenuItem *)item atIndex:(NSUInteger)index ofCount:(NSUInteger)count fromMenu:(QuadCurveMenuItem *)mainMenuItem {
     
     CGPoint startPoint = mainMenuItem.center;
     item.startPoint = startPoint;
     
-    float itemAngle = index * self.menuWholeAngle / (self.useWholeAngle ? count - 1 : count);
-    float xCoefficient = sinf(itemAngle);
-    float yCoefficient = cosf(itemAngle);
+    CGFloat itemAngle = index * self.menuWholeAngle / (self.useWholeAngle ? count - 1 : count);
+    CGFloat xCoefficient = sinf(itemAngle);
+    CGFloat yCoefficient = cosf(itemAngle);
     
     CGPoint endPoint = CGPointMake(startPoint.x + self.endRadius * xCoefficient, startPoint.y - self.endRadius * yCoefficient);
     

@@ -8,7 +8,7 @@
 
 #import "QuadCurveMenuItem.h"
 
-static inline CGRect ScaleRect(CGRect rect, float n) {return CGRectMake((rect.size.width - rect.size.width * n)/ 2, (rect.size.height - rect.size.height * n) / 2, rect.size.width * n, rect.size.height * n);}
+static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.size.width - rect.size.width * n)/ 2, (rect.size.height - rect.size.height * n) / 2, rect.size.width * n, rect.size.height * n);}
 
 @interface QuadCurveMenuItem ()
 

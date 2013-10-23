@@ -8,7 +8,7 @@
 
 #import "QuadCurveShrinkAnimation.h"
 
-static float const kQuadCurveDefaultShrinkScale = 0.1f;
+static CGFloat const kQuadCurveDefaultShrinkScale = 0.1;
 
 @implementation QuadCurveShrinkAnimation
 
@@ -45,10 +45,10 @@ static float const kQuadCurveDefaultShrinkScale = 0.1f;
     scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(self.shrinkScale, self.shrinkScale, 1)];
     
     CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = [NSNumber numberWithFloat:0.0f];
+    opacityAnimation.toValue  = @0.0;
     
     CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
+    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
     animationgroup.duration = self.duration;
     animationgroup.fillMode = kCAFillModeForwards;
 
