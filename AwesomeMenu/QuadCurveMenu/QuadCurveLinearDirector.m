@@ -24,11 +24,17 @@ static CGFloat const kQuadCurveDefaultPadding = 10.0;
     return self;
 }
 
++ (instancetype)directorWithAngle:(CGFloat)angle andPadding:(CGFloat)padding {
+	return [[self alloc] initWithAngle:angle andPadding:padding];
+}
 
 - (id)init {
     return [self initWithAngle:0 andPadding:kQuadCurveDefaultPadding];
 }
 
++ (instancetype)director {
+	return [[self alloc] init];
+}
 
 #pragma mark - QuadCurveDirector Adherence
 

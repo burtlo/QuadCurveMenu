@@ -18,7 +18,12 @@
 @property (readwrite, assign, nonatomic) CGFloat menuWholeAngle;
 @property (readwrite, assign, nonatomic) BOOL useWholeAngle;
 
+- (id)init;
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle;
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
+
++ (instancetype)director;
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle;
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
 
 @end

@@ -30,6 +30,11 @@
     return self;
 }
 
++ (instancetype)factoryWithImage:(UIImage *)image
+		highlightImage:(UIImage *)highlightImage {
+	return [[self alloc] initWithImage:image highlightImage:highlightImage];
+}
+
 + (instancetype)defaultMenuItemFactory {
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
 						highlightImage:nil];

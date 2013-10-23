@@ -25,6 +25,10 @@
     return self;
 }
 
++ (instancetype)dataSourceWithArray:(NSArray *)array {
+	return [[self alloc] initWithArray:array];
+}
+
 - (NSUInteger)numberOfMenuItems {
     return self.array.count;
 }

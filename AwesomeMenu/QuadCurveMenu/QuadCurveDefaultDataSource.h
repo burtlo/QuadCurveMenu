@@ -12,5 +12,6 @@
 @interface QuadCurveDefaultDataSource : NSObject <QuadCurveDataSourceDelegate>
 
 - (id)initWithArray:(NSArray *)array;
++ (instancetype)dataSourceWithArray:(NSArray *)array;
 
 @end

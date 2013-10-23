@@ -62,6 +62,9 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
                      andInitialRotation:kQuadCurveMenuDefaultRotateAngle];
 }
 
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle;
++ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
+
 #pragma mark - Helper
 
 //
