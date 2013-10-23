@@ -10,7 +10,7 @@
 
 @interface QuadCurveTiltAnimation : NSObject <QuadCurveAnimation>
 
-@property (nonatomic,assign) float tiltDirection;
+@property (readwrite, assign, nonatomic) float tiltDirection;
 
 - (id)initWithTilt:(float)tiltDirection;
 - (id)initWithClockwiseTilt;

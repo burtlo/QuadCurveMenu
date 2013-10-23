@@ -8,22 +8,29 @@
 
 #import "QuadCurveDefaultDataSource.h"
 
+@interface QuadCurveDefaultDataSource ()
+
+@property (readwrite, strong, nonatomic) NSArray *array;
+
+@end
+
 @implementation QuadCurveDefaultDataSource
 
-- (id)initWithArray:(NSArray *)_array {
+- (id)initWithArray:(NSArray *)array {
+	NSAssert(array, @"Method argument 'array' must not be nil");
     self = [super init];
     if (self) {
-        array = _array;
+        self.array = array;
     }
     return self;
 }
 
-- (int)numberOfMenuItems {
-    return [array count];
+- (NSUInteger)numberOfMenuItems {
+    return self.array.count;
 }
 
-- (id)dataObjectAtIndex:(NSInteger)itemIndex {
-    return [array objectAtIndex:itemIndex];
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex {
+    return self.array[itemIndex];
 }
 @end
 

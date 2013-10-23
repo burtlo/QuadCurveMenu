@@ -8,7 +8,7 @@
 
 @protocol QuadCurveDataSourceDelegate <NSObject>
 
-- (int)numberOfMenuItems;
-- (id)dataObjectAtIndex:(NSInteger)itemIndex;
+- (NSUInteger)numberOfMenuItems;
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex;
 
 @end

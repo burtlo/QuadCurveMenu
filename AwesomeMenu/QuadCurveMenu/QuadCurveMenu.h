@@ -20,20 +20,22 @@
 
 @interface QuadCurveMenu : UIView <QuadCurveMenuItemEventDelegate>
 
-@property (nonatomic, strong) id<QuadCurveMotionDirector> menuDirector;
+@property (readwrite, strong, nonatomic) id<QuadCurveMotionDirector> menuDirector;
 
-@property (nonatomic, strong) id<QuadCurveMenuItemFactory> mainMenuItemFactory;
-@property (nonatomic, strong) id<QuadCurveMenuItemFactory> menuItemFactory;
+@property (readwrite, strong, nonatomic) id<QuadCurveMenuItemFactory> mainMenuItemFactory;
+@property (readwrite, strong, nonatomic) id<QuadCurveMenuItemFactory> menuItemFactory;
 
-@property (nonatomic, strong) id<QuadCurveAnimation> selectedAnimation;
-@property (nonatomic, strong) id<QuadCurveAnimation> unselectedanimation;
-@property (nonatomic, strong) id<QuadCurveAnimation> expandItemAnimation;
-@property (nonatomic, strong) id<QuadCurveAnimation> closeItemAnimation;
-@property (nonatomic, strong) id<QuadCurveAnimation> mainMenuExpandAnimation;
-@property (nonatomic, strong) id<QuadCurveAnimation> mainMenuCloseAnimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> selectedAnimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> unselectedanimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> expandItemAnimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> closeItemAnimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> mainMenuExpandAnimation;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> mainMenuCloseAnimation;
 
-@property (nonatomic, weak) id<QuadCurveMenuDelegate> delegate;
-@property (nonatomic, strong) id<QuadCurveDataSourceDelegate> dataSource;
+@property (readwrite, weak, nonatomic)   id<QuadCurveMenuDelegate> delegate;
+@property (readwrite, strong, nonatomic) id<QuadCurveDataSourceDelegate> dataSource;
+
+@property (readwrite, assign, nonatomic, getter = isExpanding) BOOL expanding;
 
 #pragma mark - Initialization
 
@@ -57,8 +59,6 @@
        menuDirector:(id<QuadCurveMotionDirector>)motionDirector;
 
 #pragma mark - Expansion / Closing
-
-@property (nonatomic, getter = isExpanding) BOOL expanding;
 
 - (void)expandMenu;
 - (void)expandMenuAnimated:(BOOL)animated;

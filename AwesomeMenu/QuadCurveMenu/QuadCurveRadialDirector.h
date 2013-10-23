@@ -11,12 +11,12 @@
 
 @interface QuadCurveRadialDirector : NSObject <QuadCurveMotionDirector>
 
-@property (nonatomic, assign) CGFloat nearRadius;
-@property (nonatomic, assign) CGFloat endRadius;
-@property (nonatomic, assign) CGFloat farRadius;
-@property (nonatomic, assign) CGFloat rotateAngle;
-@property (nonatomic, assign) CGFloat menuWholeAngle;
-@property (nonatomic, assign) BOOL useWholeAngle;
+@property (readwrite, assign, nonatomic) CGFloat nearRadius;
+@property (readwrite, assign, nonatomic) CGFloat endRadius;
+@property (readwrite, assign, nonatomic) CGFloat farRadius;
+@property (readwrite, assign, nonatomic) CGFloat rotateAngle;
+@property (readwrite, assign, nonatomic) CGFloat menuWholeAngle;
+@property (readwrite, assign, nonatomic) BOOL useWholeAngle;
 
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle;
 - (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;

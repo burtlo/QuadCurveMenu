@@ -10,6 +10,6 @@
 
 @interface QuadCurveBlowupAnimation : NSObject <QuadCurveAnimation>
 
-@property (nonatomic,assign) CGFloat blowUpScale;
+@property (readwrite, assign, nonatomic) CGFloat blowUpScale;
 
 @end

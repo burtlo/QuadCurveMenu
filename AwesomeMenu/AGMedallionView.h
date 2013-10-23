@@ -13,19 +13,19 @@
 
 @interface AGMedallionView : UIView
 
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) UIImage *highlightedImage;
+@property (readwrite, strong, nonatomic) UIImage *image;
+@property (readwrite, strong, nonatomic) UIImage *highlightedImage;
 
-@property (nonatomic, strong) UIColor *borderColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *shadowColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, assign) CGSize shadowOffset UI_APPEARANCE_SELECTOR;
-@property (nonatomic, assign) CGFloat shadowBlur UI_APPEARANCE_SELECTOR;
+@property (readwrite, strong, nonatomic) UIColor *borderColor UI_APPEARANCE_SELECTOR;
+@property (readwrite, assign, nonatomic) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+@property (readwrite, strong, nonatomic) UIColor *shadowColor UI_APPEARANCE_SELECTOR;
+@property (readwrite, assign, nonatomic) CGSize shadowOffset UI_APPEARANCE_SELECTOR;
+@property (readwrite, assign, nonatomic) CGFloat shadowBlur UI_APPEARANCE_SELECTOR;
 
-@property (nonatomic) BOOL highlighted;
+@property (readwrite, assign, nonatomic) BOOL highlighted;
 
-@property (nonatomic, strong) UIColor *progressColor;
-@property (nonatomic) CGFloat progress;
+@property (readwrite, strong, nonatomic) UIColor *progressColor;
+@property (readwrite, assign, nonatomic) CGFloat progress;
 
 @end
 

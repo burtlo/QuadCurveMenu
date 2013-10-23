@@ -10,7 +10,6 @@
 
 @implementation QuadCurveTiltAnimation
 
-@synthesize tiltDirection = tiltDirection_;
 @synthesize delayBetweenItemAnimation;
 @synthesize duration;
 
@@ -19,7 +18,7 @@
 - (id)initWithTilt:(float)tiltDirection {
     self = [super init];
     if (self) {
-        [self setTiltDirection:tiltDirection];
+        self.tiltDirection = tiltDirection;
     }
     return self;
 }
@@ -39,9 +38,7 @@
 }
 
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
-    
     CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    
     rotateAnimation.fromValue = [[item.layer presentationLayer] valueForKeyPath:@"transform.rotation.z"];
     rotateAnimation.toValue = [NSNumber numberWithFloat:self.tiltDirection];
     rotateAnimation.duration = self.duration;
@@ -55,7 +52,6 @@
     item.transform = CGAffineTransformMakeRotation(self.tiltDirection);
     
     return animationGroup;
-    
 }
 
 @end

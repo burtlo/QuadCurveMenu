@@ -13,17 +13,16 @@
 @protocol QuadCurveMenuItemEventDelegate;
 @protocol QuadCurveMenuItemFactory;
 
-
 @interface QuadCurveMenuItem : UIControl
 
-@property (nonatomic, strong) id dataObject;
+@property (readwrite, strong, nonatomic) id dataObject;
 
-@property (nonatomic) CGPoint startPoint;
-@property (nonatomic) CGPoint endPoint;
-@property (nonatomic) CGPoint nearPoint;
-@property (nonatomic) CGPoint farPoint;
+@property (readwrite, assign, nonatomic) CGPoint startPoint;
+@property (readwrite, assign, nonatomic) CGPoint endPoint;
+@property (readwrite, assign, nonatomic) CGPoint nearPoint;
+@property (readwrite, assign, nonatomic) CGPoint farPoint;
 
-@property (nonatomic, strong) id<QuadCurveMenuItemEventDelegate> delegate;
+@property (readwrite, strong, nonatomic) id<QuadCurveMenuItemEventDelegate> delegate;
 
 - (id)initWithView:(UIView *)view;
 

@@ -13,36 +13,11 @@
 
 #define DEGREES_2_RADIANS(x) (0.0174532925 * (x))
 
-@interface AGMedallionView (){
-    CGGradientRef alphaGradient;
-}
-
-- (void)setup;
-
-@end
-
 @implementation AGMedallionView
-
-#pragma mark - Properties
-
-@synthesize
-    image = _image,
-    highlightedImage = _highlightedImage,
-    borderColor = _borderColor,
-    borderWidth = _borderWidth,
-    shadowColor = _shadowColor,
-    shadowOffset = _shadowOffset,
-    shadowBlur = _shadowBlur;
-
-@synthesize highlighted = _highlighted;
-
-@synthesize progressColor = _progressColor;
-@synthesize progress = _progress;
 
 #pragma mark - Property Setters
 
 - (void)setImage:(UIImage *)aImage {
-    
     if (_image != aImage) {
         _image = aImage;
         
@@ -92,7 +67,6 @@
 }
 
 - (void)setProgress:(CGFloat)aProgress {
-    
     if (_progress != aProgress) {
         _progress = aProgress;
         
@@ -102,14 +76,7 @@
 
 #pragma mark - Object Lifecycle
 
-- (void)dealloc {
-    // Release the alpha gradient
-    CGGradientRelease(alphaGradient);
-}
-
 - (void)setup {
-    alphaGradient = NULL;
-    
     self.borderColor = [UIColor whiteColor];
     self.borderWidth = 5.f;
     self.shadowColor = [UIColor colorWithRed:0.25f green:0.25f blue:0.25f alpha:.75f];
@@ -126,41 +93,36 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    if (self)
-    {
+    if (self) {
         [self setup];
     }
-    
     return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if (self)
-    {
+    if (self) {
         [self setup];
     }
-    
     return self;
 }
 
 #pragma mark - Drawing
 
-- (CGGradientRef)alphaGradient
-{
-    if (NULL == alphaGradient) {
-        CGFloat colors[6] = {1.f, 0.75f, 1.f, 0.f, 0.f, 0.f};
-        CGFloat colorStops[3] = {1.f, 0.35f, 0.f};
-        CGColorSpaceRef grayColorSpace = CGColorSpaceCreateDeviceGray();
-        alphaGradient = CGGradientCreateWithColorComponents(grayColorSpace, colors, colorStops, 3);
-        CGColorSpaceRelease(grayColorSpace);
-    }
-    
+- (CGGradientRef)alphaGradient {
+	static CGGradientRef alphaGradient;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		CGFloat colors[6] = {1.f, 0.75f, 1.f, 0.f, 0.f, 0.f};
+		CGFloat colorStops[3] = {1.f, 0.35f, 0.f};
+		CGColorSpaceRef grayColorSpace = CGColorSpaceCreateDeviceGray();
+		alphaGradient = CGGradientCreateWithColorComponents(grayColorSpace, colors, colorStops, 3);
+		CGColorSpaceRelease(grayColorSpace);
+	});
     return alphaGradient;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     // Image rect
     CGRect imageRect = CGRectMake((self.borderWidth), 
                                   (self.borderWidth) , 

@@ -12,7 +12,6 @@ static float const kQuadCurveDefaultShrinkScale = 0.1f;
 
 @implementation QuadCurveShrinkAnimation
 
-@synthesize shrinkScale;
 @synthesize duration;
 @synthesize delayBetweenItemAnimation;
 

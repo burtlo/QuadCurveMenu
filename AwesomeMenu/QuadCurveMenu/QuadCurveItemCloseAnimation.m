@@ -36,7 +36,6 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
 }
 
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item {
-    
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],[NSNumber numberWithFloat:self.rotation],[NSNumber numberWithFloat:0.0f], nil];
     rotateAnimation.duration = 0.5f;
@@ -54,14 +53,14 @@ static float const kQuadCurveDefaultRotation = M_PI * 2;
     positionAnimation.path = path;
     CGPathRelease(path);
     
-    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
-    animationgroup.duration = self.duration;
-    animationgroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = [NSArray arrayWithObjects:positionAnimation, rotateAnimation, nil];
+    animationGroup.duration = self.duration;
+    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     
     [item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
 
-    return animationgroup;
+    return animationGroup;
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "QuadCurveBlowupAnimation.h"
 
-static float const kQuadCurveDefaultBlowUpScale = 3.0f;
+static CGFloat const kQuadCurveDefaultBlowUpScale = 3.0;
 
 @implementation QuadCurveBlowupAnimation
 

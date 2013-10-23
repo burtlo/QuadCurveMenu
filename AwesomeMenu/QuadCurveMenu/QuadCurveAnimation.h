@@ -9,15 +9,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "QuadCurveMenuItem.h"
 
-static float const kQuadCoreDefaultAnimationDuration = 0.5f;
-static float const kQuadCoreDefaultDelayBetweenItemAnimation = 0.036f;
+static CGFloat const kQuadCoreDefaultAnimationDuration = 0.5;
+static CGFloat const kQuadCoreDefaultDelayBetweenItemAnimation = 0.036;
 
 @protocol QuadCurveAnimation <NSObject>
 
 - (NSString *)animationName;
 - (CAAnimationGroup *)animationForItem:(QuadCurveMenuItem *)item;
 
-@property (nonatomic,assign) CGFloat duration;
-@property (nonatomic,assign) CGFloat delayBetweenItemAnimation;
+@property (readwrite, assign, nonatomic) CGFloat duration;
+@property (readwrite, assign, nonatomic) CGFloat delayBetweenItemAnimation;
 
 @end

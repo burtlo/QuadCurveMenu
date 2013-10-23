@@ -13,7 +13,7 @@
 
 - (id)initWithAngle:(CGFloat)angle andPadding:(CGFloat)padding;
 
-@property (nonatomic,assign) CGFloat angle;
-@property (nonatomic,assign) CGFloat padding;
+@property (readwrite, assign, nonatomic) CGFloat angle;
+@property (readwrite, assign, nonatomic) CGFloat padding;
 
 @end

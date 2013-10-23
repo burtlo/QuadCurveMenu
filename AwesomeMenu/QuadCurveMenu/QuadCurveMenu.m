@@ -24,73 +24,28 @@
 
 static int const kQuadCurveMenuItemStartingTag = 1000;
 
-@interface QuadCurveMenu () {
-    
-    BOOL delegateHasDidTapMainMenu;
-    BOOL delegateHasDidLongPressMainMenu;
-    BOOL delegateHasShouldExpand;
-    BOOL delegateHasShouldClose;
-    BOOL delegateHasWillExpand;
-    BOOL delegateHasDidExpand;
-    BOOL delegateHasWillClose;
-    BOOL delegateHasDidClose;
-    BOOL delegateHasDidTapMenuItem;
-    BOOL delegateHasDidLongPressMenuItem;
-}
+@interface QuadCurveMenu ()
 
-@property (nonatomic,strong) QuadCurveMenuItem *mainMenuButton;
-@property (nonatomic,assign) CGPoint centerPoint;
-@property (nonatomic, strong) id<QuadCurveAnimation> noAnimation;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidTapMainMenu;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMainMenu;
+@property (readwrite, assign, nonatomic) BOOL delegateHasShouldExpand;
+@property (readwrite, assign, nonatomic) BOOL delegateHasShouldClose;
+@property (readwrite, assign, nonatomic) BOOL delegateHasWillExpand;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidExpand;
+@property (readwrite, assign, nonatomic) BOOL delegateHasWillClose;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidClose;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidTapMenuItem;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMenuItem;
 
-- (QuadCurveMenuItem *)menuItemAtIndex:(int)index;
-
-- (void)addMenuItem:(QuadCurveMenuItem *)item toViewAtPosition:(NSRange)position;
-- (void)addMenuItemsToViewAndPerform:(void (^)(QuadCurveMenuItem *item))block;
-
-- (void)performExpandMainMenuAnimated:(BOOL)animated;
-- (void)performCloseMainMenuAnimated:(BOOL)animated;
-
-- (void)performExpandMenuAnimated:(BOOL)animated;
-- (void)animateMenuItemToEndPoint:(QuadCurveMenuItem *)item;
-- (void)notifyDelegateMenuDidExpand:(QuadCurveMenu *)menu;
-
-- (void)performCloseMenuAnimated:(BOOL)animated;
-- (void)animateItemToStartPoint:(QuadCurveMenuItem *)item;
-- (void)notifyDelegateMenuDidClose:(QuadCurveMenu *)menu;
-
-- (void)menuItemTapped:(QuadCurveMenuItem *)item;
-- (void)mainMenuItemTapped;
-
-- (void)menuItemLongPressed:(QuadCurveMenuItem *)item;
-- (void)mainMenuItemLongPressed;
-
-- (void)singleTapInMenuView:(UITapGestureRecognizer *)tapGesture;
+@property (readwrite, strong, nonatomic) QuadCurveMenuItem *mainMenuButton;
+@property (readwrite, assign, nonatomic) CGPoint centerPoint;
+@property (readwrite, strong, nonatomic) id<QuadCurveAnimation> noAnimation;
 
 @end
 
 #pragma mark - Implementation
 
 @implementation QuadCurveMenu
-
-@synthesize mainMenuButton;
-
-@synthesize mainMenuItemFactory = mainMenuItemFactory_;
-@synthesize menuItemFactory = menuItemFactory_;
-@synthesize menuDirector = menuDirector_;
-
-@synthesize centerPoint = centerPoint_;
-
-@synthesize selectedAnimation;
-@synthesize unselectedanimation;
-@synthesize expandItemAnimation;
-@synthesize closeItemAnimation;
-@synthesize mainMenuExpandAnimation;
-@synthesize mainMenuCloseAnimation;
-
-@synthesize expanding = _expanding;
-
-@synthesize delegate = _delegate;
-@synthesize dataSource = dataSource_;
 
 #pragma mark - Initialization & Deallocation
 
@@ -181,16 +136,16 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 - (void)setMainMenuItemFactory:(id<QuadCurveMenuItemFactory>)mainMenuItemFactory {
     
-    [mainMenuButton removeFromSuperview];
+    [self.mainMenuButton removeFromSuperview];
     
-    mainMenuItemFactory_ = mainMenuItemFactory;
+    _mainMenuItemFactory = mainMenuItemFactory;
     
     self.mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
     self.mainMenuButton.delegate = self;
     
     self.mainMenuButton.center = self.centerPoint;
     
-    [self addSubview:mainMenuButton];
+    [self addSubview:self.mainMenuButton];
     [self setNeedsDisplay];
     
 }
@@ -201,44 +156,37 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     _delegate = delegate;
     
-    delegateHasDidTapMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didTapMenu:)];
-    delegateHasDidLongPressMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressMenu:)];
+    self.delegateHasDidTapMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didTapMenu:)];
+    self.delegateHasDidLongPressMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressMenu:)];
     
-    delegateHasDidTapMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didTapMenuItem:)];
-    delegateHasDidLongPressMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressMenu:)];
+    self.delegateHasDidTapMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didTapMenuItem:)];
+    self.delegateHasDidLongPressMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressMenu:)];
     
-    delegateHasShouldExpand = [delegate respondsToSelector:@selector(quadCurveMenuShouldExpand:)];
-    delegateHasShouldClose = [delegate respondsToSelector:@selector(quadCurveMenuShouldClose:)];
-    delegateHasWillExpand = [delegate respondsToSelector:@selector(quadCurveMenuWillExpand:)];
-    delegateHasDidExpand = [delegate respondsToSelector:@selector(quadCurveMenuDidExpand:)];
-    delegateHasWillClose = [delegate respondsToSelector:@selector(quadCurveMenuWillClose:)];
-    delegateHasDidClose = [delegate respondsToSelector:@selector(quadCurveMenuDidClose:)];
+    self.delegateHasShouldExpand = [delegate respondsToSelector:@selector(quadCurveMenuShouldExpand:)];
+    self.delegateHasShouldClose = [delegate respondsToSelector:@selector(quadCurveMenuShouldClose:)];
+    self.delegateHasWillExpand = [delegate respondsToSelector:@selector(quadCurveMenuWillExpand:)];
+    self.delegateHasDidExpand = [delegate respondsToSelector:@selector(quadCurveMenuDidExpand:)];
+    self.delegateHasWillClose = [delegate respondsToSelector:@selector(quadCurveMenuWillClose:)];
+    self.delegateHasDidClose = [delegate respondsToSelector:@selector(quadCurveMenuDidClose:)];
 }
 
 #pragma mark - Data Source Delegate
 
-- (void)setDataSource:(id<QuadCurveDataSourceDelegate>)dataSource {
-    dataSource_ = dataSource;    
-}
-
 - (int)numberOfDisplayableItems {
-    return [[self dataSource] numberOfMenuItems];
+    return self.dataSource.numberOfMenuItems;
 }
 
 - (id)dataObjectAtIndex:(int)index {
-    return [[self dataSource] dataObjectAtIndex:index];    
+    return [self.dataSource dataObjectAtIndex:index];
 }
 
 - (QuadCurveMenuItem *)menuItemAtIndex:(int)index {
-    UIView *item = [self viewWithTag:kQuadCurveMenuItemStartingTag + index];
-    
-    if (item) {
-        return (QuadCurveMenuItem *)item;
-    } else {
-        return [[self menuItemFactory] createMenuItemWithDataObject:[self dataObjectAtIndex:index]];
+    QuadCurveMenuItem *item = (QuadCurveMenuItem *)[self viewWithTag:kQuadCurveMenuItemStartingTag + index];
+    if (!item) {
+        item = [[self menuItemFactory] createMenuItemWithDataObject:[self dataObjectAtIndex:index]];
     }
+	return item;
 }
-
 
 #pragma mark - Expand / Close Menu
 
@@ -247,7 +195,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 - (void)expandMenuAnimated:(BOOL)animated {
-    if (![self isExpanding]) {
+    if (!self.expanding) {
         [self setExpanding:YES animated:animated];
     }
 }
@@ -257,7 +205,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 }
 
 - (void)closeMenuAnimated:(BOOL)animated {
-    if ([self isExpanding]) {
+    if (self.expanding) {
         [self setExpanding:NO animated:animated];
     }
 }
@@ -265,7 +213,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark - UIView Gestures
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    if ([self isExpanding] || CGRectContainsPoint(self.mainMenuButton.frame, point)) {
+    if (self.expanding || CGRectContainsPoint(self.mainMenuButton.frame, point)) {
         return YES;
     }
     return NO;
@@ -282,7 +230,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 - (void)quadCurveMenuItemTapped:(QuadCurveMenuItem *)item {
     
-    if (item == mainMenuButton) {
+    if (item == self.mainMenuButton) {
         [self mainMenuItemTapped];
     } else {
         [self menuItemTapped:item];
@@ -291,19 +239,19 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 - (void)mainMenuItemTapped {
     
-    if (delegateHasDidTapMainMenu) {
-        [[self delegate] quadCurveMenu:self didTapMenu:mainMenuButton];
+    if (self.delegateHasDidTapMainMenu) {
+        [self.delegate quadCurveMenu:self didTapMenu:self.mainMenuButton];
     }
     
-    BOOL willBeExpandingMenu = ![self isExpanding];
+    BOOL willBeExpandingMenu = !self.expanding;
     BOOL shouldPerformAction = YES;
     
-    if (willBeExpandingMenu && delegateHasShouldExpand) {
-        shouldPerformAction = [[self delegate] quadCurveMenuShouldExpand:self];
+    if (willBeExpandingMenu && self.delegateHasShouldExpand) {
+        shouldPerformAction = [self.delegate quadCurveMenuShouldExpand:self];
     }
     
-    if ( ! willBeExpandingMenu && delegateHasShouldClose) {
-        shouldPerformAction = [[self delegate] quadCurveMenuShouldClose:self];
+    if ( ! willBeExpandingMenu && self.delegateHasShouldClose) {
+        shouldPerformAction = [self.delegate quadCurveMenuShouldClose:self];
     }
     
     if (shouldPerformAction) {
@@ -314,8 +262,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 - (void)menuItemTapped:(QuadCurveMenuItem *)item {
     
-    if (delegateHasDidTapMenuItem) {
-        [[self delegate] quadCurveMenu:self didTapMenuItem:item];
+    if (self.delegateHasDidTapMenuItem) {
+        [self.delegate quadCurveMenu:self didTapMenuItem:item];
     }
     
     [self animateMenuItems:[NSArray arrayWithObject:item] withAnimation:[self selectedAnimation]];
@@ -326,7 +274,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     
     [self animateMenuItems:otherMenuItems withAnimation:[self unselectedanimation]];
     
-    _expanding = NO;
+    self.expanding = NO;
     
     [self performCloseMainMenuAnimated:YES];
 }
@@ -334,29 +282,23 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark Long Press Event
 
 - (void)quadCurveMenuItemLongPressed:(QuadCurveMenuItem *)item {
-    
-    if (item == mainMenuButton) {
+    if (item == self.mainMenuButton) {
         [self mainMenuItemLongPressed];
     } else {
         [self menuItemLongPressed:item];
     }
-    
 }
 
 - (void)mainMenuItemLongPressed {
-    
-    if (delegateHasDidLongPressMainMenu) {
-        [[self delegate] quadCurveMenu:self didLongPressMenu:mainMenuButton];
+    if (self.delegateHasDidLongPressMainMenu) {
+        [self.delegate quadCurveMenu:self didLongPressMenu:self.mainMenuButton];
     }
-    
 }
 
 - (void)menuItemLongPressed:(QuadCurveMenuItem *)item {
-    
-    if (delegateHasDidLongPressMenuItem) {
-        [[self delegate] quadCurveMenu:self didLongPressMenuItem:item];
+    if (self.delegateHasDidLongPressMenuItem) {
+        [self.delegate quadCurveMenu:self didLongPressMenuItem:item];
     }
-    
 }
 
 #pragma mark - Selection Animations
@@ -375,7 +317,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     id<QuadCurveAnimation> animation = self.noAnimation;
     if (animated) { animation = self.mainMenuCloseAnimation; }
     
-    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton]
+    [self.mainMenuButton.layer addAnimation:[animation animationForItem:self.mainMenuButton]
                                 forKey:animation.animationName];
 
 }
@@ -385,8 +327,8 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     id<QuadCurveAnimation> animation = self.noAnimation;
     if (animated) { animation = self.mainMenuExpandAnimation; }
 
-    [mainMenuButton.layer addAnimation:[animation animationForItem:mainMenuButton]
-                                forKey:animation.animationName];
+    [self.mainMenuButton.layer addAnimation:[animation animationForItem:self.mainMenuButton]
+									 forKey:animation.animationName];
     
 }
 
@@ -405,14 +347,10 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 
 #pragma mark - Expanding / Closing the Menu
 
-- (BOOL)isExpanding {
-    return _expanding;
-}
-
 - (void)setExpanding:(BOOL)expanding animated:(BOOL)animated {
     _expanding = expanding;
 
-    if ([self isExpanding]) {
+    if (self.expanding) {
         [self performExpandMainMenuAnimated:animated];
         [self performExpandMenuAnimated:animated];
     
@@ -432,20 +370,16 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     item.tag = kQuadCurveMenuItemStartingTag + index;
     item.delegate = self;
     
-    [[self menuDirector] positionMenuItem:item atIndex:index ofCount:count fromMenu:mainMenuButton];
+    [self.menuDirector positionMenuItem:item atIndex:index ofCount:count fromMenu:self.mainMenuButton];
     
-    [self insertSubview:item belowSubview:mainMenuButton];
+    [self insertSubview:item belowSubview:self.mainMenuButton];
 }
 
 - (void)addMenuItemsToViewAndPerform:(void (^)(QuadCurveMenuItem *item))block {
-    
     int total = [self numberOfDisplayableItems];
-    
     for (int index = 0; index < total; index ++) {
-        
         QuadCurveMenuItem *item = [self menuItemAtIndex:index];
         [self addMenuItem:item toViewAtPosition:NSMakeRange(index,total)];
-        
         block(item);
     }
 }
@@ -453,15 +387,14 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark - Animate MenuItems Expanded
 
 - (void)notifyDelegateMenuDidExpand:(QuadCurveMenu *)menu {
-    if (delegateHasDidExpand) {
-        [[self delegate] quadCurveMenuDidExpand:menu];
+    if (self.delegateHasDidExpand) {
+        [self.delegate quadCurveMenuDidExpand:menu];
     }
 }
 
 - (void)performExpandMenuAnimated:(BOOL)animated {
-    
-    if (delegateHasWillExpand) {
-        [[self delegate] quadCurveMenuWillExpand:self];
+    if (self.delegateHasWillExpand) {
+        [self.delegate quadCurveMenuWillExpand:self];
     }
     
     [self addMenuItemsToViewAndPerform:^(QuadCurveMenuItem *item) {
@@ -473,7 +406,7 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
     id<QuadCurveAnimation> animation = self.noAnimation;
     if (animated) { animation = self.expandItemAnimation; }
     
-    for (int x = 0; x < [itemToBeAnimated count]; x++) {
+    for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:item,@"menuItem",animation,@"animation", nil];
         [self performSelector:@selector(animateMenuItemToEndPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
@@ -496,21 +429,23 @@ static int const kQuadCurveMenuItemStartingTag = 1000;
 #pragma mark - Animate MenuItems Closed
 
 - (void)notifyDelegateMenuDidClose:(QuadCurveMenu *)menu {
-    if (delegateHasDidClose) {
-        [[self delegate] quadCurveMenuDidClose:menu];
+    if (self.delegateHasDidClose) {
+        [self.delegate quadCurveMenuDidClose:menu];
     }
 }
 
 - (void)performCloseMenuAnimated:(BOOL)animated {
     
-    if (delegateHasWillClose) {
-        [[self delegate] quadCurveMenuWillClose:self];
+    if (self.delegateHasWillClose) {
+        [self.delegate quadCurveMenuWillClose:self];
     }
     
     NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
     
     id<QuadCurveAnimation> animation = self.noAnimation;
-    if (animated) { animation = self.closeItemAnimation; }
+    if (animated) {
+		animation = self.closeItemAnimation;
+	}
     
     for (int x = 0; x < [itemToBeAnimated count]; x++) {
         QuadCurveMenuItem *item = [itemToBeAnimated objectAtIndex:x];

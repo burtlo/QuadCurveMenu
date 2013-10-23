@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "QuadCurveMenu.h"
 
-@interface QuadCurveDefaultDataSource : NSObject <QuadCurveDataSourceDelegate> {
-    NSArray *array;
-}
+@interface QuadCurveDefaultDataSource : NSObject <QuadCurveDataSourceDelegate>
 
 - (id)initWithArray:(NSArray *)array;
 

@@ -10,6 +10,6 @@
 
 @interface QuadCurveShrinkAnimation : NSObject <QuadCurveAnimation>
 
-@property (nonatomic,assign) CGFloat shrinkScale;
+@property (readwrite, assign, nonatomic) CGFloat shrinkScale;
 
 @end

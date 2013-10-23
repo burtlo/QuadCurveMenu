@@ -8,10 +8,10 @@
 
 #import "QuadCurveDefaultMenuItemFactory.h"
 
-@interface QuadCurveDefaultMenuItemFactory () {
-    UIImage *image;
-    UIImage *highlightImage;
-}
+@interface QuadCurveDefaultMenuItemFactory ()
+
+@property (readwrite, strong, nonatomic) UIImage *image;
+@property (readwrite, strong, nonatomic) UIImage *highlightImage;
 
 @end
 
@@ -19,45 +19,38 @@
 
 #pragma mark - Initialization
 
-- (id)initWithImage:(UIImage *)_image 
-     highlightImage:(UIImage *)_highlightImage {
-    
+- (id)initWithImage:(UIImage *)image
+     highlightImage:(UIImage *)highlightImage {
+    NSAssert(image, @"Method argument 'image' must not be nil");
     self = [super init];
     if (self) {
-        
-        image = _image;
-        highlightImage = _highlightImage;
-        
+        self.image = image;
+        self.highlightImage = highlightImage;
     }
     return self;
 }
 
 + (id)defaultMenuItemFactory {
-    
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
-                                           highlightImage:nil];
+						highlightImage:nil];
 }
 
 + (id)defaultMainMenuItemFactory {
-    
     return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.jpeg"]
-                            highlightImage:nil];
-
+						highlightImage:nil];
 }
 
 #pragma mark - QuadCurveMenuItemFactory Adherence
 
-- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {
-    
-    AGMedallionView *medallionItem = [AGMedallionView new];
-    medallionItem = [[AGMedallionView alloc] init];
-    [medallionItem setImage:image];
-    [medallionItem setHighlightedImage:highlightImage];
-    medallionItem.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+- (QuadCurveMenuItem *)createMenuItemWithDataObject:(id)dataObject {	
+    AGMedallionView *medallionItem = [[AGMedallionView alloc] init];
+	medallionItem.image = self.image;
+    medallionItem.highlightedImage = self.highlightImage;
+	CGSize size = self.image.size;
+    medallionItem.frame = CGRectMake(0, 0, size.width, size.height);
     
     QuadCurveMenuItem *item = [[QuadCurveMenuItem alloc] initWithView:medallionItem];
-    
-    [item setDataObject:dataObject];
+    item.dataObject = dataObject;
     
     return item;
 }
