@@ -33,4 +33,6 @@
 + (CGFloat)defaultArcAngle;
 + (CGFloat)defaultStartAngle;
 
++ (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle startAngle:(CGFloat *)startAngle forMenuWithCenter:(CGPoint)centerPoint andRadius:(CGFloat)radius inRect:(CGRect)rect;
+
 @end

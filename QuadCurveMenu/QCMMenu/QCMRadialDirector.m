@@ -114,6 +114,50 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 	return 0.0;
 }
 
++ (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle startAngle:(CGFloat *)startAngle forMenuWithCenter:(CGPoint)centerPoint andRadius:(CGFloat)radius inRect:(CGRect)rect {
+	NSAssert(arcAngle, @"Method argument 'arcAngle' must not be NULL");
+	NSAssert(startAngle, @"Method argument 'startAngle' must not be NULL");
+	NSAssert(CGRectContainsPoint(rect, centerPoint), @"Rect does not contain center point.");
+	
+	CGFloat quarter = M_PI / 2;
+	CGRectEdge edges[4] = {CGRectMinYEdge, CGRectMaxXEdge, CGRectMaxYEdge, CGRectMinXEdge};
+	
+	BOOL clippedByCorner = NO;
+	for (NSUInteger i = 0; i < 4 && !clippedByCorner; i++) {
+		CGFloat distanceA = QCMDistanceToEdgeOfEnclosingRect(centerPoint, rect, edges[i]);
+		CGFloat distanceB = QCMDistanceToEdgeOfEnclosingRect(centerPoint, rect, edges[(i + 1) % 4]);
+		if (distanceA <= radius && distanceB <= radius) {
+			CGFloat angleA = QCMAngleFromDistanceToEdgeAndRadius(distanceA, radius);
+			CGFloat angleB = QCMAngleFromDistanceToEdgeAndRadius(distanceB, radius);
+			*startAngle = ((i + 1) * quarter) + angleB;
+			*arcAngle = kQCMMenuFullCircleArcAngle - (angleA + quarter + angleB);
+			clippedByCorner = YES;
+		}
+	}
+	
+	BOOL clippedByEdge = NO;
+	if (!clippedByCorner) {
+		for (NSUInteger i = 0; i < 4 && !clippedByEdge; i++) {
+			CGFloat distance = QCMDistanceToEdgeOfEnclosingRect(centerPoint, rect, edges[i]);
+			if (distance <= radius) {
+				CGFloat angle = QCMAngleFromDistanceToEdgeAndRadius(distance, radius);
+				*startAngle = (i * quarter) + angle;
+				*arcAngle = kQCMMenuFullCircleArcAngle - (2 * angle);
+				clippedByEdge = YES;
+			}
+		}
+	}
+	
+	BOOL clipped = clippedByCorner || clippedByEdge;
+	
+	if (!clipped) {
+		*startAngle = [self defaultStartAngle];
+		*arcAngle = [self defaultArcAngle];
+	}
+	
+	return clipped;
+}
+
 #pragma mark - QCMMotionDirector Adherence
 
 - (void)positionMenuItem:(QCMMenuItem *)item atIndex:(NSUInteger)index ofCount:(NSUInteger)count fromMenu:(QCMMenuItem *)mainMenuItem {
