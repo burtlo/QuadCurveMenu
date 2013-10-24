@@ -11,19 +11,26 @@
 
 @interface QCMRadialDirector : NSObject <QCMMotionDirector>
 
-@property (readwrite, assign, nonatomic) CGFloat nearRadius;
-@property (readwrite, assign, nonatomic) CGFloat endRadius;
-@property (readwrite, assign, nonatomic) CGFloat farRadius;
-@property (readwrite, assign, nonatomic) CGFloat rotateAngle;
-@property (readwrite, assign, nonatomic) CGFloat menuWholeAngle;
-@property (readwrite, assign, nonatomic) BOOL useWholeAngle;
+@property (readwrite, assign, nonatomic) CGFloat radius;
+@property (readwrite, assign, nonatomic) CGFloat nearRadiusFactor;
+@property (readwrite, assign, nonatomic) CGFloat farRadiusFactor;
+
+@property (readwrite, assign, nonatomic) CGFloat startAngle;
+@property (readwrite, assign, nonatomic) CGFloat arcAngle;
 
 - (id)init;
-- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle;
-- (id)initWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
+- (id)initWithArcAngle:(CGFloat)arcAngle;
+- (id)initWithArcAngle:(CGFloat)arcAngle startAngle:(CGFloat)startAngle;
 
 + (instancetype)director;
-+ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle;
-+ (instancetype)directorWithMenuWholeAngle:(CGFloat)menuWholeAngle andInitialRotation:(CGFloat)rotateAngle;
++ (instancetype)directorWithArcAngle:(CGFloat)arcAngle;
++ (instancetype)directorWithArcAngle:(CGFloat)arcAngle startAngle:(CGFloat)startAngle;
+
++ (CGFloat)defaultRadius;
++ (CGFloat)defaultNearRadiusFactor;
++ (CGFloat)defaultFarRadiusFactor;
+
++ (CGFloat)defaultArcAngle;
++ (CGFloat)defaultStartAngle;
 
 @end
