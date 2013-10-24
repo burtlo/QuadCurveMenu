@@ -21,7 +21,6 @@
 
 - (id)initWithImage:(UIImage *)image
      highlightImage:(UIImage *)highlightImage {
-    NSAssert(image, @"Method argument 'image' must not be nil");
     self = [super init];
     if (self) {
         self.image = image;
