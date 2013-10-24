@@ -158,6 +158,14 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 	return clipped;
 }
 
++ (BOOL)getRecommendedRadius:(CGFloat *)radius forMenuWithArcAngle:(CGFloat )arcAngle numberOfItems:(NSUInteger)itemCount ofSize:(CGSize)itemSize spacing:(CGFloat)spacing {
+	NSAssert(radius, @"Method argument 'radius' must not be NULL");
+	CGFloat size = (itemSize.width + itemSize.height) / 2;
+	CGFloat requiredSpace = (itemCount * size) + (spacing * (itemCount - 1));
+	*radius = requiredSpace / (arcAngle);
+	return YES;
+}
+
 #pragma mark - QCMMotionDirector Adherence
 
 - (void)positionMenuItem:(QCMMenuItem *)item atIndex:(NSUInteger)index ofCount:(NSUInteger)count fromMenu:(QCMMenuItem *)mainMenuItem {
