@@ -158,6 +158,14 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 	return clipped;
 }
 
++ (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle forMenuWithRadius:(CGFloat)radius numberOfItems:(NSUInteger)itemCount ofSize:(CGSize)itemSize spacing:(CGFloat)spacing {
+	NSAssert(arcAngle, @"Method argument 'arcAngle' must not be NULL");
+	CGFloat size = (itemSize.width + itemSize.height) / 2;
+	CGFloat requiredSpace = (itemCount * size) + (spacing * (itemCount - 1));
+	*arcAngle = ((2 * M_PI * radius) / requiredSpace) * kQCMMenuFullCircleArcAngle;
+	return YES;
+}
+
 + (BOOL)getRecommendedRadius:(CGFloat *)radius forMenuWithArcAngle:(CGFloat )arcAngle numberOfItems:(NSUInteger)itemCount ofSize:(CGSize)itemSize spacing:(CGFloat)spacing {
 	NSAssert(radius, @"Method argument 'radius' must not be NULL");
 	CGFloat size = (itemSize.width + itemSize.height) / 2;

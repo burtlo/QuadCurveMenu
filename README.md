@@ -340,3 +340,51 @@ An animation is an object that adheres to the protocol `QuadCurveAnimation`.
 The name is used as the name for the animation within the layer. The animation
 itself is called with the `QuadCurveMenuItem` and should return the animation
 group that will be performed.
+
+### Rect-clipped Radial Menu
+
+Sometimes a radial menu gets clipped by its superview's bounds.  
+Luckily `QCMRadialDirector` provides a helper method for calculating the best values for `arcAngle` and `startAngle` for these situations:
+
+```objc
+CGFloat radius = [QCMRadialDirector defaultRadius];
+CGFloat arcAngle = [QCMRadialDirector defaultArcAngle];
+[QCMRadialDirector getRecommendedRadius:&radius
+                    forMenuWithArcAngle:arcAngle
+                          numberOfItems:items.count
+                                 ofSize:CGSizeMake(50.0, 50.0)
+                                spacing:20.0];
+
+((QCMRadialDirector *)menu.menuDirector).radius = radius;
+```
+
+### Auto-sized Radial Menu Radii
+
+It might be desired to automatically resize a menu's `radius` based on the size/amount of its items. Luckily `QCMRadialDirector` provides a helper method for calculating the best value for `radius` for these situations:
+
+```objc
+CGFloat radius = [QCMRadialDirector defaultRadius];
+CGFloat arcAngle = [QCMRadialDirector defaultArcAngle];
+[QCMRadialDirector getRecommendedRadius:&radius
+                    forMenuWithArcAngle:arcAngle
+                          numberOfItems:items.count
+                                 ofSize:CGSizeMake(50.0, 50.0)
+                                spacing:20.0];
+
+((QCMRadialDirector *)menu.menuDirector).radius = radius;
+```
+
+### Auto-sized Radial Menu Arc Angles
+
+It might be desired to automatically resize a menu's `arcAngle` based on the size/amount of its items. Luckily `QCMRadialDirector` provides a helper method for calculating the best value for `arcAngle` for these situations:
+
+```objc
+CGFloat arcAngle = [QCMRadialDirector defaultArcAngle];
+[QCMRadialDirector getRecommendedArcAngle:&arcAngle
+                        forMenuWithRadius:[QCMRadialDirector defaultRadius]
+                            numberOfItems:items.count
+                                   ofSize:CGSizeMake(50.0, 50.0)
+                                  spacing:20.0];
+
+((QCMRadialDirector *)menu.menuDirector).arcAngle = arcAngle;
+```

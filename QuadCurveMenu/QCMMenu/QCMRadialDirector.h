@@ -35,6 +35,7 @@
 
 + (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle startAngle:(CGFloat *)startAngle forMenuWithCenter:(CGPoint)centerPoint andRadius:(CGFloat)radius inRect:(CGRect)rect;
 
++ (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle forMenuWithRadius:(CGFloat)radius numberOfItems:(NSUInteger)itemCount ofSize:(CGSize)itemSize spacing:(CGFloat)spacing;
 + (BOOL)getRecommendedRadius:(CGFloat *)radius forMenuWithArcAngle:(CGFloat )arcAngle numberOfItems:(NSUInteger)itemCount ofSize:(CGSize)itemSize spacing:(CGFloat)spacing;
 
 @end

@@ -10,7 +10,9 @@
 #import "MenuDataSource.h"
 #import "MenuItemFactory.h"
 #import "QCMDefaultMenuItemFactory.h"
+#import "QCMDefaultDataSource.h"
 #import "QCMLinearDirector.h"
+#import "QCMRadialDirector.h"
 
 @implementation MenuViewController
 
@@ -26,7 +28,9 @@
     // this initialization. This is ideal if you have a simple set of data and no real need of using a DataSource.
     //
     
-    QCMMenu *menu = [[QCMMenu alloc] initWithFrame:self.view.bounds withArray:@[@"1", @"2", @"3"]];
+	NSArray *items = @[@"1", @"2", @"3", @"4", @"5", @"6"];
+	
+    QCMMenu *menu = [[QCMMenu alloc] initWithFrame:self.view.bounds withArray:items];
     
     //
     // BUILDING A MENU WITH CUSTOM IMAGES
@@ -92,6 +96,46 @@
     
 //    menu.mainMenuItemFactory = [[QCMDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"facebook.png"] highlightImage:[UIImage imageNamed:nil]];
 //    menu.menuItemFactory = [[QCMDefaultMenuItemFactory alloc] initWithImage:[UIImage imageNamed:@"unknown-user.png"] highlightImage:[UIImage imageNamed:nil]];
+
+	//
+	// OPTIMAL RADIUS FOR RADIAL MENU
+	//
+	// QCMRadialDirector provides a method for calculating the required radius for a given number of items of uniform size with spacing:
+	
+//	CGFloat radius = [QCMRadialDirector defaultRadius];
+//	CGFloat arcAngle = [QCMRadialDirector defaultArcAngle];
+//	[QCMRadialDirector getRecommendedRadius:&radius
+//						forMenuWithArcAngle:arcAngle
+//							  numberOfItems:items.count
+//									 ofSize:CGSizeMake(50.0, 50.0)
+//									spacing:10.0];
+//	
+//	((QCMRadialDirector *)menu.menuDirector).radius = radius;
+	
+	//
+	// CLIPPED RADIAL MENU
+	//
+	// QCMRadialDirector provides a method for optimal arcAngle and startAngle for a given position in a clipping rect:
+	
+//	CGFloat radius = [QCMRadialDirector defaultRadius];
+//	CGPoint centerPoint = CGPointMake(radius * 0.5, radius * 0.5);
+//	menu = [[QCMMenu alloc] initWithFrame:self.view.bounds
+//							  centerPoint:centerPoint
+//							   dataSource:[[QCMDefaultDataSource alloc] initWithArray:items]
+//						  mainMenuFactory:[QCMDefaultMenuItemFactory defaultMainMenuItemFactory]
+//						  menuItemFactory:[QCMDefaultMenuItemFactory defaultMenuItemFactory]];
+//	CGFloat arcAngle = [QCMRadialDirector defaultArcAngle];
+//	CGFloat startAngle = [QCMRadialDirector defaultStartAngle];
+//	
+//	BOOL clipped = [QCMRadialDirector getRecommendedArcAngle:&arcAngle
+//												  startAngle:&startAngle
+//										   forMenuWithCenter:centerPoint
+//												   andRadius:radius
+//													  inRect:self.view.bounds];
+//	CGFloat marginAngle = (clipped) ? 0.2 : 0.0;
+//	QCMRadialDirector *director = [QCMRadialDirector directorWithArcAngle:arcAngle - (2 * marginAngle)
+//															   startAngle:startAngle + marginAngle];
+//	menu.menuDirector = director;
     
     menu.delegate = self;
 	[self.view addSubview:menu];
