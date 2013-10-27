@@ -37,11 +37,9 @@ static CGFloat const kQCMDefaultRotation = M_PI * 2;
 
 - (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item {
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = @[@0.0,@(self.rotation),@0.0];
+    rotateAnimation.values = @[@0.0, @(self.rotation), @0.0];
     rotateAnimation.duration = 0.5;
-    rotateAnimation.keyTimes = @[@.0, 
-                                @.4,
-                                @.5]; 
+    rotateAnimation.keyTimes = @[@0.0, @0.4, @0.5];
     
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     positionAnimation.duration = self.duration;
@@ -52,8 +50,13 @@ static CGFloat const kQCMDefaultRotation = M_PI * 2;
     positionAnimation.path = path;
     CGPathRelease(path);
     
+	CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    opacityAnimation.values = @[@1.0, @0.0];
+    opacityAnimation.duration = self.duration;
+    opacityAnimation.keyTimes = @[@0.75, @1.0];
+	
     CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[positionAnimation, rotateAnimation];
+    animationGroup.animations = @[positionAnimation, rotateAnimation, opacityAnimation];
     animationGroup.duration = self.duration;
     animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     
