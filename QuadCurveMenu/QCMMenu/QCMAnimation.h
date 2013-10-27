@@ -14,10 +14,10 @@ static CGFloat const kQuadCoreDefaultDelayBetweenItemAnimation = 0.036;
 
 @protocol QCMAnimation <NSObject>
 
-- (NSString *)animationName;
-- (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item;
-
 @property (readwrite, assign, nonatomic) CGFloat duration;
 @property (readwrite, assign, nonatomic) CGFloat delayBetweenItemAnimation;
+
+- (NSString *)animationName;
+- (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item;
 
 @end
