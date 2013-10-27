@@ -24,12 +24,15 @@
 - (void)quadCurveMenu:(QCMMenu *)menu didLongPressItem:(QCMMenuItem *)menuItem;
 
 - (BOOL)quadCurveMenuShouldExpand:(QCMMenu *)menu;
-- (BOOL)quadCurveMenuShouldClose:(QCMMenu *)menu;
-
 - (void)quadCurveMenuWillExpand:(QCMMenu *)menu;
 - (void)quadCurveMenuDidExpand:(QCMMenu *)menu;
 
+- (BOOL)quadCurveMenuShouldClose:(QCMMenu *)menu;
 - (void)quadCurveMenuWillClose:(QCMMenu *)menu;
 - (void)quadCurveMenuDidClose:(QCMMenu *)menu;
+
+- (BOOL)quadCurveMenuShouldMove:(QCMMenu *)menu;
+- (void)quadCurveMenu:(QCMMenu *)menu willMoveFrom:(CGPoint)oldPoint to:(CGPoint)newPoint;
+- (void)quadCurveMenu:(QCMMenu *)menu didMoveFrom:(CGPoint)oldPoint to:(CGPoint)newPoint;
 
 @end

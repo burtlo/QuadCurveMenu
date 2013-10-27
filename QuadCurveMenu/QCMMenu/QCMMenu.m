@@ -32,14 +32,18 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidSingleTapMenuItem;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMenuItem;
 @property (readwrite, assign, nonatomic) BOOL delegateHasShouldExpand;
-@property (readwrite, assign, nonatomic) BOOL delegateHasShouldClose;
 @property (readwrite, assign, nonatomic) BOOL delegateHasWillExpand;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidExpand;
+
+@property (readwrite, assign, nonatomic) BOOL delegateHasShouldClose;
 @property (readwrite, assign, nonatomic) BOOL delegateHasWillClose;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidClose;
 
+@property (readwrite, assign, nonatomic) BOOL delegateHasShouldMove;
+@property (readwrite, assign, nonatomic) BOOL delegateHasWillMove;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidMove;
+
 @property (readwrite, strong, nonatomic) QCMMenuItem *mainItem;
-@property (readwrite, assign, nonatomic) CGPoint centerPoint;
 @property (readwrite, strong, nonatomic) id<QCMAnimation> noAnimation;
 
 @end
@@ -128,6 +132,27 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     
 }
 
+#pragma mark - Accessors
+
+- (void)setCenterPoint:(CGPoint)centerPoint {
+	_centerPoint = centerPoint;
+	self.mainItem.center = centerPoint;
+	[self setNeedsLayout];
+}
+
+#pragma mark - Layout
+
+- (void)layoutSubviews {
+	QCMMenuItem *mainItem = self.mainItem;
+	id <QCMMotionDirector> director = self.menuDirector;
+	NSUInteger total = [self numberOfDisplayableItems];
+	for (NSUInteger index = 0; index < total; index ++) {
+		QCMMenuItem *item = [self menuItemAtIndex:index];
+		[director positionMenuItem:item atIndex:index ofCount:total fromMenu:mainItem];
+		item.center = item.endPoint;
+	}
+}
+
 #pragma mark - Main Menu Item
 
 - (void)setMainMenuItemFactory:(id<QCMMenuItemFactory>)mainMenuItemFactory {
@@ -138,6 +163,11 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     self.mainItem = [[self mainMenuItemFactory] menuMainItemForMenu:self withDataObject:nil];
     self.mainItem.delegate = self;
     self.mainItem.center = self.centerPoint;
+	
+	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveInMenuView:)];
+    [panGestureRecognizer setMinimumNumberOfTouches:1];
+    [panGestureRecognizer setMaximumNumberOfTouches:1];
+    [self.mainItem addGestureRecognizer:panGestureRecognizer];
     
     [self addSubview:self.mainItem];
     [self setNeedsDisplay];
@@ -155,11 +185,16 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     self.delegateHasDidLongPressMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressItem:)];
     
     self.delegateHasShouldExpand = [delegate respondsToSelector:@selector(quadCurveMenuShouldExpand:)];
-    self.delegateHasShouldClose = [delegate respondsToSelector:@selector(quadCurveMenuShouldClose:)];
     self.delegateHasWillExpand = [delegate respondsToSelector:@selector(quadCurveMenuWillExpand:)];
-    self.delegateHasDidExpand = [delegate respondsToSelector:@selector(quadCurveMenuDidExpand:)];
+	self.delegateHasDidExpand = [delegate respondsToSelector:@selector(quadCurveMenuDidExpand:)];
+	
+	self.delegateHasShouldClose = [delegate respondsToSelector:@selector(quadCurveMenuShouldClose:)];
     self.delegateHasWillClose = [delegate respondsToSelector:@selector(quadCurveMenuWillClose:)];
     self.delegateHasDidClose = [delegate respondsToSelector:@selector(quadCurveMenuDidClose:)];
+	
+	self.delegateHasShouldMove = [delegate respondsToSelector:@selector(quadCurveMenuShouldMove:)];
+    self.delegateHasWillMove = [delegate respondsToSelector:@selector(quadCurveMenu:willMoveFrom:to:)];
+	self.delegateHasDidMove = [delegate respondsToSelector:@selector(quadCurveMenu:didMoveFrom:to:)];
 }
 
 #pragma mark - Data Source Delegate
@@ -200,6 +235,33 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     if (self.expanding) {
         [self setExpanding:NO animated:animated];
     }
+}
+
+- (void)moveInMenuView:(UIPanGestureRecognizer *)panGesture {
+	QCMMenuItem *mainItem = (QCMMenuItem *)panGesture.view;
+	[self bringSubviewToFront:mainItem];
+	[self moveMenu:[panGesture locationInView:self]];
+}
+
+- (void)moveMenu:(CGPoint)point {
+	[self moveMenu:point animated:NO];
+}
+
+- (void)moveMenu:(CGPoint)point animated:(BOOL)animated {
+	if (!self.delegateHasShouldMove || ![self.delegate quadCurveMenuShouldMove:self]) {
+		return;
+	}
+	CGPoint oldPoint = self.centerPoint;
+	if (self.delegateHasWillMove) {
+		[self.delegate quadCurveMenu:self willMoveFrom:oldPoint to:point];
+	}
+	BOOL animationsEnabled = [UIView areAnimationsEnabled];
+	[UIView setAnimationsEnabled:animated];
+	self.centerPoint = point;
+	[UIView setAnimationsEnabled:animationsEnabled];
+	if (self.delegateHasDidMove) {
+		[self.delegate quadCurveMenu:self didMoveFrom:oldPoint to:point];
+	}
 }
 
 #pragma mark - UIView Gestures

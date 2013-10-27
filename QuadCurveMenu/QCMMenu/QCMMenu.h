@@ -35,7 +35,7 @@
 @property (readwrite, weak, nonatomic)   id<QCMMenuDelegate> delegate;
 @property (readwrite, strong, nonatomic) id<QCMDataSourceDelegate> dataSource;
 
-@property (readonly, assign, nonatomic) CGPoint centerPoint;
+@property (readwrite, assign, nonatomic) CGPoint centerPoint;
 @property (readonly, strong, nonatomic) QCMMenuItem *mainItem;
 
 @property (readwrite, assign, nonatomic, getter = isExpanding) BOOL expanding;
@@ -68,5 +68,8 @@
 
 - (void)closeMenu;
 - (void)closeMenuAnimated:(BOOL)animated;
+
+- (void)moveMenu:(CGPoint)point;
+- (void)moveMenu:(CGPoint)point animated:(BOOL)animated;
 
 @end
