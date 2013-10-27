@@ -10,7 +10,11 @@
 
 @implementation MenuItemFactory
 
-- (QCMMenuItem *)createMenuItemWithDataObject:(id)dataObject {
+- (QCMMenuItem *)menuMainItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject {
+	return [self menuItemForMenu:menu withDataObject:dataObject];
+}
+
+- (QCMMenuItem *)menuItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject {
     NSString *imageName = (NSString *)dataObject;
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageItem = [[UIImageView alloc] initWithImage:image];

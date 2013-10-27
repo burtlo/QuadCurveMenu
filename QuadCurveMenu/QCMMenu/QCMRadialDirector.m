@@ -44,7 +44,6 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 
 - (id)initWithArcAngle:(CGFloat)arcAngle 
           startAngle:(CGFloat)startAngle {
-    
     self = [super init];
     if (self) {
         self.radius = [[self class] defaultRadius];
@@ -117,7 +116,6 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 + (BOOL)getRecommendedArcAngle:(CGFloat *)arcAngle startAngle:(CGFloat *)startAngle forMenuWithCenter:(CGPoint)centerPoint andRadius:(CGFloat)radius inRect:(CGRect)rect {
 	NSAssert(arcAngle, @"Method argument 'arcAngle' must not be NULL");
 	NSAssert(startAngle, @"Method argument 'startAngle' must not be NULL");
-	NSAssert(CGRectContainsPoint(rect, centerPoint), @"Rect does not contain center point.");
 	
 	CGFloat quarter = M_PI / 2;
 	CGRectEdge edges[4] = {CGRectMinYEdge, CGRectMaxXEdge, CGRectMaxYEdge, CGRectMinXEdge};

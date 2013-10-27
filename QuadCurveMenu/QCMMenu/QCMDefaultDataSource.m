@@ -29,12 +29,13 @@
 	return [[self alloc] initWithArray:array];
 }
 
-- (NSUInteger)numberOfMenuItems {
-    return self.array.count;
+- (NSUInteger)numberOfItemsInMenu:(QCMMenu *)menu {
+    return self.array.count;;
 }
 
-- (id)dataObjectAtIndex:(NSUInteger)itemIndex {
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex inMenu:(QCMMenu *)menu {
     return self.array[itemIndex];
 }
+
 @end
 

@@ -8,8 +8,11 @@
 
 #import "QCMMenuItem.h"
 
+@class QCMMenu;
+
 @protocol QCMMenuItemFactory <NSObject>
 
-- (QCMMenuItem *)createMenuItemWithDataObject:(id)dataObject;
+- (QCMMenuItem *)menuMainItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject;
+- (QCMMenuItem *)menuItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject;
 
 @end

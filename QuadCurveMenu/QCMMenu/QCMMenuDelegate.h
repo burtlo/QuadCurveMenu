@@ -16,19 +16,20 @@
 
 @optional
 
-- (void)QCMMenu:(QCMMenu *)menu didTapMenu:(QCMMenuItem *)mainMenuItem;
-- (void)QCMMenu:(QCMMenu *)menu didLongPressMenu:(QCMMenuItem *)mainMenuItem;
+- (void)quadCurveMenu:(QCMMenu *)menu didSingleTapMainItem:(QCMMenuItem *)mainMenuItem;
+- (void)quadCurveMenu:(QCMMenu *)menu didDoubleTapMainItem:(QCMMenuItem *)mainMenuItem;
+- (void)quadCurveMenu:(QCMMenu *)menu didLongPressMainItem:(QCMMenuItem *)mainMenuItem;
 
-- (BOOL)QCMMenuShouldExpand:(QCMMenu *)menu;
-- (BOOL)QCMMenuShouldClose:(QCMMenu *)menu;
+- (void)quadCurveMenu:(QCMMenu *)menu didSingleTapItem:(QCMMenuItem *)menuItem;
+- (void)quadCurveMenu:(QCMMenu *)menu didLongPressItem:(QCMMenuItem *)menuItem;
 
-- (void)QCMMenuWillExpand:(QCMMenu *)menu;
-- (void)QCMMenuDidExpand:(QCMMenu *)menu;
+- (BOOL)quadCurveMenuShouldExpand:(QCMMenu *)menu;
+- (BOOL)quadCurveMenuShouldClose:(QCMMenu *)menu;
 
-- (void)QCMMenuWillClose:(QCMMenu *)menu;
-- (void)QCMMenuDidClose:(QCMMenu *)menu;
+- (void)quadCurveMenuWillExpand:(QCMMenu *)menu;
+- (void)quadCurveMenuDidExpand:(QCMMenu *)menu;
 
-- (void)QCMMenu:(QCMMenu *)menu didTapMenuItem:(QCMMenuItem *)menuItem;
-- (void)QCMMenu:(QCMMenu *)menu didLongPressMenuItem:(QCMMenuItem *)menuItem;
+- (void)quadCurveMenuWillClose:(QCMMenu *)menu;
+- (void)quadCurveMenuDidClose:(QCMMenu *)menu;
 
 @end

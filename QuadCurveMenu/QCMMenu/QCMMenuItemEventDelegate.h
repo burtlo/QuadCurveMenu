@@ -8,13 +8,14 @@
 
 #import "QCMMenuItem.h"
 
-@class QCMMenuItem;
+@class QCMMenu, QCMMenuItem;
 
 @protocol QCMMenuItemEventDelegate <NSObject>
 
 @optional
 
-- (void)QCMMenuItemLongPressed:(QCMMenuItem *)item;
-- (void)QCMMenuItemTapped:(QCMMenuItem *)item;
+- (void)didSingleTapQuadCurveMenuItem:(QCMMenuItem *)menuItem;
+- (void)didDoubleTapQuadCurveMenuItem:(QCMMenuItem *)menuItem;
+- (void)didLongPressQuadCurveMenuItem:(QCMMenuItem *)menuItem;
 
 @end

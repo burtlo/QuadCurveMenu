@@ -219,7 +219,7 @@
     
     // Progress Arc
     
-    CGPoint centerPoint = CGPointMake(imageRect.origin.x + imageRect.size.width / 2,imageRect.origin.y + imageRect.size.height / 2);
+    CGPoint centerPoint = CGPointMake(imageRect.origin.x + imageRect.size.width / 2, imageRect.origin.y + imageRect.size.height / 2);
     
     if (self.progress != 0.0) {
         

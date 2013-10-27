@@ -24,6 +24,8 @@
 
 @property (readwrite, strong, nonatomic) id<QCMMenuItemEventDelegate> delegate;
 
+@property (readonly, strong, nonatomic) UIView *contentView;
+
 - (id)initWithView:(UIView *)view;
 
 @end

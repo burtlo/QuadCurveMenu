@@ -26,18 +26,19 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 @interface QCMMenu ()
 
-@property (readwrite, assign, nonatomic) BOOL delegateHasDidTapMainMenu;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidSingleTapMainMenu;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidDoubleTapMainMenu;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMainMenu;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidSingleTapMenuItem;
+@property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMenuItem;
 @property (readwrite, assign, nonatomic) BOOL delegateHasShouldExpand;
 @property (readwrite, assign, nonatomic) BOOL delegateHasShouldClose;
 @property (readwrite, assign, nonatomic) BOOL delegateHasWillExpand;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidExpand;
 @property (readwrite, assign, nonatomic) BOOL delegateHasWillClose;
 @property (readwrite, assign, nonatomic) BOOL delegateHasDidClose;
-@property (readwrite, assign, nonatomic) BOOL delegateHasDidTapMenuItem;
-@property (readwrite, assign, nonatomic) BOOL delegateHasDidLongPressMenuItem;
 
-@property (readwrite, strong, nonatomic) QCMMenuItem *mainMenuButton;
+@property (readwrite, strong, nonatomic) QCMMenuItem *mainItem;
 @property (readwrite, assign, nonatomic) CGPoint centerPoint;
 @property (readwrite, strong, nonatomic) id<QCMAnimation> noAnimation;
 
@@ -93,8 +94,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
          dataSource:(id<QCMDataSourceDelegate>)dataSource 
     mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
     menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory {
-    
-    
     return [self initWithFrame:frame 
                    centerPoint:centerPoint 
                     dataSource:dataSource 
@@ -105,7 +104,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 }
 
 - (id)initWithFrame:(CGRect)frame dataSource:(id<QCMDataSourceDelegate>)dataSource {
-    
     return [self initWithFrame:frame 
                     centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2) 
                     dataSource:dataSource 
@@ -114,7 +112,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 }
 
 - (id)initWithFrame:(CGRect)frame mainMenuImage:(NSString *)mainMenuItemImage menuItemImageArray:(NSArray *)array {
-    
     return [self initWithFrame:frame
                    centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2)
                     dataSource:[[QCMDefaultDataSource alloc] initWithArray:array]
@@ -123,7 +120,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 }
 
 - (id)initWithFrame:(CGRect)frame withArray:(NSArray *)array {
-    
     return [self initWithFrame:frame
                     centerPoint:CGPointMake(frame.size.width / 2, frame.size.height / 2) 
                     dataSource:[[QCMDefaultDataSource alloc] initWithArray:array]
@@ -135,55 +131,51 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - Main Menu Item
 
 - (void)setMainMenuItemFactory:(id<QCMMenuItemFactory>)mainMenuItemFactory {
-    
-    [self.mainMenuButton removeFromSuperview];
-    
     _mainMenuItemFactory = mainMenuItemFactory;
     
-    self.mainMenuButton = [[self mainMenuItemFactory] createMenuItemWithDataObject:nil];
-    self.mainMenuButton.delegate = self;
+	[self.mainItem removeFromSuperview];
+	
+    self.mainItem = [[self mainMenuItemFactory] menuMainItemForMenu:self withDataObject:nil];
+    self.mainItem.delegate = self;
+    self.mainItem.center = self.centerPoint;
     
-    self.mainMenuButton.center = self.centerPoint;
-    
-    [self addSubview:self.mainMenuButton];
+    [self addSubview:self.mainItem];
     [self setNeedsDisplay];
-    
 }
 
 #pragma mark - Event Delegate
 
 - (void)setDelegate:(id<QCMMenuDelegate>)delegate {
-    
     _delegate = delegate;
     
-    self.delegateHasDidTapMainMenu = [delegate respondsToSelector:@selector(QCMMenu:didTapMenu:)];
-    self.delegateHasDidLongPressMainMenu = [delegate respondsToSelector:@selector(QCMMenu:didLongPressMenu:)];
+    self.delegateHasDidSingleTapMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didSingleTapMainItem:)];
+	self.delegateHasDidDoubleTapMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didDoubleTapMainItem:)];
+    self.delegateHasDidLongPressMainMenu = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressMainItem:)];
+    self.delegateHasDidSingleTapMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didSingleTapItem:)];
+    self.delegateHasDidLongPressMenuItem = [delegate respondsToSelector:@selector(quadCurveMenu:didLongPressItem:)];
     
-    self.delegateHasDidTapMenuItem = [delegate respondsToSelector:@selector(QCMMenu:didTapMenuItem:)];
-    self.delegateHasDidLongPressMenuItem = [delegate respondsToSelector:@selector(QCMMenu:didLongPressMenu:)];
-    
-    self.delegateHasShouldExpand = [delegate respondsToSelector:@selector(QCMMenuShouldExpand:)];
-    self.delegateHasShouldClose = [delegate respondsToSelector:@selector(QCMMenuShouldClose:)];
-    self.delegateHasWillExpand = [delegate respondsToSelector:@selector(QCMMenuWillExpand:)];
-    self.delegateHasDidExpand = [delegate respondsToSelector:@selector(QCMMenuDidExpand:)];
-    self.delegateHasWillClose = [delegate respondsToSelector:@selector(QCMMenuWillClose:)];
-    self.delegateHasDidClose = [delegate respondsToSelector:@selector(QCMMenuDidClose:)];
+    self.delegateHasShouldExpand = [delegate respondsToSelector:@selector(quadCurveMenuShouldExpand:)];
+    self.delegateHasShouldClose = [delegate respondsToSelector:@selector(quadCurveMenuShouldClose:)];
+    self.delegateHasWillExpand = [delegate respondsToSelector:@selector(quadCurveMenuWillExpand:)];
+    self.delegateHasDidExpand = [delegate respondsToSelector:@selector(quadCurveMenuDidExpand:)];
+    self.delegateHasWillClose = [delegate respondsToSelector:@selector(quadCurveMenuWillClose:)];
+    self.delegateHasDidClose = [delegate respondsToSelector:@selector(quadCurveMenuDidClose:)];
 }
 
 #pragma mark - Data Source Delegate
 
 - (NSUInteger)numberOfDisplayableItems {
-    return self.dataSource.numberOfMenuItems;
+    return [self.dataSource numberOfItemsInMenu:self];
 }
 
 - (id)dataObjectAtIndex:(NSUInteger)index {
-    return [self.dataSource dataObjectAtIndex:index];
+    return [self.dataSource dataObjectAtIndex:index inMenu:self];
 }
 
 - (QCMMenuItem *)menuItemAtIndex:(NSUInteger)index {
     QCMMenuItem *item = (QCMMenuItem *)[self viewWithTag:kQCMMenuItemStartingTag + index];
     if (!item) {
-        item = [[self menuItemFactory] createMenuItemWithDataObject:[self dataObjectAtIndex:index]];
+        item = [[self menuItemFactory] menuItemForMenu:self withDataObject:[self dataObjectAtIndex:index]];
     }
 	return item;
 }
@@ -213,7 +205,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - UIView Gestures
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    if (self.expanding || CGRectContainsPoint(self.mainMenuButton.frame, point)) {
+    if (self.expanding || CGRectContainsPoint(self.mainItem.frame, point)) {
         return YES;
     }
     return NO;
@@ -226,49 +218,45 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - QCMMenuItemEventDelegate Adherence
 
 
-#pragma mark Tap Event
+#pragma mark Single Tap Event
 
-- (void)QCMMenuItemTapped:(QCMMenuItem *)item {
-    
-    if (item == self.mainMenuButton) {
-        [self mainMenuItemTapped];
+- (void)didSingleTapQuadCurveMenuItem:(QCMMenuItem *)menuItem {
+    if (menuItem == self.mainItem) {
+        [self mainMenuItemSingleTapped];
     } else {
-        [self menuItemTapped:item];
+        [self menuItemSingleTapped:menuItem];
     }
 }
 
-- (void)mainMenuItemTapped {
-    
-    if (self.delegateHasDidTapMainMenu) {
-        [self.delegate QCMMenu:self didTapMenu:self.mainMenuButton];
+- (void)mainMenuItemSingleTapped {
+    if (self.delegateHasDidSingleTapMainMenu) {
+        [self.delegate quadCurveMenu:self didSingleTapMainItem:self.mainItem];
     }
     
     BOOL willBeExpandingMenu = !self.expanding;
     BOOL shouldPerformAction = YES;
     
     if (willBeExpandingMenu && self.delegateHasShouldExpand) {
-        shouldPerformAction = [self.delegate QCMMenuShouldExpand:self];
+        shouldPerformAction = [self.delegate quadCurveMenuShouldExpand:self];
     }
     
     if ( ! willBeExpandingMenu && self.delegateHasShouldClose) {
-        shouldPerformAction = [self.delegate QCMMenuShouldClose:self];
+        shouldPerformAction = [self.delegate quadCurveMenuShouldClose:self];
     }
     
     if (shouldPerformAction) {
         [self setExpanding:willBeExpandingMenu animated:YES];
     }
-    
 }
 
-- (void)menuItemTapped:(QCMMenuItem *)item {
-    
-    if (self.delegateHasDidTapMenuItem) {
-        [self.delegate QCMMenu:self didTapMenuItem:item];
+- (void)menuItemSingleTapped:(QCMMenuItem *)item {
+    if (self.delegateHasDidSingleTapMenuItem) {
+        [self.delegate quadCurveMenu:self didSingleTapItem:item];
     }
     
     [self animateMenuItems:@[item] withAnimation:[self selectedAnimation]];
     
-    NSPredicate *otherItems = [NSPredicate predicateWithFormat:@"tag != %d",[item tag]];
+    NSPredicate *otherItems = [NSPredicate predicateWithFormat:@"tag != %d", [item tag]];
     
     NSArray *otherMenuItems = [[self allMenuItemsBeingDisplayed] filteredArrayUsingPredicate:otherItems];
     
@@ -279,25 +267,47 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     [self performCloseMainMenuAnimated:YES];
 }
 
+#pragma mark Double Tap Event
+
+- (void)didDoubleTapQuadCurveMenuItem:(QCMMenuItem *)menuItem {
+    if (menuItem == self.mainItem) {
+        [self mainMenuItemDoubleTapped];
+    } else {
+        [self menuItemDoubleTapped:menuItem];
+    }
+}
+
+- (void)mainMenuItemDoubleTapped {
+    if (self.delegateHasDidSingleTapMainMenu) {
+        [self.delegate quadCurveMenu:self didDoubleTapMainItem:self.mainItem];
+    }
+}
+
+- (void)menuItemDoubleTapped:(QCMMenuItem *)item {
+//    if (self.delegateHasDidDoubleTapMenuItem) {
+//        [self.delegate quadCurveMenu:self didDoubleTapItem:item];
+//    }
+}
+
 #pragma mark Long Press Event
 
-- (void)QCMMenuItemLongPressed:(QCMMenuItem *)item {
-    if (item == self.mainMenuButton) {
+- (void)didLongPressQuadCurveMenuItem:(QCMMenuItem *)menuItem {
+    if (menuItem == self.mainItem) {
         [self mainMenuItemLongPressed];
     } else {
-        [self menuItemLongPressed:item];
+        [self menuItemLongPressed:menuItem];
     }
 }
 
 - (void)mainMenuItemLongPressed {
     if (self.delegateHasDidLongPressMainMenu) {
-        [self.delegate QCMMenu:self didLongPressMenu:self.mainMenuButton];
+        [self.delegate quadCurveMenu:self didLongPressMainItem:self.mainItem];
     }
 }
 
 - (void)menuItemLongPressed:(QCMMenuItem *)item {
     if (self.delegateHasDidLongPressMenuItem) {
-        [self.delegate QCMMenu:self didLongPressMenuItem:item];
+        [self.delegate quadCurveMenu:self didLongPressItem:item];
     }
 }
 
@@ -311,25 +321,20 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     }
 }
 
-
 - (void)performCloseMainMenuAnimated:(BOOL)animated {
-
     id<QCMAnimation> animation = self.noAnimation;
     if (animated) { animation = self.mainMenuCloseAnimation; }
     
-    [self.mainMenuButton.layer addAnimation:[animation animationForItem:self.mainMenuButton]
+    [self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
                                 forKey:animation.animationName];
-
 }
 
 - (void)performExpandMainMenuAnimated:(BOOL)animated {
-
     id<QCMAnimation> animation = self.noAnimation;
     if (animated) { animation = self.mainMenuExpandAnimation; }
 
-    [self.mainMenuButton.layer addAnimation:[animation animationForItem:self.mainMenuButton]
+    [self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
 									 forKey:animation.animationName];
-    
 }
 
 - (void)animateExpandMainMenuAnimated:(BOOL)animated {
@@ -337,23 +342,19 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 }
 
 - (NSArray *)allMenuItemsBeingDisplayed {
-    
     NSPredicate *allMenuItemsPredicate = [NSPredicate predicateWithFormat:@"tag BETWEEN { %d, %d }",
                                           kQCMMenuItemStartingTag,
                                           (kQCMMenuItemStartingTag + [self numberOfDisplayableItems])];
-    
     return [[self subviews] filteredArrayUsingPredicate:allMenuItemsPredicate];
 }
 
 #pragma mark - Expanding / Closing the Menu
 
 - (void)setExpanding:(BOOL)expanding animated:(BOOL)animated {
-    _expanding = expanding;
-
-    if (self.expanding) {
+    self.expanding = expanding;
+    if (expanding) {
         [self performExpandMainMenuAnimated:animated];
         [self performExpandMenuAnimated:animated];
-    
     } else {
         [self performCloseMainMenuAnimated:animated];
         [self performCloseMenuAnimated:animated];
@@ -363,23 +364,21 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - QCMMenuItem Management
 
 - (void)addMenuItem:(QCMMenuItem *)item toViewAtPosition:(NSRange)position {
-    
     NSUInteger index = position.location;
     NSUInteger count = position.length;
     
     item.tag = kQCMMenuItemStartingTag + index;
     item.delegate = self;
-    
-    [self.menuDirector positionMenuItem:item atIndex:index ofCount:count fromMenu:self.mainMenuButton];
-    
-    [self insertSubview:item belowSubview:self.mainMenuButton];
+	
+    [self.menuDirector positionMenuItem:item atIndex:index ofCount:count fromMenu:self.mainItem];
+    [self insertSubview:item belowSubview:self.mainItem];
 }
 
 - (void)addMenuItemsToViewAndPerform:(void (^)(QCMMenuItem *item))block {
     NSUInteger total = [self numberOfDisplayableItems];
     for (NSUInteger index = 0; index < total; index ++) {
         QCMMenuItem *item = [self menuItemAtIndex:index];
-        [self addMenuItem:item toViewAtPosition:NSMakeRange(index,total)];
+        [self addMenuItem:item toViewAtPosition:NSMakeRange(index, total)];
         block(item);
     }
 }
@@ -388,13 +387,13 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 - (void)notifyDelegateMenuDidExpand:(QCMMenu *)menu {
     if (self.delegateHasDidExpand) {
-        [self.delegate QCMMenuDidExpand:menu];
+        [self.delegate quadCurveMenuDidExpand:menu];
     }
 }
 
 - (void)performExpandMenuAnimated:(BOOL)animated {
     if (self.delegateHasWillExpand) {
-        [self.delegate QCMMenuWillExpand:self];
+        [self.delegate quadCurveMenuWillExpand:self];
     }
     
     [self addMenuItemsToViewAndPerform:^(QCMMenuItem *item) {
@@ -408,7 +407,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     
     for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
         QCMMenuItem *item = itemToBeAnimated[x];
-        NSDictionary *dictionary = @{@"menuItem": item,@"animation": animation};
+        NSDictionary *dictionary = @{@"menuItem": item, @"animation": animation};
         [self performSelector:@selector(animateMenuItemToEndPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
     }
     
@@ -425,19 +424,17 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     item.center = item.endPoint;
 }
 
-
 #pragma mark - Animate MenuItems Closed
 
 - (void)notifyDelegateMenuDidClose:(QCMMenu *)menu {
     if (self.delegateHasDidClose) {
-        [self.delegate QCMMenuDidClose:menu];
+        [self.delegate quadCurveMenuDidClose:menu];
     }
 }
 
 - (void)performCloseMenuAnimated:(BOOL)animated {
-    
     if (self.delegateHasWillClose) {
-        [self.delegate QCMMenuWillClose:self];
+        [self.delegate quadCurveMenuWillClose:self];
     }
     
     NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
@@ -465,6 +462,5 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
     [item.layer addAnimation:closeAnimation forKey:[animation animationName]];
     item.center = item.startPoint;
 }
-
 
 @end

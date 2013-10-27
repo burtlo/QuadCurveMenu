@@ -35,6 +35,9 @@
 @property (readwrite, weak, nonatomic)   id<QCMMenuDelegate> delegate;
 @property (readwrite, strong, nonatomic) id<QCMDataSourceDelegate> dataSource;
 
+@property (readonly, assign, nonatomic) CGPoint centerPoint;
+@property (readonly, strong, nonatomic) QCMMenuItem *mainItem;
+
 @property (readwrite, assign, nonatomic, getter = isExpanding) BOOL expanding;
 
 #pragma mark - Initialization

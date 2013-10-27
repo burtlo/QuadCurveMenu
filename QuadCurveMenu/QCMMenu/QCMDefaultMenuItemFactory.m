@@ -46,7 +46,11 @@
 
 #pragma mark - QCMMenuItemFactory Adherence
 
-- (QCMMenuItem *)createMenuItemWithDataObject:(id)dataObject {	
+- (QCMMenuItem *)menuMainItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject {
+	return [self menuItemForMenu:menu withDataObject:dataObject];
+}
+
+- (QCMMenuItem *)menuItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject {
     AGMedallionView *medallionItem = [[AGMedallionView alloc] init];
 	medallionItem.image = self.image;
     medallionItem.highlightedImage = self.highlightImage;

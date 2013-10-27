@@ -26,11 +26,11 @@
 
 #pragma mark - QCMDataSourceDelegate Adherence
 
-- (NSUInteger)numberOfMenuItems {
+- (NSUInteger)numberOfItemsInMenu:(QCMMenu *)menu {
     return self.dataItems.count;
 }
 
-- (id)dataObjectAtIndex:(NSUInteger)itemIndex {
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex inMenu:(QCMMenu *)menu {
     return self.dataItems[itemIndex];
 }
 

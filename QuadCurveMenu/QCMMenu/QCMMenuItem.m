@@ -34,14 +34,20 @@ static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.
         
         self.contentView = view;
         [self addSubview:view];
-        self.frame = CGRectMake(self.center.x - self.contentView.bounds.size.width/2,self.center.y - view.bounds.size.height/2,view.bounds.size.width, view.bounds.size.height);
+        self.frame = CGRectMake(self.center.x - self.contentView.bounds.size.width/2, self.center.y - view.bounds.size.height/2, view.bounds.size.width, view.bounds.size.height);
         
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnMenuItem:)];
         
         [self addGestureRecognizer:longPressGesture];
         
-        UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapOnMenuItem:)];
-        
+        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnMenuItem:)];
+        [doubleTapGesture setNumberOfTapsRequired:2];
+		
+        [self addGestureRecognizer:doubleTapGesture];
+		
+		UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapOnMenuItem:)];
+        [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+		
         [self addGestureRecognizer:singleTapGesture];
 		
         self.userInteractionEnabled = YES;
@@ -53,21 +59,27 @@ static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.
 
 - (void)setDelegate:(id<QCMMenuItemEventDelegate>)delegate {
     _delegate = delegate;
-    self.delegateHasLongPressed = [delegate respondsToSelector:@selector(QCMMenuItemLongPressed:)];
-    self.delegateHasTapped = [delegate respondsToSelector:@selector(QCMMenuItemTapped:)];
+    self.delegateHasLongPressed = [delegate respondsToSelector:@selector(didLongPressQuadCurveMenuItem:)];
+    self.delegateHasTapped = [delegate respondsToSelector:@selector(didSingleTapQuadCurveMenuItem:)];
 }
 
 #pragma mark - Gestures
 
 - (void)longPressOnMenuItem:(UILongPressGestureRecognizer *)sender {
     if (self.delegateHasLongPressed) {
-        [self.delegate QCMMenuItemLongPressed:self];
+        [self.delegate didLongPressQuadCurveMenuItem:self];
     }
 }
 
 - (void)singleTapOnMenuItem:(UITapGestureRecognizer *)sender {
     if (self.delegateHasTapped) {
-        [self.delegate QCMMenuItemTapped:self];
+        [self.delegate didSingleTapQuadCurveMenuItem:self];
+    }
+}
+
+- (void)doubleTapOnMenuItem:(UITapGestureRecognizer *)sender {
+    if (self.delegateHasTapped) {
+        [self.delegate didDoubleTapQuadCurveMenuItem:self];
     }
 }
 
@@ -77,12 +89,12 @@ static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.
     [super layoutSubviews];
     
 	UIView *contentView = self.contentView;
-    self.frame = CGRectMake(self.center.x - contentView.bounds.size.width/2,self.center.y - contentView.bounds.size.height/2,contentView.bounds.size.width, contentView.bounds.size.height);
+    self.frame = CGRectMake(self.center.x - contentView.bounds.size.width/2, self.center.y - contentView.bounds.size.height/2, contentView.bounds.size.width, contentView.bounds.size.height);
     
     CGFloat width = contentView.bounds.size.width;
     CGFloat height = contentView.bounds.size.height;
     
-    contentView.frame = CGRectMake(0.0,0.0, width, height);
+    contentView.frame = CGRectMake(0.0, 0.0, width, height);
 }
 
 #pragma mark - Status Methods
@@ -93,6 +105,5 @@ static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.
 		((UIControl *)self.contentView).highlighted = highlighted;
     }
 }
-
 
 @end

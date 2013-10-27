@@ -6,9 +6,11 @@
 //  Copyright (c) 2012 Franklin Webber. All rights reserved.
 //
 
+@class QCMMenu;
+
 @protocol QCMDataSourceDelegate <NSObject>
 
-- (NSUInteger)numberOfMenuItems;
-- (id)dataObjectAtIndex:(NSUInteger)itemIndex;
+- (NSUInteger)numberOfItemsInMenu:(QCMMenu *)menu;
+- (id)dataObjectAtIndex:(NSUInteger)itemIndex inMenu:(QCMMenu *)menu;
 
 @end
