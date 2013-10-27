@@ -48,14 +48,16 @@ static CGFloat const kQCMDefaultBlowUpScale = 3.0;
     CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     opacityAnimation.toValue  = @0.0;
     
-    CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
-    animationgroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
-    animationgroup.duration = self.duration;
-    animationgroup.fillMode = kCAFillModeForwards;
+    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+    animationGroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
+    animationGroup.duration = self.duration;
+    animationGroup.fillMode = kCAFillModeForwards;
 
+	animationGroup.delegate = self;
+	
     [item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
 
-    return animationgroup;
+    return animationGroup;
 }
 
 @end
