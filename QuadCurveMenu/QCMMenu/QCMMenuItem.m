@@ -27,83 +27,83 @@ static inline CGRect ScaleRect(CGRect rect, CGFloat n) {return CGRectMake((rect.
 #pragma mark - Initialization
 
 - (id)initWithView:(UIView *)view {
-    
-    if (self = [super init]) {
-        
-        self.userInteractionEnabled = YES;
-        
-        self.contentView = view;
-        [self addSubview:view];
-        self.frame = CGRectMake(self.center.x - self.contentView.bounds.size.width/2, self.center.y - view.bounds.size.height/2, view.bounds.size.width, view.bounds.size.height);
-        
-        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnMenuItem:)];
-        
-        [self addGestureRecognizer:longPressGesture];
-        
-        UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnMenuItem:)];
-        [doubleTapGesture setNumberOfTapsRequired:2];
+	
+	if (self = [super init]) {
 		
-        [self addGestureRecognizer:doubleTapGesture];
+		self.userInteractionEnabled = YES;
+		
+		self.contentView = view;
+		[self addSubview:view];
+		self.frame = CGRectMake(self.center.x - self.contentView.bounds.size.width/2, self.center.y - view.bounds.size.height/2, view.bounds.size.width, view.bounds.size.height);
+		
+		UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnMenuItem:)];
+		
+		[self addGestureRecognizer:longPressGesture];
+		
+		UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnMenuItem:)];
+		[doubleTapGesture setNumberOfTapsRequired:2];
+		
+		[self addGestureRecognizer:doubleTapGesture];
 		
 		UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapOnMenuItem:)];
-        [singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
+		[singleTapGesture requireGestureRecognizerToFail:doubleTapGesture];
 		
-        [self addGestureRecognizer:singleTapGesture];
+		[self addGestureRecognizer:singleTapGesture];
 		
-        self.userInteractionEnabled = YES;
-    }
-    return self;
+		self.userInteractionEnabled = YES;
+	}
+	return self;
 }
 
 #pragma mark - Delegate
 
 - (void)setDelegate:(id<QCMMenuItemEventDelegate>)delegate {
-    _delegate = delegate;
-    self.delegateHasLongPressed = [delegate respondsToSelector:@selector(didLongPressQuadCurveMenuItem:)];
-    self.delegateHasTapped = [delegate respondsToSelector:@selector(didSingleTapQuadCurveMenuItem:)];
+	_delegate = delegate;
+	self.delegateHasLongPressed = [delegate respondsToSelector:@selector(didLongPressQuadCurveMenuItem:)];
+	self.delegateHasTapped = [delegate respondsToSelector:@selector(didSingleTapQuadCurveMenuItem:)];
 }
 
 #pragma mark - Gestures
 
 - (void)longPressOnMenuItem:(UILongPressGestureRecognizer *)sender {
-    if (self.delegateHasLongPressed) {
-        [self.delegate didLongPressQuadCurveMenuItem:self];
-    }
+	if (self.delegateHasLongPressed) {
+		[self.delegate didLongPressQuadCurveMenuItem:self];
+	}
 }
 
 - (void)singleTapOnMenuItem:(UITapGestureRecognizer *)sender {
-    if (self.delegateHasTapped) {
-        [self.delegate didSingleTapQuadCurveMenuItem:self];
-    }
+	if (self.delegateHasTapped) {
+		[self.delegate didSingleTapQuadCurveMenuItem:self];
+	}
 }
 
 - (void)doubleTapOnMenuItem:(UITapGestureRecognizer *)sender {
-    if (self.delegateHasTapped) {
-        [self.delegate didDoubleTapQuadCurveMenuItem:self];
-    }
+	if (self.delegateHasTapped) {
+		[self.delegate didDoubleTapQuadCurveMenuItem:self];
+	}
 }
 
 #pragma mark - UIView's methods
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    
+	[super layoutSubviews];
+	
 	UIView *contentView = self.contentView;
-    self.frame = CGRectMake(self.center.x - contentView.bounds.size.width/2, self.center.y - contentView.bounds.size.height/2, contentView.bounds.size.width, contentView.bounds.size.height);
-    
-    CGFloat width = contentView.bounds.size.width;
-    CGFloat height = contentView.bounds.size.height;
-    
-    contentView.frame = CGRectMake(0.0, 0.0, width, height);
+	self.frame = CGRectMake(self.center.x - contentView.bounds.size.width/2, self.center.y - contentView.bounds.size.height/2, contentView.bounds.size.width, contentView.bounds.size.height);
+	
+	CGFloat width = contentView.bounds.size.width;
+	CGFloat height = contentView.bounds.size.height;
+	
+	contentView.frame = CGRectMake(0.0, 0.0, width, height);
 }
 
 #pragma mark - Status Methods
 
 - (void)setHighlighted:(BOOL)highlighted {
-    [super setHighlighted:highlighted];
-    if ([self.contentView respondsToSelector:@selector(setHighlighted:)]) {
+	[super setHighlighted:highlighted];
+	if ([self.contentView respondsToSelector:@selector(setHighlighted:)]) {
 		((UIControl *)self.contentView).highlighted = highlighted;
-    }
+	}
 }
 
 @end

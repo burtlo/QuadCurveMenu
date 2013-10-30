@@ -19,45 +19,45 @@ static CGFloat const kQCMDefaultBlowUpScale = 3.0;
 #pragma mark - Initialization
 
 - (id)init {
-    self = [super init];
-    if (self) {
-        self.blowUpScale = kQCMDefaultBlowUpScale;
-        self.duration = kQuadCoreDefaultAnimationDuration;
-        self.delayBetweenItemAnimation = kQuadCoreDefaultDelayBetweenItemAnimation;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.blowUpScale = kQCMDefaultBlowUpScale;
+		self.duration = kQuadCoreDefaultAnimationDuration;
+		self.delayBetweenItemAnimation = kQuadCoreDefaultDelayBetweenItemAnimation;
+	}
+	return self;
 }
 
 #pragma mark - QCMAnimation Adherence
 
 - (NSString *)animationName {
-    return @"blowup";
+	return @"blowup";
 }
 
 - (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item {
-    
-    CGPoint point = item.center;
-    
-    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-    positionAnimation.fromValue = [NSValue valueWithCGPoint:point];
-    positionAnimation.toValue = [NSValue valueWithCGPoint:point];
-    
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(self.blowUpScale, self.blowUpScale, 1)];
-    
-    CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.toValue  = @0.0;
-    
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
-    animationGroup.duration = self.duration;
-    animationGroup.fillMode = kCAFillModeForwards;
+	
+	CGPoint point = item.center;
+	
+	CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+	positionAnimation.fromValue = [NSValue valueWithCGPoint:point];
+	positionAnimation.toValue = [NSValue valueWithCGPoint:point];
+	
+	CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+	scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(self.blowUpScale, self.blowUpScale, 1)];
+	
+	CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	opacityAnimation.toValue  = @0.0;
+	
+	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+	animationGroup.animations = @[positionAnimation, scaleAnimation, opacityAnimation];
+	animationGroup.duration = self.duration;
+	animationGroup.fillMode = kCAFillModeForwards;
 
 	animationGroup.delegate = self;
 	
-    [item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
+	[item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
 
-    return animationGroup;
+	return animationGroup;
 }
 
 @end

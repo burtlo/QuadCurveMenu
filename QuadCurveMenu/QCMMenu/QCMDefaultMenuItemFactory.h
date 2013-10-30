@@ -11,9 +11,9 @@
 @interface QCMDefaultMenuItemFactory : NSObject <QCMMenuItemFactory>
 
 - (id)initWithImage:(UIImage *)image 
-     highlightImage:(UIImage *)highlightImage;
+	 highlightImage:(UIImage *)highlightImage;
 + (instancetype)factoryWithImage:(UIImage *)image
-     highlightImage:(UIImage *)highlightImage;
+	 highlightImage:(UIImage *)highlightImage;
 
 + (instancetype)defaultMenuItemFactory;
 + (instancetype)defaultMainMenuItemFactory;

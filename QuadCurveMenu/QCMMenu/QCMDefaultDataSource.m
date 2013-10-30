@@ -18,11 +18,11 @@
 
 - (id)initWithArray:(NSArray *)array {
 	NSAssert(array, @"Method argument 'array' must not be nil");
-    self = [super init];
-    if (self) {
-        self.array = array;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.array = array;
+	}
+	return self;
 }
 
 + (instancetype)dataSourceWithArray:(NSArray *)array {
@@ -30,11 +30,11 @@
 }
 
 - (NSUInteger)numberOfItemsInMenu:(QCMMenu *)menu {
-    return self.array.count;;
+	return self.array.count;;
 }
 
 - (id)dataObjectAtIndex:(NSUInteger)itemIndex inMenu:(QCMMenu *)menu {
-    return self.array[itemIndex];
+	return self.array[itemIndex];
 }
 
 @end

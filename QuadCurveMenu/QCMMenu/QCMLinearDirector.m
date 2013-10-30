@@ -15,13 +15,13 @@ static CGFloat const kQCMDefaultPadding = 10.0;
 #pragma mark - Initialization
 
 - (id)initWithAngle:(CGFloat)angle 
-         andPadding:(CGFloat)padding {
-    self = [super init];
-    if (self) {
-        self.angle = angle;
-        self.padding = padding;
-    }
-    return self;
+		 andPadding:(CGFloat)padding {
+	self = [super init];
+	if (self) {
+		self.angle = angle;
+		self.padding = padding;
+	}
+	return self;
 }
 
 + (instancetype)directorWithAngle:(CGFloat)angle andPadding:(CGFloat)padding {
@@ -29,7 +29,7 @@ static CGFloat const kQCMDefaultPadding = 10.0;
 }
 
 - (id)init {
-    return [self initWithAngle:0 andPadding:kQCMDefaultPadding];
+	return [self initWithAngle:0 andPadding:kQCMDefaultPadding];
 }
 
 + (instancetype)director {
@@ -39,24 +39,24 @@ static CGFloat const kQCMDefaultPadding = 10.0;
 #pragma mark - QCMDirector Adherence
 
 - (void)positionMenuItem:(QCMMenuItem *)item 
-                 atIndex:(NSUInteger)index
-                 ofCount:(NSUInteger)count
-                fromMenu:(QCMMenuItem *)mainMenuItem {
-    
-    CGPoint startPoint = mainMenuItem.center;
-    item.startPoint = startPoint;
-    
-    CGSize itemSize = item.frame.size;
-        
-    CGFloat xCoefficient = cosf(self.angle);
-    CGFloat yCoefficient = sinf(self.angle);
-    
-    CGFloat endRadiusX = (itemSize.width + self.padding) * (index + 1);
-    CGFloat endRadiusY = (itemSize.width + self.padding) * (index + 1);
-    
-    item.endPoint = CGPointMake(startPoint.x + endRadiusX * xCoefficient, startPoint.y - endRadiusY * yCoefficient);
-    item.nearPoint = CGPointMake(startPoint.x + (endRadiusX - 10) * xCoefficient, startPoint.y - (endRadiusY - 10) * yCoefficient);
-    item.farPoint = CGPointMake(startPoint.x + (endRadiusX + 10) * xCoefficient, startPoint.y - (endRadiusY + 10) * yCoefficient);
+				 atIndex:(NSUInteger)index
+				 ofCount:(NSUInteger)count
+				fromMenu:(QCMMenuItem *)mainMenuItem {
+	
+	CGPoint startPoint = mainMenuItem.center;
+	item.startPoint = startPoint;
+	
+	CGSize itemSize = item.frame.size;
+		
+	CGFloat xCoefficient = cosf(self.angle);
+	CGFloat yCoefficient = sinf(self.angle);
+	
+	CGFloat endRadiusX = (itemSize.width + self.padding) * (index + 1);
+	CGFloat endRadiusY = (itemSize.width + self.padding) * (index + 1);
+	
+	item.endPoint = CGPointMake(startPoint.x + endRadiusX * xCoefficient, startPoint.y - endRadiusY * yCoefficient);
+	item.nearPoint = CGPointMake(startPoint.x + (endRadiusX - 10) * xCoefficient, startPoint.y - (endRadiusY - 10) * yCoefficient);
+	item.farPoint = CGPointMake(startPoint.x + (endRadiusX + 10) * xCoefficient, startPoint.y - (endRadiusY + 10) * yCoefficient);
 }
 
 

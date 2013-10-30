@@ -14,11 +14,11 @@
 @synthesize delayBetweenItemAnimation;
 
 - (NSString *)animationName {
-    return @"NoAnimation";
+	return @"NoAnimation";
 }
 
 - (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item {
-    return [CAAnimationGroup animation];
+	return [CAAnimationGroup animation];
 }
 
 @end

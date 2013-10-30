@@ -49,17 +49,17 @@
 - (id)initWithFrame:(CGRect)frame mainMenuImage:(NSString *)mainMenuItemImage menuItemImageArray:(NSArray *)array;
 
 - (id)initWithFrame:(CGRect)frame
-        centerPoint:(CGPoint)centerPoint
-         dataSource:(id<QCMDataSourceDelegate>)dataSource 
-    mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
-    menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory;
+		centerPoint:(CGPoint)centerPoint
+		 dataSource:(id<QCMDataSourceDelegate>)dataSource 
+	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
+	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory;
 
 - (id)initWithFrame:(CGRect)frame
-        centerPoint:(CGPoint)centerPoint
-         dataSource:(id<QCMDataSourceDelegate>)dataSource 
-    mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
-    menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
-       menuDirector:(id<QCMMotionDirector>)motionDirector;
+		centerPoint:(CGPoint)centerPoint
+		 dataSource:(id<QCMDataSourceDelegate>)dataSource 
+	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
+	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
+	   menuDirector:(id<QCMMotionDirector>)motionDirector;
 
 #pragma mark - Expansion / Closing
 

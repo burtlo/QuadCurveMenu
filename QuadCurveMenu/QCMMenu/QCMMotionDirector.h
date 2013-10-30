@@ -11,8 +11,8 @@
 @protocol QCMMotionDirector <NSObject>
 
 - (void)positionMenuItem:(QCMMenuItem *)item 
-                 atIndex:(NSUInteger)index
-                 ofCount:(NSUInteger)count 
-                fromMenu:(QCMMenuItem *)mainMenuItem;
+				 atIndex:(NSUInteger)index
+				 ofCount:(NSUInteger)count 
+				fromMenu:(QCMMenuItem *)mainMenuItem;
 
 @end

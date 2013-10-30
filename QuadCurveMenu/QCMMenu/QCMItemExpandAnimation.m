@@ -19,50 +19,50 @@ static CGFloat const kQCMDefaultRotation = M_PI * 2;
 #pragma mark - Initialization
 
 - (id)init {
-    self = [super init];
-    if (self) {
-        self.rotation = kQCMDefaultRotation;
-        self.duration = kQuadCoreDefaultAnimationDuration;
-        self.delayBetweenItemAnimation = kQuadCoreDefaultDelayBetweenItemAnimation;
-    }
-    return self;
+	self = [super init];
+	if (self) {
+		self.rotation = kQCMDefaultRotation;
+		self.duration = kQuadCoreDefaultAnimationDuration;
+		self.delayBetweenItemAnimation = kQuadCoreDefaultDelayBetweenItemAnimation;
+	}
+	return self;
 }
 
 #pragma mark - QCMAnimation Adherence
 
 
 - (NSString *)animationName {
-    return @"Expand";
+	return @"Expand";
 }
 
 - (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item {
-    item.hidden = NO;
-    CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = @[[NSNumber numberWithFloat:M_PI], @0.0];
-    rotateAnimation.duration = self.duration;
-    rotateAnimation.keyTimes = @[@0.3, @0.4];
+	item.hidden = NO;
+	CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+	rotateAnimation.values = @[[NSNumber numberWithFloat:M_PI], @0.0];
+	rotateAnimation.duration = self.duration;
+	rotateAnimation.keyTimes = @[@0.3, @0.4];
 	
 	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    positionAnimation.duration = self.duration;
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, item.startPoint.x, item.startPoint.y);
-    CGPathAddLineToPoint(path, NULL, item.farPoint.x, item.farPoint.y);
-    CGPathAddLineToPoint(path, NULL, item.nearPoint.x, item.nearPoint.y); 
-    CGPathAddLineToPoint(path, NULL, item.endPoint.x, item.endPoint.y); 
-    positionAnimation.path = path;
-    CGPathRelease(path);
-    
-	CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-    opacityAnimation.values = @[@0.0, @1.0];
-    opacityAnimation.duration = self.duration;
-    opacityAnimation.keyTimes = @[@0.0, @0.25];
+	positionAnimation.duration = self.duration;
+	CGMutablePathRef path = CGPathCreateMutable();
+	CGPathMoveToPoint(path, NULL, item.startPoint.x, item.startPoint.y);
+	CGPathAddLineToPoint(path, NULL, item.farPoint.x, item.farPoint.y);
+	CGPathAddLineToPoint(path, NULL, item.nearPoint.x, item.nearPoint.y); 
+	CGPathAddLineToPoint(path, NULL, item.endPoint.x, item.endPoint.y); 
+	positionAnimation.path = path;
+	CGPathRelease(path);
 	
-    CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-    animationGroup.animations = @[positionAnimation, rotateAnimation, opacityAnimation];
-    animationGroup.duration = self.duration;
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+	opacityAnimation.values = @[@0.0, @1.0];
+	opacityAnimation.duration = self.duration;
+	opacityAnimation.keyTimes = @[@0.0, @0.25];
+	
+	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+	animationGroup.animations = @[positionAnimation, rotateAnimation, opacityAnimation];
+	animationGroup.duration = self.duration;
+	animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 
-    return animationGroup;
+	return animationGroup;
 }
 
 @end

@@ -20,13 +20,13 @@
 #pragma mark - Initialization
 
 - (id)initWithImage:(UIImage *)image
-     highlightImage:(UIImage *)highlightImage {
-    self = [super init];
-    if (self) {
-        self.image = image;
-        self.highlightImage = highlightImage;
-    }
-    return self;
+	 highlightImage:(UIImage *)highlightImage {
+	self = [super init];
+	if (self) {
+		self.image = image;
+		self.highlightImage = highlightImage;
+	}
+	return self;
 }
 
 + (instancetype)factoryWithImage:(UIImage *)image
@@ -35,12 +35,12 @@
 }
 
 + (instancetype)defaultMenuItemFactory {
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
+	return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-star.jpeg" ]
 						highlightImage:nil];
 }
 
 + (instancetype)defaultMainMenuItemFactory {
-    return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.jpeg"]
+	return [[self alloc] initWithImage:[UIImage imageNamed:@"icon-plus.jpeg"]
 						highlightImage:nil];
 }
 
@@ -51,16 +51,16 @@
 }
 
 - (QCMMenuItem *)menuItemForMenu:(QCMMenu *)menu withDataObject:(id)dataObject {
-    AGMedallionView *medallionItem = [[AGMedallionView alloc] init];
+	AGMedallionView *medallionItem = [[AGMedallionView alloc] init];
 	medallionItem.image = self.image;
-    medallionItem.highlightedImage = self.highlightImage;
+	medallionItem.highlightedImage = self.highlightImage;
 	CGSize size = self.image.size;
-    medallionItem.frame = CGRectMake(0, 0, size.width, size.height);
-    
-    QCMMenuItem *item = [[QCMMenuItem alloc] initWithView:medallionItem];
-    item.dataObject = dataObject;
-    
-    return item;
+	medallionItem.frame = CGRectMake(0, 0, size.width, size.height);
+	
+	QCMMenuItem *item = [[QCMMenuItem alloc] initWithView:medallionItem];
+	item.dataObject = dataObject;
+	
+	return item;
 }
 
 @end

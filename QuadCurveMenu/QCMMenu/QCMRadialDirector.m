@@ -16,10 +16,10 @@ static CGFloat const kQCMMenuDefaultStartAngle = 0.0;
 static CGFloat const kQCMMenuFullCircleArcAngle = M_PI * 2;
 
 static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, CGFloat angle) {
-    CGAffineTransform translation = CGAffineTransformMakeTranslation(center.x, center.y);
-    CGAffineTransform rotation = CGAffineTransformMakeRotation(angle);
-    CGAffineTransform transformGroup = CGAffineTransformConcat(CGAffineTransformConcat(CGAffineTransformInvert(translation), rotation), translation);
-    return CGPointApplyAffineTransform(point, transformGroup);    
+	CGAffineTransform translation = CGAffineTransformMakeTranslation(center.x, center.y);
+	CGAffineTransform rotation = CGAffineTransformMakeRotation(angle);
+	CGAffineTransform transformGroup = CGAffineTransformConcat(CGAffineTransformConcat(CGAffineTransformInvert(translation), rotation), translation);
+	return CGPointApplyAffineTransform(point, transformGroup);	
 }
 
 static CGFloat QCMDistanceToEdgeOfEnclosingRect(CGPoint point, CGRect rect, CGRectEdge edge) {
@@ -43,27 +43,27 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 #pragma mark - Initialization
 
 - (id)initWithArcAngle:(CGFloat)arcAngle 
-          startAngle:(CGFloat)startAngle {
-    self = [super init];
-    if (self) {
-        self.radius = [[self class] defaultRadius];
+		  startAngle:(CGFloat)startAngle {
+	self = [super init];
+	if (self) {
+		self.radius = [[self class] defaultRadius];
 		self.nearRadiusFactor = [[self class] defaultNearRadiusFactor];
-        self.farRadiusFactor = [[self class] defaultFarRadiusFactor];
-        
-        self.startAngle = startAngle;
-        self.arcAngle = arcAngle;
-    }
-    return self;
+		self.farRadiusFactor = [[self class] defaultFarRadiusFactor];
+		
+		self.startAngle = startAngle;
+		self.arcAngle = arcAngle;
+	}
+	return self;
 }
 
 - (id)initWithArcAngle:(CGFloat)arcAngle {
-    return [self initWithArcAngle:arcAngle 
-                     startAngle:[[self class] defaultStartAngle]];
+	return [self initWithArcAngle:arcAngle 
+					 startAngle:[[self class] defaultStartAngle]];
 }
 
 - (id)init {
-    return [self initWithArcAngle:[[self class] defaultArcAngle]
-                     startAngle:[[self class] defaultStartAngle]];
+	return [self initWithArcAngle:[[self class] defaultArcAngle]
+					 startAngle:[[self class] defaultStartAngle]];
 }
 
 + (instancetype)director {
@@ -90,7 +90,7 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 //
 
 - (BOOL)useArcAngle {
-    return self.arcAngle != kQCMMenuFullCircleArcAngle;
+	return self.arcAngle != kQCMMenuFullCircleArcAngle;
 }
 
 + (CGFloat)defaultRadius {
@@ -175,28 +175,28 @@ static CGFloat QCMAngleFromDistanceToEdgeAndRadius(CGFloat distance, CGFloat rad
 #pragma mark - QCMMotionDirector Adherence
 
 - (void)positionMenuItem:(QCMMenuItem *)item atIndex:(NSUInteger)index ofCount:(NSUInteger)count fromMenu:(QCMMenuItem *)mainMenuItem {
-    
-    CGPoint startPoint = mainMenuItem.center;
-    item.startPoint = startPoint;
-    
-    CGFloat itemAngle = index * self.arcAngle / (self.useArcAngle ? count - 1 : count);
-    CGFloat xCoefficient = sinf(itemAngle);
-    CGFloat yCoefficient = cosf(itemAngle);
-    
+	
+	CGPoint startPoint = mainMenuItem.center;
+	item.startPoint = startPoint;
+	
+	CGFloat itemAngle = index * self.arcAngle / (self.useArcAngle ? count - 1 : count);
+	CGFloat xCoefficient = sinf(itemAngle);
+	CGFloat yCoefficient = cosf(itemAngle);
+	
 	CGFloat radius = self.radius;
 	CGFloat nearRadius = radius * self.nearRadiusFactor;
 	CGFloat farRadius = radius * self.farRadiusFactor;
 	
 	CGFloat startAngle = self.startAngle;
 	
-    CGPoint endPoint = CGPointMake(startPoint.x + radius * xCoefficient, startPoint.y - radius * yCoefficient);
-    item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, startAngle);
-    
-    CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * xCoefficient, startPoint.y - nearRadius * yCoefficient);
-    item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, startAngle);
-    
-    CGPoint farPoint = CGPointMake(startPoint.x + farRadius * xCoefficient, startPoint.y - farRadius * yCoefficient);
-    item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, startAngle);
+	CGPoint endPoint = CGPointMake(startPoint.x + radius * xCoefficient, startPoint.y - radius * yCoefficient);
+	item.endPoint = RotateCGPointAroundCenter(endPoint, startPoint, startAngle);
+	
+	CGPoint nearPoint = CGPointMake(startPoint.x + nearRadius * xCoefficient, startPoint.y - nearRadius * yCoefficient);
+	item.nearPoint = RotateCGPointAroundCenter(nearPoint, startPoint, startAngle);
+	
+	CGPoint farPoint = CGPointMake(startPoint.x + farRadius * xCoefficient, startPoint.y - farRadius * yCoefficient);
+	item.farPoint = RotateCGPointAroundCenter(farPoint, startPoint, startAngle);
 
 }
 
