@@ -14,5 +14,6 @@
 
 @property (readwrite, assign, nonatomic) BOOL animatesRotation;
 @property (readwrite, assign, nonatomic) BOOL animatesOpacity;
+@property (readwrite, assign, nonatomic) BOOL removesItemWhenDone;
 
 @end

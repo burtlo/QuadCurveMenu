@@ -86,6 +86,9 @@ NSString * const kQCMItemCloseAnimationItemKey = @"QCMItemCloseAnimationItem";
 - (void)animationDidStop:(CAAnimation *)animationGroup finished:(BOOL)finished {
 	QCMMenuItem *item = [animationGroup valueForKey:kQCMItemCloseAnimationItemKey];
 	item.hidden = YES;
+	if (self.removesItemWhenDone) {
+		[item removeFromSuperview];
+	}
 	[animationGroup setValue:nil forKey:kQCMItemCloseAnimationItemKey];
 }
 
