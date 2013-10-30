@@ -409,21 +409,21 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 - (void)performCloseMainMenuAnimated:(BOOL)animated {
 	id<QCMAnimation> animation = self.noAnimation;
 	if (animated) {
-		animation = self.mainMenuCloseAnimation;
+		animation = self.mainMenuCloseAnimation ?: self.noAnimation;
 	}
 	self.state = QCMMenuStateClosing;
 	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
-								forKey:animation.animationName];
+							   forKey:animation.animationName];
 }
 
 - (void)performExpandMainMenuAnimated:(BOOL)animated {
 	id<QCMAnimation> animation = self.noAnimation;
 	if (animated) {
-		animation = self.mainMenuExpandAnimation;
+		animation = self.mainMenuExpandAnimation ?: self.noAnimation;
 	}
 	self.state = QCMMenuStateExpanding;
 	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
-									 forKey:animation.animationName];
+							   forKey:animation.animationName];
 }
 
 - (NSArray *)allMenuItemsBeingDisplayed {
@@ -470,7 +470,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 	id<QCMAnimation> animation = self.noAnimation;
 	if (animated) {
-		animation = self.expandItemAnimation;
+		animation = self.expandItemAnimation ?: self.noAnimation;
 	}
 	
 	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
@@ -494,7 +494,9 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 - (void)animateMenuItem:(QCMMenuItem *)item toEndPointWithAnimation:(id<QCMAnimation>)animation {
 	CAAnimationGroup *expandAnimation = [animation animationForItem:item];
-	[item.layer addAnimation:expandAnimation forKey:[animation animationName]];
+	if (expandAnimation) {
+		[item.layer addAnimation:expandAnimation forKey:[animation animationName]];
+	}
 	item.center = item.endPoint;
 }
 
@@ -509,7 +511,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	
 	id<QCMAnimation> animation = self.noAnimation;
 	if (animated) {
-		animation = self.closeItemAnimation;
+		animation = self.closeItemAnimation ?: self.noAnimation;
 	}
 	
 	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
@@ -533,7 +535,9 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 - (void)animateMenuItem:(QCMMenuItem *)item toStartPointWithAnimation:(id<QCMAnimation>)animation {
 	CAAnimationGroup *closeAnimation = [animation animationForItem:item];
-	[item.layer addAnimation:closeAnimation forKey:[animation animationName]];
+	if (closeAnimation) {
+		[item.layer addAnimation:closeAnimation forKey:[animation animationName]];
+	}
 	item.center = item.startPoint;
 }
 
