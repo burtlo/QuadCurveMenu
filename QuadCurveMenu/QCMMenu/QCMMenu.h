@@ -14,6 +14,13 @@
 #import "QCMMenuItemFactory.h"
 #import "QCMMenuDelegate.h"
 
+typedef NS_OPTIONS(NSUInteger, QCMMenuState) {
+	QCMMenuStateClosed    = (0x0 << 0),
+	QCMMenuStateClosing   = (0x1 << 0),
+	QCMMenuStateExpanding = (0x1 << 1),
+	QCMMenuStateExpanded  = (0x1 << 2)
+};
+
 @protocol QCMMenuDelegate;
 @protocol QCMDataSourceDelegate;
 @protocol QCMMenuItemFactory;
@@ -38,7 +45,7 @@
 @property (readwrite, assign, nonatomic) CGPoint centerPoint;
 @property (readonly, strong, nonatomic) QCMMenuItem *mainItem;
 
-@property (readwrite, assign, nonatomic, getter = isExpanding) BOOL expanding;
+@property (readwrite, assign, nonatomic) QCMMenuState state;
 
 #pragma mark - Initialization
 

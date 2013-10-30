@@ -66,6 +66,8 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
 		
+		self.state = QCMMenuStateClosed;
+		
 		self.centerPoint = centerPoint;
 		
 		self.mainMenuItemFactory = mainFactory;
@@ -143,13 +145,15 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - Layout
 
 - (void)layoutSubviews {
-	QCMMenuItem *mainItem = self.mainItem;
-	id <QCMMotionDirector> director = self.menuDirector;
-	NSUInteger total = [self numberOfDisplayableItems];
-	for (NSUInteger index = 0; index < total; index ++) {
-		QCMMenuItem *item = [self menuItemAtIndex:index];
-		[director positionMenuItem:item atIndex:index ofCount:total fromMenu:mainItem];
-		item.center = item.endPoint;
+	if (self.state == QCMMenuStateExpanded) {
+		QCMMenuItem *mainItem = self.mainItem;
+		id <QCMMotionDirector> director = self.menuDirector;
+		NSUInteger total = [self numberOfDisplayableItems];
+		for (NSUInteger index = 0; index < total; index ++) {
+			QCMMenuItem *item = [self menuItemAtIndex:index];
+			[director positionMenuItem:item atIndex:index ofCount:total fromMenu:mainItem];
+			item.center = item.endPoint;
+		}
 	}
 }
 
@@ -217,14 +221,28 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 #pragma mark - Expand / Close Menu
 
+- (BOOL)isClosed {
+	return self.state == QCMMenuStateClosed;
+}
+
+- (BOOL)isClosingOrClosed {
+	return ![self isExpandingOrExpanded];
+}
+
+- (BOOL)isExpandingOrExpanded {
+	return (self.state & (QCMMenuStateExpanding | QCMMenuStateExpanded)) != 0x0;
+}
+
 - (void)expandMenu {
 	[self expandMenuAnimated:YES];
 }
 
 - (void)expandMenuAnimated:(BOOL)animated {
-	if (!self.expanding) {
-		[self setExpanding:YES animated:animated];
+	if ([self isExpandingOrExpanded]) {
+		return;
 	}
+	[self performExpandMainMenuAnimated:animated];
+	[self performExpandMenuAnimated:animated];
 }
 
 - (void)closeMenu {
@@ -232,9 +250,11 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 }
 
 - (void)closeMenuAnimated:(BOOL)animated {
-	if (self.expanding) {
-		[self setExpanding:NO animated:animated];
+	if ([self isClosingOrClosed]) {
+		return;
 	}
+	[self performCloseMainMenuAnimated:animated];
+	[self performCloseMenuAnimated:animated];
 }
 
 - (void)moveInMenuView:(UIPanGestureRecognizer *)panGesture {
@@ -267,7 +287,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 #pragma mark - UIView Gestures
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-	if (self.expanding || CGRectContainsPoint(self.mainItem.frame, point)) {
+	if (self.state != QCMMenuStateClosed || CGRectContainsPoint(self.mainItem.frame, point)) {
 		return YES;
 	}
 	return NO;
@@ -295,19 +315,24 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 		[self.delegate quadCurveMenu:self didSingleTapMainItem:self.mainItem];
 	}
 	
-	BOOL willBeExpandingMenu = !self.expanding;
 	BOOL shouldPerformAction = YES;
+	BOOL isExpandingOrExpanded = [self isExpandingOrExpanded];
+	BOOL isClosingOrClosed = [self isClosingOrClosed];
 	
-	if (willBeExpandingMenu && self.delegateHasShouldExpand) {
+	if (!isExpandingOrExpanded && self.delegateHasShouldExpand) {
 		shouldPerformAction = [self.delegate quadCurveMenuShouldExpand:self];
 	}
 	
-	if ( ! willBeExpandingMenu && self.delegateHasShouldClose) {
+	if (!isClosingOrClosed && self.delegateHasShouldClose) {
 		shouldPerformAction = [self.delegate quadCurveMenuShouldClose:self];
 	}
 	
 	if (shouldPerformAction) {
-		[self setExpanding:willBeExpandingMenu animated:YES];
+		if (isExpandingOrExpanded) {
+			[self closeMenuAnimated:YES];
+		} else if (isClosingOrClosed) {
+			[self expandMenuAnimated:YES];
+		}
 	}
 }
 
@@ -323,8 +348,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	NSArray *otherMenuItems = [[self allMenuItemsBeingDisplayed] filteredArrayUsingPredicate:otherItems];
 	
 	[self animateMenuItems:otherMenuItems withAnimation:[self unselectedanimation]];
-	
-	self.expanding = NO;
 	
 	[self performCloseMainMenuAnimated:YES];
 }
@@ -385,22 +408,22 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 - (void)performCloseMainMenuAnimated:(BOOL)animated {
 	id<QCMAnimation> animation = self.noAnimation;
-	if (animated) { animation = self.mainMenuCloseAnimation; }
-	
+	if (animated) {
+		animation = self.mainMenuCloseAnimation;
+	}
+	self.state = QCMMenuStateClosing;
 	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
 								forKey:animation.animationName];
 }
 
 - (void)performExpandMainMenuAnimated:(BOOL)animated {
 	id<QCMAnimation> animation = self.noAnimation;
-	if (animated) { animation = self.mainMenuExpandAnimation; }
-
+	if (animated) {
+		animation = self.mainMenuExpandAnimation;
+	}
+	self.state = QCMMenuStateExpanding;
 	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
 									 forKey:animation.animationName];
-}
-
-- (void)animateExpandMainMenuAnimated:(BOOL)animated {
-	
 }
 
 - (NSArray *)allMenuItemsBeingDisplayed {
@@ -408,19 +431,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 										  kQCMMenuItemStartingTag,
 										  (kQCMMenuItemStartingTag + [self numberOfDisplayableItems])];
 	return [[self subviews] filteredArrayUsingPredicate:allMenuItemsPredicate];
-}
-
-#pragma mark - Expanding / Closing the Menu
-
-- (void)setExpanding:(BOOL)expanding animated:(BOOL)animated {
-	self.expanding = expanding;
-	if (expanding) {
-		[self performExpandMainMenuAnimated:animated];
-		[self performExpandMenuAnimated:animated];
-	} else {
-		[self performCloseMainMenuAnimated:animated];
-		[self performCloseMenuAnimated:animated];
-	}
 }
 
 #pragma mark - QCMMenuItem Management
@@ -447,12 +457,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 #pragma mark - Animate MenuItems Expanded
 
-- (void)notifyDelegateMenuDidExpand:(QCMMenu *)menu {
-	if (self.delegateHasDidExpand) {
-		[self.delegate quadCurveMenuDidExpand:menu];
-	}
-}
-
 - (void)performExpandMenuAnimated:(BOOL)animated {
 	if (self.delegateHasWillExpand) {
 		[self.delegate quadCurveMenuWillExpand:self];
@@ -465,34 +469,36 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
 
 	id<QCMAnimation> animation = self.noAnimation;
-	if (animated) { animation = self.expandItemAnimation; }
+	if (animated) {
+		animation = self.expandItemAnimation;
+	}
 	
 	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
 		QCMMenuItem *item = itemToBeAnimated[x];
-		NSDictionary *dictionary = @{@"menuItem": item, @"animation": animation};
-		[self performSelector:@selector(animateMenuItemToEndPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
+		NSTimeInterval delayInSeconds = animation.delayBetweenItemAnimation * x;
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			[self animateMenuItem:item toEndPointWithAnimation:animation];
+		});
 	}
 	
-	CGFloat lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
-	[self performSelector:@selector(notifyDelegateMenuDidExpand:) withObject:self afterDelay:lastAnimationCompletesAfter];
+	NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(lastAnimationCompletesAfter * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		self.state = QCMMenuStateExpanded;
+		if (self.delegateHasDidExpand) {
+			[self.delegate quadCurveMenuDidExpand:self];
+		}
+	});
 }
 
-- (void)animateMenuItemToEndPoint:(NSDictionary *)itemAndAnimation {
-	id<QCMAnimation> animation = itemAndAnimation[@"animation"];
-	QCMMenuItem *item = itemAndAnimation[@"menuItem"];
-	
+- (void)animateMenuItem:(QCMMenuItem *)item toEndPointWithAnimation:(id<QCMAnimation>)animation {
 	CAAnimationGroup *expandAnimation = [animation animationForItem:item];
 	[item.layer addAnimation:expandAnimation forKey:[animation animationName]];
 	item.center = item.endPoint;
 }
 
 #pragma mark - Animate MenuItems Closed
-
-- (void)notifyDelegateMenuDidClose:(QCMMenu *)menu {
-	if (self.delegateHasDidClose) {
-		[self.delegate quadCurveMenuDidClose:menu];
-	}
-}
 
 - (void)performCloseMenuAnimated:(BOOL)animated {
 	if (self.delegateHasWillClose) {
@@ -508,18 +514,24 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	
 	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
 		QCMMenuItem *item = itemToBeAnimated[x];
-		NSDictionary *dictionary = @{@"menuItem": item,@"animation": animation};
-		[self performSelector:@selector(animateItemToStartPoint:) withObject:dictionary afterDelay:animation.delayBetweenItemAnimation * x];
+		NSTimeInterval delayInSeconds = animation.delayBetweenItemAnimation * x;
+		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+			[self animateMenuItem:item toStartPointWithAnimation:animation];
+		});
 	}
 	
-	CGFloat lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
-	[self performSelector:@selector(notifyDelegateMenuDidClose:) withObject:self afterDelay:lastAnimationCompletesAfter];
+	NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(lastAnimationCompletesAfter * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		self.state = QCMMenuStateClosed;
+		if (self.delegateHasDidClose) {
+			[self.delegate quadCurveMenuDidClose:self];
+		}
+	});
 }
 
-- (void)animateItemToStartPoint:(NSDictionary *)itemAndAnimation {
-	id<QCMAnimation> animation = itemAndAnimation[@"animation"];
-	QCMMenuItem *item = itemAndAnimation[@"menuItem"];
-
+- (void)animateMenuItem:(QCMMenuItem *)item toStartPointWithAnimation:(id<QCMAnimation>)animation {
 	CAAnimationGroup *closeAnimation = [animation animationForItem:item];
 	[item.layer addAnimation:closeAnimation forKey:[animation animationName]];
 	item.center = item.startPoint;
