@@ -10,6 +10,8 @@
 
 static CGFloat const kQCMDefaultRotation = M_PI * 2;
 
+NSString * const kQCMItemCloseAnimationItemKey = @"QCMItemCloseAnimationItem";
+
 @implementation QCMItemCloseAnimation
 
 @synthesize duration;
@@ -24,6 +26,8 @@ static CGFloat const kQCMDefaultRotation = M_PI * 2;
 		self.rotation = kQCMDefaultRotation;
 		self.duration = kQuadCoreDefaultAnimationDuration;
 		self.delayBetweenItemAnimation = kQuadCoreDefaultDelayBetweenItemAnimation;
+		self.animatesRotation = YES;
+		self.animatesOpacity = YES;
 	}
 	return self;
 }
@@ -36,33 +40,53 @@ static CGFloat const kQCMDefaultRotation = M_PI * 2;
 }
 
 - (CAAnimationGroup *)animationForItem:(QCMMenuItem *)item {
-	CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-	rotateAnimation.values = @[@0.0, @(self.rotation), @0.0];
-	rotateAnimation.duration = 0.5;
-	rotateAnimation.keyTimes = @[@0.0, @0.4, @0.5];
-	
 	CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
 	positionAnimation.duration = self.duration;
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathMoveToPoint(path, NULL, item.endPoint.x, item.endPoint.y);
 	CGPathAddLineToPoint(path, NULL, item.farPoint.x, item.farPoint.y);
-	CGPathAddLineToPoint(path, NULL, item.startPoint.x, item.startPoint.y); 
+	CGPathAddLineToPoint(path, NULL, item.startPoint.x, item.startPoint.y);
 	positionAnimation.path = path;
 	CGPathRelease(path);
 	
-	CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-	opacityAnimation.values = @[@1.0, @0.0];
-	opacityAnimation.duration = self.duration;
-	opacityAnimation.keyTimes = @[@0.75, @1.0];
+	NSMutableArray *animations = [NSMutableArray arrayWithObject:positionAnimation];
+	
+	if (self.animatesRotation) {
+		CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+		rotateAnimation.values = @[@0.0, @(self.rotation), @0.0];
+		rotateAnimation.duration = 0.5;
+		rotateAnimation.keyTimes = @[@0.0, @0.4, @0.5];
+		[animations addObject:rotateAnimation];
+	}
+	
+	if (self.animatesOpacity) {
+		CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+		opacityAnimation.values = @[@1.0, @0.0];
+		opacityAnimation.duration = self.duration;
+		opacityAnimation.keyTimes = @[@0.75, @1.0];
+		[animations addObject:opacityAnimation];
+	}
 	
 	CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-	animationGroup.animations = @[positionAnimation, rotateAnimation, opacityAnimation];
+	animationGroup.animations = animations;
 	animationGroup.duration = self.duration;
 	animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	
-	[item performSelector:@selector(setHidden:) withObject:@(YES) afterDelay:self.duration];
-
+	animationGroup.delegate = self;
+	
+	[animationGroup setValue:item forKey:kQCMItemCloseAnimationItemKey];
+	
 	return animationGroup;
+}
+
+- (void)animationDidStart:(CAAnimation *)animationGroup {
+	
+}
+
+- (void)animationDidStop:(CAAnimation *)animationGroup finished:(BOOL)finished {
+	QCMMenuItem *item = [animationGroup valueForKey:kQCMItemCloseAnimationItemKey];
+	item.hidden = YES;
+	[animationGroup setValue:nil forKey:kQCMItemCloseAnimationItemKey];
 }
 
 @end
