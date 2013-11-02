@@ -33,7 +33,7 @@ typedef NS_OPTIONS(NSUInteger, QCMMenuState) {
 @property (readwrite, strong, nonatomic) id<QCMMenuItemFactory> menuItemFactory;
 
 @property (readwrite, strong, nonatomic) id<QCMAnimation> selectedAnimation;
-@property (readwrite, strong, nonatomic) id<QCMAnimation> unselectedanimation;
+@property (readwrite, strong, nonatomic) id<QCMAnimation> unselectedAnimation;
 @property (readwrite, strong, nonatomic) id<QCMAnimation> expandItemAnimation;
 @property (readwrite, strong, nonatomic) id<QCMAnimation> closeItemAnimation;
 @property (readwrite, strong, nonatomic) id<QCMAnimation> mainMenuExpandAnimation;

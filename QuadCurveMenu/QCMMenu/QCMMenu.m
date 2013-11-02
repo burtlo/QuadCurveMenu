@@ -76,7 +76,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 		self.menuDirector = motionDirector;
 		
 		self.selectedAnimation = [[QCMBlowupAnimation alloc] init];
-		self.unselectedanimation = [[QCMShrinkAnimation alloc] init];
+		self.unselectedAnimation = [[QCMShrinkAnimation alloc] init];
 		
 		self.expandItemAnimation = [[QCMItemExpandAnimation alloc] init];
 		self.closeItemAnimation = [[QCMItemCloseAnimation alloc] init];
@@ -347,7 +347,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	
 	NSArray *otherMenuItems = [[self allMenuItemsBeingDisplayed] filteredArrayUsingPredicate:otherItems];
 	
-	[self animateMenuItems:otherMenuItems withAnimation:[self unselectedanimation]];
+	[self animateMenuItems:otherMenuItems withAnimation:[self unselectedAnimation]];
 	
 	[self performCloseMainMenuAnimated:YES];
 }
