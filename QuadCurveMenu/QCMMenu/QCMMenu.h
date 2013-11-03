@@ -42,6 +42,8 @@ typedef NS_OPTIONS(NSUInteger, QCMMenuState) {
 @property (readwrite, weak, nonatomic)   id<QCMMenuDelegate> delegate;
 @property (readwrite, strong, nonatomic) id<QCMDataSourceDelegate> dataSource;
 
+@property (readwrite, strong, nonatomic) id menuDataObject;
+
 @property (readwrite, assign, nonatomic) CGPoint centerPoint;
 @property (readonly, strong, nonatomic) QCMMenuItem *mainItem;
 
@@ -67,6 +69,14 @@ typedef NS_OPTIONS(NSUInteger, QCMMenuState) {
 	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
 	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
 	   menuDirector:(id<QCMMotionDirector>)motionDirector;
+
+- (id)initWithFrame:(CGRect)frame
+		centerPoint:(CGPoint)centerPoint
+		 dataSource:(id<QCMDataSourceDelegate>)dataSource
+	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory
+	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
+	   menuDirector:(id<QCMMotionDirector>)motionDirector
+	 menuDataObject:(id)menuDataObject;
 
 #pragma mark - Expansion / Closing
 

@@ -54,12 +54,13 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 #pragma mark - Initialization & Deallocation
 
-- (id)initWithFrame:(CGRect)frame 
+- (id)initWithFrame:(CGRect)frame
 		centerPoint:(CGPoint)centerPoint
-		 dataSource:(id<QCMDataSourceDelegate>)dataSource 
-	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory 
+		 dataSource:(id<QCMDataSourceDelegate>)dataSource
+	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory
 	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
-	   menuDirector:(id<QCMMotionDirector>)motionDirector {
+	   menuDirector:(id<QCMMotionDirector>)motionDirector
+	 menuDataObject:(id)menuDataObject {
 	
 	self = [super initWithFrame:frame];
 	
@@ -69,6 +70,9 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 		self.state = QCMMenuStateClosed;
 		
 		self.centerPoint = centerPoint;
+		
+		self.menuDataObject = menuDataObject;
+		self.dataSource = dataSource;
 		
 		self.mainMenuItemFactory = mainFactory;
 		self.menuItemFactory = menuItemFactory;
@@ -86,13 +90,26 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 		
 		self.noAnimation = [[QCMNoAnimation alloc] init];
 		
-		self.dataSource = dataSource;
-		
 		UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapInMenuView:)];
 		[self addGestureRecognizer:singleTapGesture];
 		
 	}
 	return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+		centerPoint:(CGPoint)centerPoint
+		 dataSource:(id<QCMDataSourceDelegate>)dataSource
+	mainMenuFactory:(id<QCMMenuItemFactory>)mainFactory
+	menuItemFactory:(id<QCMMenuItemFactory>)menuItemFactory
+	   menuDirector:(id<QCMMotionDirector>)motionDirector {
+	return [self initWithFrame:frame
+				   centerPoint:centerPoint
+					dataSource:dataSource
+			   mainMenuFactory:mainFactory
+			   menuItemFactory:menuItemFactory
+				  menuDirector:[[QCMRadialDirector alloc] init]
+				menuDataObject:nil];
 }
 
 - (id)initWithFrame:(CGRect)frame 
@@ -164,7 +181,9 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	
 	[self.mainItem removeFromSuperview];
 	
-	self.mainItem = [[self mainMenuItemFactory] menuMainItemForMenu:self withDataObject:nil];
+	id dataObject = self.menuDataObject;
+	
+	self.mainItem = [[self mainMenuItemFactory] menuMainItemForMenu:self withDataObject:dataObject];
 	self.mainItem.delegate = self;
 	self.mainItem.center = self.centerPoint;
 	
@@ -241,8 +260,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	if ([self isExpandingOrExpanded]) {
 		return;
 	}
-	[self performExpandMainMenuAnimated:animated];
-	[self performExpandMenuAnimated:animated];
+	[self performExpandAnimated:animated];
 }
 
 - (void)closeMenu {
@@ -253,8 +271,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	if ([self isClosingOrClosed]) {
 		return;
 	}
-	[self performCloseMainMenuAnimated:animated];
-	[self performCloseMenuAnimated:animated];
+	[self performCloseWithPressedItem:nil animated:animated];
 }
 
 - (void)moveInMenuView:(UIPanGestureRecognizer *)panGesture {
@@ -340,16 +357,7 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	if (self.delegateHasDidSingleTapMenuItem) {
 		[self.delegate quadCurveMenu:self didSingleTapItem:item];
 	}
-	
-	[self animateMenuItems:@[item] withAnimation:[self selectedAnimation]];
-	
-	NSPredicate *otherItems = [NSPredicate predicateWithFormat:@"tag != %d", [item tag]];
-	
-	NSArray *otherMenuItems = [[self allMenuItemsBeingDisplayed] filteredArrayUsingPredicate:otherItems];
-	
-	[self animateMenuItems:otherMenuItems withAnimation:[self unselectedAnimation]];
-	
-	[self performCloseMainMenuAnimated:YES];
+	[self performCloseWithPressedItem:item animated:YES];
 }
 
 #pragma mark Double Tap Event
@@ -406,26 +414,6 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 	}
 }
 
-- (void)performCloseMainMenuAnimated:(BOOL)animated {
-	id<QCMAnimation> animation = self.noAnimation;
-	if (animated) {
-		animation = self.mainMenuCloseAnimation ?: self.noAnimation;
-	}
-	self.state = QCMMenuStateClosing;
-	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
-							   forKey:animation.animationName];
-}
-
-- (void)performExpandMainMenuAnimated:(BOOL)animated {
-	id<QCMAnimation> animation = self.noAnimation;
-	if (animated) {
-		animation = self.mainMenuExpandAnimation ?: self.noAnimation;
-	}
-	self.state = QCMMenuStateExpanding;
-	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
-							   forKey:animation.animationName];
-}
-
 - (NSArray *)allMenuItemsBeingDisplayed {
 	NSPredicate *allMenuItemsPredicate = [NSPredicate predicateWithFormat:@"tag BETWEEN { %d, %d }",
 										  kQCMMenuItemStartingTag,
@@ -457,24 +445,32 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 #pragma mark - Animate MenuItems Expanded
 
-- (void)performExpandMenuAnimated:(BOOL)animated {
+- (void)performExpandAnimated:(BOOL)animated {
 	if (self.delegateHasWillExpand) {
 		[self.delegate quadCurveMenuWillExpand:self];
 	}
+	
+	id<QCMAnimation> animation = self.noAnimation;
+	if (animated) {
+		animation = self.mainMenuExpandAnimation ?: self.noAnimation;
+	}
+	NSTimeInterval animationDuration = animation.duration;
+	self.state = QCMMenuStateExpanding;
+	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
+							   forKey:animation.animationName];
 	
 	[self addMenuItemsToViewAndPerform:^(QCMMenuItem *item) {
 		item.center = item.startPoint;
 	}];
 	
-	NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
-
-	id<QCMAnimation> animation = self.noAnimation;
+	NSArray *itemsToBeAnimated = [self allMenuItemsBeingDisplayed];
+	animation = self.noAnimation;
 	if (animated) {
 		animation = self.expandItemAnimation ?: self.noAnimation;
 	}
 	
-	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
-		QCMMenuItem *item = itemToBeAnimated[x];
+	for (NSUInteger x = 0; x < [itemsToBeAnimated count]; x++) {
+		QCMMenuItem *item = itemsToBeAnimated[x];
 		NSTimeInterval delayInSeconds = animation.delayBetweenItemAnimation * x;
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -482,8 +478,10 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 		});
 	}
 	
-	NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(lastAnimationCompletesAfter * NSEC_PER_SEC));
+	NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemsToBeAnimated count] + [animation duration];
+	animationDuration = MAX(animationDuration, lastAnimationCompletesAfter);
+	
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDuration * NSEC_PER_SEC));
 	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 		self.state = QCMMenuStateExpanded;
 		if (self.delegateHasDidExpand) {
@@ -502,29 +500,50 @@ static NSUInteger const kQCMMenuItemStartingTag = 1000;
 
 #pragma mark - Animate MenuItems Closed
 
-- (void)performCloseMenuAnimated:(BOOL)animated {
+- (void)performCloseWithPressedItem:(QCMMenuItem *)item animated:(BOOL)animated {
 	if (self.delegateHasWillClose) {
 		[self.delegate quadCurveMenuWillClose:self];
 	}
 	
-	NSArray *itemToBeAnimated = [self allMenuItemsBeingDisplayed];
-	
+	// Animate main item:
 	id<QCMAnimation> animation = self.noAnimation;
 	if (animated) {
-		animation = self.closeItemAnimation ?: self.noAnimation;
+		animation = self.mainMenuCloseAnimation ?: self.noAnimation;
+	}
+	NSTimeInterval animationDuration = animation.duration;
+	self.state = QCMMenuStateClosing;
+	[self.mainItem.layer addAnimation:[animation animationForItem:self.mainItem]
+							   forKey:animation.animationName];
+	
+	// Animate menu items:
+	if (item == self.mainItem || !item) {
+		NSArray *itemsToBeAnimated = [self allMenuItemsBeingDisplayed];
+		id<QCMAnimation> animation = self.noAnimation;
+		if (animated) {
+			animation = self.closeItemAnimation ?: self.noAnimation;
+		}
+		for (NSUInteger x = 0; x < [itemsToBeAnimated count]; x++) {
+			QCMMenuItem *item = itemsToBeAnimated[x];
+			NSTimeInterval delayInSeconds = animation.delayBetweenItemAnimation * x;
+			dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+			dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+				[self animateMenuItem:item toStartPointWithAnimation:animation];
+			});
+		}
+		NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemsToBeAnimated count] + [animation duration];
+		animationDuration = MAX(animationDuration, lastAnimationCompletesAfter);
+	} else {
+		id<QCMAnimation> selectedAnimation = [self selectedAnimation];
+		[self animateMenuItems:@[item] withAnimation:selectedAnimation];
+		
+		NSPredicate *otherItems = [NSPredicate predicateWithFormat:@"tag != %d", [item tag]];
+		NSArray *otherMenuItems = [[self allMenuItemsBeingDisplayed] filteredArrayUsingPredicate:otherItems];
+		id<QCMAnimation> unselectedAnimation = [self unselectedAnimation];
+		[self animateMenuItems:otherMenuItems withAnimation:unselectedAnimation];
+		animationDuration = MAX(animationDuration, MAX(selectedAnimation.duration, unselectedAnimation.duration));
 	}
 	
-	for (NSUInteger x = 0; x < [itemToBeAnimated count]; x++) {
-		QCMMenuItem *item = itemToBeAnimated[x];
-		NSTimeInterval delayInSeconds = animation.delayBetweenItemAnimation * x;
-		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-		dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-			[self animateMenuItem:item toStartPointWithAnimation:animation];
-		});
-	}
-	
-	NSTimeInterval lastAnimationCompletesAfter = animation.delayBetweenItemAnimation * [itemToBeAnimated count] + [animation duration];
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(lastAnimationCompletesAfter * NSEC_PER_SEC));
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animationDuration * NSEC_PER_SEC));
 	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 		self.state = QCMMenuStateClosed;
 		if (self.delegateHasDidClose) {
